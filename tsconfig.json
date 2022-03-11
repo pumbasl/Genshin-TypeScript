@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "strict": true,
+        "noImplicitReturns": true,
+        "noImplicitAny": false,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "downlevelIteration": true,
+        "noEmitOnError": false,
+        "lib": [
+            "esnext",
+            "dom",
+            "dom.iterable"
+        ],
+        "typeRoots": [
+          "node_modules/@types",
+          "src/typings.d.ts"
+        ],   
+        "baseUrl": "./",
+        "removeComments": true,
+        "target": "es5",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "allowJs": true,
+        "declaration": true,
+        "jsx": "react",
+        "allowSyntheticDefaultImports": true,
+    },
+    "include": [
+        "./src"
+    ],
+    "exclude": ["dist", "build", "node_modules"]
+}

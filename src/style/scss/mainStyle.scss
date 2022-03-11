@@ -1,0 +1,58 @@
+@import './variables';
+
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark,
+  "purple":     $purple,
+  "dark-custom": $dark-custom,
+  "orange" : $orange
+);
+
+@function theme-color($key: "primary") {
+    @return map-get($theme-colors, $key);
+}
+
+//IMPORT
+@import "~bootstrap/scss/bootstrap";
+@import "../../layout/Header/style.scss"; // HeaderStyle
+//
+
+html, body, #root{
+    height: 100%;
+}
+
+@font-face {
+    font-family: 'Manrope';
+    src: url('../fonts/Manrope-Light.ttf') format('truetype');
+    font-display: fallback;
+}
+
+body{
+    font-family: 'Manrope', sans-serif !important;
+    font-weight: bold;
+}
+
+.custom-link{
+    color: white;
+}
+
+.custom-border-bottom{
+    box-sizing: content-box;
+    border-bottom: 2px solid;
+    border-image: linear-gradient(to right, rgba(149,22,133,1) 20%, rgba(255,0,78,1) 100%);
+    border-image-slice: 1;
+}
+
+::-moz-selection {
+    background: rgba(0, 255, 255, .7);
+}
+
+::selection {
+    background: rgba(0, 255, 255, .7);
+}
