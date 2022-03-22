@@ -2,16 +2,21 @@ import React from 'react';
 
 // Locales
 import { useTranslation } from 'react-i18next';
+import { IPromoCode } from 'src/types/types';
 //
 
 //Components
 import { Card, EmptyContainer } from '../index';
 //
 
-function History({ data }){
+interface HistoryProps{
+    data: IPromoCode[];
+};
+
+function History({ data }: HistoryProps){
     const { t } = useTranslation();
 
-    const renderPromocode = (promo) => {
+    const renderPromocode = (promo: IPromoCode) => {
         return(
             <Card.Label key={promo._id}>
                 <Card.Body>

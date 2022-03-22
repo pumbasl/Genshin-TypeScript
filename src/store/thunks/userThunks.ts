@@ -1,16 +1,8 @@
-import {
-    setPromoCodes,
-    setServer,
-    setUserPromoCodes,
-    setWebEvents,
-    setToken,
-    setErrors,
-    setUserInfo,
-    setNews
-} from '../actions/userActions';
-
 import Fetch from '../../fetch/fetch';
 import ErrorCatch from '../../js/ErrorCatcher';
+
+import { userSlice } from '../reducers/userSlice';
+import { INews } from 'src/types/types';
 
 import {
     getUnRegisterData,
@@ -25,15 +17,17 @@ import {
     setAvatar
 } from '../../graphql';
 
+const actions = userSlice.actions;
+
 export function fetchLogout(){
     return async (dispatch) => {
         await Fetch({}, 'logout')
         .then(
-            (response) => {
+            (_response) => {
                 delete localStorage.token;
-                dispatch(setToken(null));
-                dispatch(setUserInfo(null));
-                dispatch(setUserPromoCodes([]));
+                dispatch(actions.setToken(null));
+                dispatch(actions.setUserInfo(null));
+                dispatch(actions.setUserPromoCodes([]));
             },
             (error) => {
                 ErrorCatch(error, dispatch);
@@ -43,14 +37,17 @@ export function fetchLogout(){
 }
 
 export function fetchNews(){
+    interface ResponseProps {
+        getNews: INews[];
+    }
     return async (dispatch) => {
         await Fetch({
             query: getNews,
             variables: {}
         }, 'api')
         .then(
-            (response) => {
-                dispatch(setNews(response.getNews.reverse()));
+            (response: ResponseProps) => {
+                dispatch(actions.setNews(response.getNews.reverse()));
             },
             (error) => {
                 ErrorCatch(error, dispatch);
@@ -106,7 +103,7 @@ export function fetchUserInfo(){
         }, 'api')
         .then(
             (response) => {
-                dispatch(setUserInfo(response.regUser));
+                dispatch(actions.setUserInfo(response.regUser));
             },
             (error) => {
                 ErrorCatch(error, dispatch);
@@ -128,11 +125,11 @@ export function fetchRegistration(data){
         .then(
             (response) => {
                 if(response?.error){
-                    dispatch(setErrors(response.message));
+                    dispatch(actions.setErrors(response.message));
                 } else {
                     const token = response.registration.accessToken;
                     localStorage.setItem('token', token);
-                    dispatch(setToken(token));
+                    dispatch(actions.setToken(token));
                 }
             },
             (error) => {
@@ -155,11 +152,11 @@ export function fetchLogin(data){
         .then(
             (response) => {
                 if(response?.error){
-                    dispatch(setErrors(response.message));
+                    dispatch(actions.setErrors(response.message));
                 } else {
                     const token = response.login.accessToken;
                     localStorage.setItem('token', token);
-                    dispatch(setToken(token));
+                    dispatch(actions.setToken(token));
                 }
             },
             (error) => {
@@ -179,7 +176,7 @@ export function fetchClickPromo(promos){
         }, 'api')
         .then(
             (response) => {
-                dispatch(setUserPromoCodes(response.editRegUserPromos.promos));
+                dispatch(actions.setUserPromoCodes(response.editRegUserPromos.promos));
             },
             (error) => {
                 ErrorCatch(error, dispatch);
@@ -198,7 +195,7 @@ export function fetchChangeServer(server){
         }, 'api')
         .then(
             (response) => {
-                dispatch(setServer(server));
+                dispatch(actions.setServer(server));
             },
             (error) => {
                 ErrorCatch(error, dispatch);
@@ -217,9 +214,9 @@ export function fetchRegisterUserData(server){
         }, 'api')
         .then(
             (response) => {
-                dispatch(setUserPromoCodes(response?.getRegUserPromo.promos));
-                dispatch(setPromoCodes(response?.promosByServer));
-                dispatch(setWebEvents(response?.subfields));
+                dispatch(actions.setUserPromoCodes(response?.getRegUserPromo.promos));
+                dispatch(actions.setPromoCodes(response?.promosByServer));
+                dispatch(actions.setWebEvents(response?.subfields));
             },
             (error) => {
                 ErrorCatch(error, dispatch);
@@ -238,8 +235,8 @@ export function fetchUnRegisterData(server){
         }, 'api')
         .then(
             (response) => {
-                dispatch(setPromoCodes(response?.promosByServer));
-                dispatch(setWebEvents(response?.subfields));
+                dispatch(actions.setPromoCodes(response?.promosByServer));
+                dispatch(actions.setWebEvents(response?.subfields));
             },
             (error) => {
                 ErrorCatch(error, dispatch);

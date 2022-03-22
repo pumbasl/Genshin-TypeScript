@@ -1,17 +1,17 @@
-import {
-    setUserPromoCodes,
-    setToken
-} from '../store/actions/userActions';
+import { userSlice } from '../store/reducers/userSlice';
 import Fetch from '../fetch/fetch';
+import toast from 'react-hot-toast';
+
+const actions = userSlice.actions;
 
 export default function ErrorCatch(error, dispatch){
     if(error.message === 'FAIL_UPDATE_TOKENS'){
         console.log('FAILED REFRESH TOKEN | LOGOUT');
         Fetch({}, 'logout');
         delete localStorage.token;
-        dispatch(setToken(null));
-        dispatch(setUserPromoCodes([]));
+        dispatch(actions.setToken(null));
+        dispatch(actions.setUserPromoCodes([]));
     } else {
-        console.log(error);
+        toast.error(error);
     }
 }

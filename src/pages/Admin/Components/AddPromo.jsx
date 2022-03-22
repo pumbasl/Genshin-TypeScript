@@ -52,7 +52,7 @@ export default function AddPromo(){
     
     useEffect(() => {
         if(errorsAuth){
-            toast({title: "Уведомление", body: errorsAuth, time: "Несколько секунд назад"}); //уведомление
+            toast.error(errorsAuth); //уведомление
             dispatch(setErrors(null));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

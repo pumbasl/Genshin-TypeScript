@@ -34,7 +34,7 @@ export function fetchAddWebEvent(data){
                 if(response?.error){
                     dispatch(setErrors(response.message));
                 } else {
-                    toast({title: "Уведомление", body: 'Веб-ивент успешно создан', time: "Несколько секунд назад"}); //уведомление
+                    toast.success('Веб-ивент успешно создан'); //уведомление
                 }
             },
             (error) => {
@@ -72,7 +72,7 @@ export function fetchAddNews(data){
                 if(response?.error){
                     dispatch(setErrors(response.message));
                 } else {
-                    toast({title: "Уведомление", body: 'Новость успешно создана', time: "Несколько секунд назад"}); //уведомление
+                    toast.success('Новость успешно создана'); //уведомление
                 }
             },
             (error) => {
@@ -93,7 +93,7 @@ export function fetchAddPromoCode(data){
                 if(response?.error){
                     dispatch(setErrors(response.message));
                 } else {
-                    toast({title: "Уведомление", body: 'Промокод успешно добавлен', time: "Несколько секунд назад"}); //уведомление
+                    toast.success('Промокод успешно добавлен'); //уведомление
                 }
             },
 
@@ -115,7 +115,7 @@ export function fetchEditUser(data){
                 if(response?.error){
                     dispatch(setErrors(response.message));
                 } else {
-                    toast({title: "Уведомление", body: 'Пользователь успешно сохранен.', time: "Несколько секунд назад"}); //уведомление
+                    toast.success('Пользователь успешно сохранен.'); //уведомление
                 }
             },
             (error) => {
@@ -155,9 +155,9 @@ export function fetchLogOutUser(id){
         .then(
             (response) => {
                 if(response.revokeRefreshTokensForRegUser){
-                    toast({title: "Уведомление", body: 'Авторизация успешно сброшена.', time: "Несколько секунд назад"}); //уведомление
+                    toast.success('Авторизация успешно сброшена.'); //уведомление
                 } else {
-                    toast({title: "Уведомление", body: 'Что то пошло не так.', time: "Несколько секунд назад"}); //уведомление
+                    toast.error('Что то пошло не так.'); //уведомление
                 }
             },
             (error) => {

@@ -26,18 +26,20 @@ import { toast } from 'react-hot-toast';
 //
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { fetchNewUserGameInfo } from '../../../store/thunks/userThunks';
-import { setErrors } from '../../../store/actions/userActions';
+import { userSlice } from '../../../store/reducers/userSlice';
 //
+
+const setErrors = userSlice.actions.setErrors;
 
 export default function Settings(){
     document.title = 'Genshin Promo | Settings';
     const { t } = useTranslation();
     const history = useHistory();
-    const dispatch = useDispatch();
-    const token = useSelector((state) => state.user.token);
-    const errorsAuth = useSelector((state) => state.user.errorsAuth);
+    const dispatch = useAppDispatch();
+    const token = useAppSelector((state) => state.user.token);
+    const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
 
     const schema = yup.object({
         gameNickName: yup.string().min(1, t('Игровое имя не может быть меньше 1 символа!')).max(25, t('Игровое имя  не может быть больше 25 символов!')),

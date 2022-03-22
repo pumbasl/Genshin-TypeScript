@@ -5,30 +5,35 @@ import { useTranslation } from 'react-i18next';
 //
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchChangeServer } from '../../store/thunks/userThunks';
-import { setServer } from '../../store/actions/userActions';
+import { userSlice } from '../../store/reducers/userSlice';
 //
 
 //styles
 import { Dropdown } from 'react-bootstrap';
 //
 
+const setServer = userSlice.actions.setServer;
 const serverList = ['Europe', 'America', 'Asia'];
 
-export default function Server(props){
+interface ServerProps{
+    className: string;
+};
+
+export default function Server(props: ServerProps){
     const { t } = useTranslation();
-    const dispatch = useDispatch();
-    const server = useSelector((state) => state.user.server);
+    const dispatch = useAppDispatch();
+    const server = useAppSelector((state) => state.user.server);
 
-    const handleClick = async (event) => {
-        if(server === event.target.value) return;
+    const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        if(server === event.currentTarget.value) return;
 
-        localStorage.setItem('server', event.target.value);
+        localStorage.setItem('server', event.currentTarget.value);
         if(localStorage.getItem('token')){
-            dispatch(fetchChangeServer(event.target.value))
+            dispatch(fetchChangeServer(event.currentTarget.value))
         } else {
-            dispatch(setServer(event.target.value));
+            dispatch(setServer(event.currentTarget.value));
         }
     };
 

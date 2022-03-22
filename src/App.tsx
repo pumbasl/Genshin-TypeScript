@@ -18,7 +18,8 @@ import ErrorBoundary from './errors/ErrorBoundary';
 //
 
 //components
-import { Background, Notifications, CookieNotify } from './components';
+import { Toaster } from 'react-hot-toast';
+import { Background, CookieNotify } from './components';
 //
 
 //layout
@@ -27,29 +28,12 @@ import Main from './layout/Main/Main';
 import Footer from './layout/Footer/Footer';
 //
 
-//alerts push
-import { getTokenCheck, onMessageListener } from './config/firebase';
-//
-
-//notify
-import { toast } from 'react-hot-toast';
-//
-
-//alerts
-getTokenCheck(); // проверка токена
-
-onMessageListener().then(payload => {
-    toast(payload.notification.body, { duration: 8000 }); //уведомление
-    console.log(payload); // вывод уведомления в консоль
-}).catch(err => console.log('failed: ', err));
-//
-
 export default function App(){
     return(
         <ErrorBoundary>
             <Background />
             <Suspense fallback={<></>}>
-                <Notifications />
+                <Toaster />
                 <CookieNotify />
 
                 <Wrapper>

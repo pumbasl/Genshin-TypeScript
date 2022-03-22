@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { IPromoCode } from 'src/types';
+
 // Locales
 import { useTranslation } from 'react-i18next';
 //
@@ -8,10 +10,17 @@ import { useTranslation } from 'react-i18next';
 import { Card, EmptyContainer } from '../index';
 //
 
-function Activated({ data }){
+interface ActivatedProps {
+    data: IPromoCode[];
+};
+
+function Activated({ data }: ActivatedProps){
     const { t } = useTranslation();
-    
-    const renderPromocode = (promo) => {
+
+    let copyArrayData = data.slice(0);
+    copyArrayData = copyArrayData.reverse();
+
+    const renderPromocode = (promo: IPromoCode) => {
         return(
             <Card.Label key={promo._id}>
                 <Card.Body>
@@ -30,7 +39,7 @@ function Activated({ data }){
                 <b>{t('Активированные промокоды')}:</b>
             </h4>
 
-            { data.length !== 0 ? (data.slice(0, 5).map(renderPromocode)) : (<EmptyContainer />) }
+            { copyArrayData.length !== 0 ? (copyArrayData.slice(0, 5).map(renderPromocode)) : (<EmptyContainer />) }
         </>
     );
 }

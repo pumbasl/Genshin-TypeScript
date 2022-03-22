@@ -16,5 +16,7 @@ const publicUrlOrPath = getPublicUrlOrPath(
 module.exports = {
     publicUrlOrPath,
     dotenv: resolveApp('.env'),
+    appTsConfig: resolveApp('tsconfig.json'),
+    appJsConfig: resolveApp('jsconfig.json'),
     appWebpackCache: resolveApp('node_modules/.cache'),
 };

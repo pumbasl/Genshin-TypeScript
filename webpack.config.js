@@ -1,11 +1,15 @@
 'use strict';
 
 const webpack = require('webpack');
+const fs = require('fs');
 const path = require('path');
 const paths = require('./config/paths');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
+const createEnvironmentHash = require('./config/persistentCache/createEnvironmentHash');
+const getClientEnvironment = require('./config/env');
+const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 
@@ -20,6 +24,19 @@ module.exports = (envehe, argv) => {
     mode: process.env.NODE_ENV,
     bail: true,
     target: 'browserslist',
+    cache: {
+      type: 'filesystem',
+      version: createEnvironmentHash(env.raw),
+      cacheDirectory: paths.appWebpackCache,
+      store: 'pack',
+      buildDependencies: {
+        defaultWebpack: ['webpack/lib/'],
+        config: [__filename],
+        tsconfig: [paths.appTsConfig, paths.appJsConfig].filter(f =>
+          fs.existsSync(f)
+        ),
+      },
+    },
     entry: [
       './src/index.tsx'
     ],
@@ -49,15 +66,22 @@ module.exports = (envehe, argv) => {
       port: 3000,
       hot: true,
       liveReload: false,
-      open: true,
+      // open: true,
     },
     module: {
       rules: [
         {
           test: /\.(js|jsx)$/,
           use: [
-            "react-hot-loader/webpack",
-            'babel-loader'
+            { loader: 'react-hot-loader/webpack' },
+            {
+              loader: 'babel-loader',
+              options: {
+                cacheDirectory: true,
+                cacheCompression: false,
+                compact: isEnvProduction,
+              }
+            }
           ],
           exclude: /node_modules/
         },
@@ -139,7 +163,7 @@ module.exports = (envehe, argv) => {
               comments: false,
               ascii_only: true,
             },
-          },
+          }
         }),
         // This is only used in production mode
         new CssMinimizerPlugin(),

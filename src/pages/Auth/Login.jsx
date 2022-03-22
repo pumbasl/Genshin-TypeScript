@@ -26,17 +26,19 @@ import { toast } from 'react-hot-toast';
 //
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchLogin } from '../../store/thunks/userThunks';
-import { setErrors } from '../../store/actions/userActions';
+import { userSlice } from '../../store/reducers/userSlice';
 //
+
+const setErrors = userSlice.actions.setErrors;
 
 export default function Login(){
     const { t } = useTranslation();
-    const dispatch = useDispatch();
+    const dispatch = useAppSelector();
     const history = useHistory();
-    const token = useSelector((state) => state.user.token);
-    const errorsAuth = useSelector((state) => state.user.errorsAuth);
+    const token = useAppDispatch((state) => state.user.token);
+    const errorsAuth = useAppDispatch((state) => state.user.errorsAuth);
 
     const schema = yup.object({
         login: yup.string()
@@ -56,7 +58,7 @@ export default function Login(){
 
     useEffect(() => {
         if(errorsAuth){
-            toast({title: t('Уведомление'), body: errorsAuth, time: t('Несколько секунд назад')}); //уведомление
+            toast.error(errorsAuth); //уведомление
             dispatch(setErrors(null));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -64,7 +66,7 @@ export default function Login(){
 
     useEffect(() => {
         if(token){
-            toast({title: t('Уведомление'), body: t('Вы успешно авторизовались.'), time: t('Несколько секунд назад')}); //уведомление
+            toast.success(t('Вы успешно авторизовались.')); //уведомление
             history.push('/');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

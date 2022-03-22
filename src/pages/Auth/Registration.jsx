@@ -26,17 +26,19 @@ import { useTranslation } from 'react-i18next';
 //
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchRegistration } from '../../store/thunks/userThunks';
-import { setErrors } from '../../store/actions/userActions';
+import { userSlice } from '../../store/reducers/userSlice';
 //
+
+const setErrors = userSlice.actions.setErrors;
 
 export default function Registration(){
     const { t } = useTranslation();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const history = useHistory();
-    const token = useSelector((state) => state.user.token);
-    const errorsAuth = useSelector((state) => state.user.errorsAuth);
+    const token = useAppSelector((state) => state.user.token);
+    const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
 
     const schema = yup.object({
         login: yup.string()
@@ -61,7 +63,7 @@ export default function Registration(){
 
     useEffect(() => {
         if(errorsAuth){
-            toast({title: t('Уведомление'), body: errorsAuth, time: t('Несколько секунд назад')}); //уведомление
+            toast.error(errorsAuth); //уведомление
             dispatch(setErrors(null));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -69,7 +71,7 @@ export default function Registration(){
 
     useEffect(() => {
         if(token){
-            toast({title: t('Уведомление'), body: t('Вы успешно зарегистрировались.'), time: t('Несколько секунд назад')}); //уведомление
+            toast.success(t('Вы успешно зарегистрировались.')); //уведомление
             history.push('/');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

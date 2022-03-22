@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchUnRegisterData, fetchRegisterUserData } from '../../store/thunks/userThunks';
 //
 
@@ -18,15 +18,21 @@ import ActualPromo from './ActualPromo';
 import UsedPromo from './UsedPromo';
 import HistoryPromo from './HistoryPromo';
 import { Preloader } from '../index';
+import { IPromoCode } from 'src/types/types';
 //
 
+interface IResultCodes {
+    actualCodes: IPromoCode[];
+    history: IPromoCode[];
+};
+
 function PromoCodes(){
-    const dispatch = useDispatch();
-    const promocodes = useSelector((state) => state.user.promocodes);
-    const userPromocodes = useSelector((state) => state.user.userPromocodes);
-    const server = useSelector((state) => state.user.server);
+    const dispatch = useAppDispatch();
+    const promocodes = useAppSelector((state) => state.user.promocodes);
+    const userPromocodes = useAppSelector((state) => state.user.userPromocodes);
+    const server = useAppSelector((state) => state.user.server);
     const [ isLoading, setIsLoading ] = useState(false);
-    const [ resultCodes, setResultCodes ] = useState({});
+    const [ resultCodes, setResultCodes ] = useState<IResultCodes | null>(null);
 
     useEffect(() => { // начало загрузки данных
         localStorage.getItem('token') ?
@@ -39,8 +45,7 @@ function PromoCodes(){
             setIsLoading(true);
             setResultCodes(CheckCodes(promocodes, userPromocodes));
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [promocodes.length]);
+    }, [promocodes.length, userPromocodes]);
 
     if(!isLoading) {
         return(
@@ -48,13 +53,17 @@ function PromoCodes(){
         )
     }
 
-    return(
-        <ErrorBoundary>
-            <ActualPromo data={resultCodes.actualCodes} />
-            <UsedPromo data={userPromocodes} />
-            <HistoryPromo data={resultCodes.history.reverse()} />
-        </ErrorBoundary>
-    );
+    if(resultCodes){
+        return(
+            <ErrorBoundary>
+                <ActualPromo data={resultCodes.actualCodes} />
+                <UsedPromo data={userPromocodes} />
+                <HistoryPromo data={resultCodes.history.reverse()} />
+            </ErrorBoundary>
+        );
+    }
+
+    return(null);
 }
 
 export default React.memo(PromoCodes);
