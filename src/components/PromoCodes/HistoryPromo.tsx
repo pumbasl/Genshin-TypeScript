@@ -2,7 +2,7 @@ import React from 'react';
 
 // Locales
 import { useTranslation } from 'react-i18next';
-import { IPromoCode } from 'src/types/types';
+import { IPromoCode } from '../../types';
 //
 
 //Components

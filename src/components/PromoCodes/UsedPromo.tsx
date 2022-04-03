@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IPromoCode } from 'src/types';
+import { IPromoCode } from '../../types';
 
 // Locales
 import { useTranslation } from 'react-i18next';

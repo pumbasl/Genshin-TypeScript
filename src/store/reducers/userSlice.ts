@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { IUserinfo, IPromoCode, IWebEvents } from '../../types/types';
+import { IUserinfo, IPromoCode, IWebEvents } from '../../types';
 
 export interface StateProps {
     token: string | null;
@@ -39,7 +39,7 @@ export const userSlice = createSlice({
         },
 
         setUserInfo(state, action) {
-            state.userinfo = action.payload;``
+            state.userinfo = action.payload;
         },
 
         setErrors(state, action) {

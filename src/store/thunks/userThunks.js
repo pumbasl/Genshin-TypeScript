@@ -2,7 +2,7 @@ import Fetch from '../../fetch/fetch';
 import ErrorCatch from '../../js/ErrorCatcher';
 
 import { userSlice } from '../reducers/userSlice';
-import { INews } from 'src/types/types';
+import { INews } from '../../types';
 
 import {
     getUnRegisterData,
@@ -37,16 +37,13 @@ export function fetchLogout(){
 }
 
 export function fetchNews(){
-    interface ResponseProps {
-        getNews: INews[];
-    }
     return async (dispatch) => {
         await Fetch({
             query: getNews,
             variables: {}
         }, 'api')
         .then(
-            (response: ResponseProps) => {
+            (response) => {
                 dispatch(actions.setNews(response.getNews.reverse()));
             },
             (error) => {

@@ -18,7 +18,7 @@ import ActualPromo from './ActualPromo';
 import UsedPromo from './UsedPromo';
 import HistoryPromo from './HistoryPromo';
 import { Preloader } from '../index';
-import { IPromoCode } from 'src/types/types';
+import { IPromoCode } from '../../types';
 //
 
 interface IResultCodes {

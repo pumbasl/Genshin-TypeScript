@@ -1,8 +1,8 @@
-import { IFetch } from "src/types/types";
+import { IFetch } from "../types";
 
 let error = false;
 
-export default async function resultFetch(data, api){
+export default async function resultFetch(data: IFetch | {}, api: string){
     let resultData;
 
     await CustomFetch(data, api)
@@ -35,7 +35,7 @@ export default async function resultFetch(data, api){
     return resultData;
 }
 
-async function newAccessToken(data, api){
+async function newAccessToken(data: IFetch | {}, api: string){
     let resultData;
 
     await CustomFetch({}, 'refresh_token')

@@ -1,4 +1,4 @@
-import { IPromoCode } from "src/types/types";
+import { IPromoCode } from "../types";
 
 export default function CheckCodes(serverAllCodes: IPromoCode[], usersActivatedCodes: IPromoCode[]){
     let resultActualCodes = sortOldCodes(serverAllCodes.slice(0), serverAllCodes); // сортировка от просроченных кодов
