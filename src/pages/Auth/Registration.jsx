@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 //useform
 import { useForm } from "react-hook-form";
@@ -36,7 +36,7 @@ const setErrors = userSlice.actions.setErrors;
 export default function Registration(){
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
     const token = useAppSelector((state) => state.user.token);
     const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
 
@@ -72,7 +72,7 @@ export default function Registration(){
     useEffect(() => {
         if(token){
             toast.success(t('Вы успешно зарегистрировались.')); //уведомление
-            history.push('/');
+            navigate('/');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token]);

@@ -18,9 +18,9 @@ import * as yup from "yup";
 //
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
-import { setErrors } from '../../../store/actions/userActions';
-import { setUsers } from '../../../store/actions/adminActions';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
+import { userSlice } from '../../../store/reducers/userSlice';
+import { adminSlice } from '../../../store/reducers/adminSlice';
 import { fetchLogOutUser, fetchEditUser } from '../../../store/thunks/adminThunks';
 //
 
@@ -32,10 +32,15 @@ import { LoginIcon } from '../../../media';
 import { toast } from 'react-hot-toast';
 //
 
+
+//actions
+const setErrors = userSlice.actions.setErrors;
+const setUsers = adminSlice.actions.setAdminUsers;
+
 export default function ActionUswerModal({ show, close, data }){
-    const dispatch = useDispatch();
-    const errorsAuth = useSelector((state) => state.user.errorsAuth);
-    const users = useSelector((state) => state.admin.users);
+    const dispatch = useAppDispatch();
+    const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
+    const users = useAppSelector((state) => state.admin.users);
 
     const schema = yup.object({
         login: yup.string().required("Это поле обязательно для заполнения!").min(4, "Логин не может быть меньше 4 символов!").max(25, "Логин не может быть больше 25 символов!"),

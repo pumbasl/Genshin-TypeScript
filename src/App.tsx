@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 
 //router
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 //
 
 //locales
@@ -37,11 +37,11 @@ export default function App(){
                 <CookieNotify />
 
                 <Wrapper>
-                    <Router>
+                    <BrowserRouter>
                         <Header />
                         <Main />
                         <Footer />
-                    </Router>
+                    </BrowserRouter>
                 </Wrapper>
             </Suspense>
         </ErrorBoundary>

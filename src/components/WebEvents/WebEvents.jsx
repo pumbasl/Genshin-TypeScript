@@ -18,12 +18,12 @@ import { EventLogo } from '../../media';
 //
 
 //redux
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../hooks/redux';
 //
 
 export default function WebEvents(){
     const { t } = useTranslation();
-    const webEvents = useSelector((state) => state.user.webEvents);
+    const webEvents = useAppSelector((state) => state.user.webEvents);
 
     const handleClick = async (webEvent) => {
         try {

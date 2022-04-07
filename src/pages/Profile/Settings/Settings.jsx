@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 //components
 import { Form, InputGroup, Image, Button } from 'react-bootstrap';
@@ -36,7 +36,7 @@ const setErrors = userSlice.actions.setErrors;
 export default function Settings(){
     document.title = 'Genshin Promo | Settings';
     const { t } = useTranslation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const token = useAppSelector((state) => state.user.token);
     const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
@@ -62,11 +62,11 @@ export default function Settings(){
     const onSubmit = data => {
         toast({title: t('Уведомление'), body: t('Успешно сохранено.'), time: t('Несколько секунд назад')}); //уведомление
         dispatch(fetchNewUserGameInfo(data));
-        history.push('/profile');
+        navigate('/profile');
     };
 
     if(!token){
-        history.push('/');
+        navigate('/');
     }
 
     return(

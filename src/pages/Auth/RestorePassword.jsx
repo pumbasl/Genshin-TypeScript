@@ -26,7 +26,7 @@ import { toast } from 'react-hot-toast';
 //
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useAppSelector } from 'react-redux';
 // import { fetchLogin } from '../../store/thunks/userThunks';
 import { setErrors } from '../../store/actions/userActions';
 //

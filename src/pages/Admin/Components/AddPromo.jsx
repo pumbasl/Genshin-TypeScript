@@ -16,8 +16,8 @@ import * as yup from "yup";
 //
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
-import { setErrors } from '../../../store/actions/userActions';
+import { userSlice } from '../../../store/reducers/userSlice';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { fetchAddPromoCode } from '../../../store/thunks/adminThunks';
 //
 
@@ -25,9 +25,13 @@ import { fetchAddPromoCode } from '../../../store/thunks/adminThunks';
 import { toast } from 'react-hot-toast';
 //
 
+
+//actions
+const setErrors = userSlice.actions.setErrors;
+
 export default function AddPromo(){
-    const dispatch = useDispatch();
-    const errorsAuth = useSelector((state) => state.user.errorsAuth);
+    const dispatch = useAppDispatch();
+    const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
     
     const schema = yup.object({
         code: yup.string()

@@ -12,8 +12,8 @@ import * as yup from "yup";
 //
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
-import { setErrors } from '../../../store/actions/userActions';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
+import { userSlice } from '../../../store/reducers/userSlice';
 import { fetchAddNews } from '../../../store/thunks/adminThunks';
 //
 
@@ -21,9 +21,12 @@ import { fetchAddNews } from '../../../store/thunks/adminThunks';
 import { toast } from 'react-hot-toast';
 //
 
+//actions
+const setErrors = userSlice.actions.setErrors;
+
 export default function AddNews(){
-    const dispatch = useDispatch();
-    const errorsAuth = useSelector((state) => state.user.errorsAuth);
+    const dispatch = useAppDispatch();
+    const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
     
     const schema = yup.object({
         title: yup.string().required("Это поле обязательно для заполнения!"),

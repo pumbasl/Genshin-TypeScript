@@ -22,14 +22,14 @@ import { v4 as uuidv4 } from 'uuid';
 //
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { fetchNewAvatar } from '../../../store/thunks/userThunks';
 //
 
 export default function UploadAvatar({ show, close }){
     const { t } = useTranslation();
-    const dispatch = useDispatch();
-    const avatarRef = useSelector((state) => state.user.userinfo.avatar?.ref);
+    const dispatch = useAppDispatch();
+    const avatarRef = useAppSelector((state) => state.user.userinfo.avatar?.ref);
     const [ image, setImage ] = useState(false);
 
     const upload = () => {

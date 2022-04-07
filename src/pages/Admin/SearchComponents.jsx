@@ -6,12 +6,12 @@ import { Form } from 'react-bootstrap';
 //
 
 //redux
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../hooks/redux';
 import { fetchSearchUsers } from '../../store/thunks/adminThunks';
 //
 
 export default function Search(){
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [ search, setSearch ] = useState('');
     const [ firstRender, setFirstRender ] = useState(true);
 

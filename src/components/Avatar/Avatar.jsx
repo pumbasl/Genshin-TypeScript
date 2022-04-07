@@ -7,11 +7,11 @@ import { DefaultAvatar } from '../../media/';
 //
 
 //redux
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../hooks/redux';
 //
 
 export default function Avatar({ type }){
-    const avatarSrc = useSelector((state) => state.user.userinfo.avatar);
+    const avatarSrc = useAppSelector((state) => state.user.userinfo.avatar);
     const resultSrc = avatarSrc ? avatarSrc.urlPath : DefaultAvatar;
 
     if(type === 'rounded'){

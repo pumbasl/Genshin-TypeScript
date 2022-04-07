@@ -5,7 +5,7 @@ import { Preloader } from '../components';
 //
 
 //router
-import { Switch, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 //
 
 //statis pages
@@ -29,25 +29,23 @@ const Admin = lazy(() => import('../pages/Admin/Admin'));
 export default function Routers(){
     return(
         <Suspense fallback={<Preloader fetch />}>
-            <Switch>
-                <Route exact path="/" component={Main} />
-                <Route exact path="/policy" component={Policy} />
-                <Route exact path="/help" component={Help} />
-                <Route exact path="/news" component={News} />
+            <Routes>
+                <Route exact path="/" element={<Main />} />
+                <Route exact path="policy" element={<Policy />} />
+                <Route exact path="help" element={<Help />} />
+                <Route exact path="news" element={<News />} />
 
-                <Route exact path="/auth/login" component={Login} />
-                <Route exact path="/auth/reg" component={Registration} />
-                {/* <Route exact path="/auth/restore_password" component={RestorePassword} /> */}
+                <Route exact path="auth/login" element={<Login />} />
+                <Route exact path="auth/reg" element={<Registration />} />
+                {/* <Route exact path="/auth/restore_password" element={<RestorePassword />} /> */}
 
-                <Route exact path="/profile" component={Profile} />
-                <Route exact path="/profile/settings" component={Settings} />
+                <Route exact path="profile" element={<Profile />} />
+                <Route exact path="profile/settings" element={<Settings />} />
 
-                <Route exact path="/admin" component={Admin} />
+                <Route exact path="admin" element={<Admin />} />
 
-                <Route exact path="*">
-                    <Error id="404" />
-                </Route>
-            </Switch>
+                <Route exact path="*" element={<Error id="404" />} />
+            </Routes>
         </Suspense>
     );
 }

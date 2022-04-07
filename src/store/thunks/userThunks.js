@@ -2,7 +2,6 @@ import Fetch from '../../fetch/fetch';
 import ErrorCatch from '../../js/ErrorCatcher';
 
 import { userSlice } from '../reducers/userSlice';
-import { INews } from '../../types';
 
 import {
     getUnRegisterData,

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 //useform
 import { useForm } from "react-hook-form";
@@ -35,10 +35,10 @@ const setErrors = userSlice.actions.setErrors;
 
 export default function Login(){
     const { t } = useTranslation();
-    const dispatch = useAppSelector();
-    const history = useHistory();
-    const token = useAppDispatch((state) => state.user.token);
-    const errorsAuth = useAppDispatch((state) => state.user.errorsAuth);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const token = useAppSelector((state) => state.user.token);
+    const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
 
     const schema = yup.object({
         login: yup.string()
@@ -67,7 +67,7 @@ export default function Login(){
     useEffect(() => {
         if(token){
             toast.success(t('Вы успешно авторизовались.')); //уведомление
-            history.push('/');
+            navigate('/');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token]);

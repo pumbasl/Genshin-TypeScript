@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 //components
 import { Row, Col } from 'react-bootstrap';
@@ -9,20 +9,20 @@ import { Container } from '../../components';
 //
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchUserInfo } from '../../store/thunks/userThunks';
 //
 
 export default function Admin(){
     document.title = 'Genshin Promo | Admin Panel';
 
-    const dispatch = useDispatch();
-    const history = useHistory();
-    const token = useSelector((state) => state.user.token);
-    const userinfo = useSelector((state) => state.user.userinfo);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const token = useAppSelector((state) => state.user.token);
+    const userinfo = useAppSelector((state) => state.user.userinfo);
     
-    if(!token) history.push('/');
-    if(userinfo && !userinfo.roles.includes('Admin')) history.push('/');
+    if(!token) navigate('/');
+    if(userinfo && !userinfo.roles.includes('Admin')) navigate('/');
 
     useEffect(() => {
         dispatch(fetchUserInfo());

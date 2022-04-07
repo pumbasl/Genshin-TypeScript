@@ -1,10 +1,5 @@
-import {
-    setUsers
-} from '../actions/adminActions';
-
-import {
-    setErrors
-} from '../actions/userActions';
+import { userSlice } from '../reducers/userSlice';
+import { adminSlice } from '../reducers/adminSlice';
 
 import {
     allUsers,
@@ -23,6 +18,9 @@ import { toast } from 'react-hot-toast';
 import Fetch from '../../fetch/fetch';
 import ErrorCatch from '../../js/ErrorCatcher';
 
+const userActions = userSlice.actions;
+const adminActions = adminSlice.actions;
+
 export function fetchAddWebEvent(data){
     return async (dispatch) => {
         await Fetch({
@@ -32,7 +30,7 @@ export function fetchAddWebEvent(data){
         .then(
             (response) => {
                 if(response?.error){
-                    dispatch(setErrors(response.message));
+                    dispatch(userActions.setErrors(response.message));
                 } else {
                     toast.success('Веб-ивент успешно создан'); //уведомление
                 }
@@ -52,7 +50,7 @@ export function fetchAdminAllUsers(){
         }, 'api')
         .then(
             (response) => {
-                dispatch(setUsers(response.regUsers));
+                dispatch(adminActions.setAdminUsers(response.regUsers));
             },
             (error) => {
                 ErrorCatch(error, dispatch);
@@ -70,7 +68,7 @@ export function fetchAddNews(data){
         .then(
             (response) => {
                 if(response?.error){
-                    dispatch(setErrors(response.message));
+                    dispatch(userActions.setErrors(response.message));
                 } else {
                     toast.success('Новость успешно создана'); //уведомление
                 }
@@ -91,7 +89,7 @@ export function fetchAddPromoCode(data){
         .then(
             (response) => {
                 if(response?.error){
-                    dispatch(setErrors(response.message));
+                    dispatch(userActions.setErrors(response.message));
                 } else {
                     toast.success('Промокод успешно добавлен'); //уведомление
                 }
@@ -113,7 +111,7 @@ export function fetchEditUser(data){
         .then(
             (response) => {
                 if(response?.error){
-                    dispatch(setErrors(response.message));
+                    dispatch(userActions.setErrors(response.message));
                 } else {
                     toast.success('Пользователь успешно сохранен.'); //уведомление
                 }
@@ -135,7 +133,7 @@ export function fetchSearchUsers(name){
         }, 'api')
         .then(
             (response) => {
-                dispatch(setUsers(response.searchUsersByName));
+                dispatch(adminActions.setAdminUsers(response.searchUsersByName));
             },
             (error) => {
                 ErrorCatch(error, dispatch);

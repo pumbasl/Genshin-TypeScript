@@ -6,7 +6,7 @@ import Search from './SearchComponents';
 //
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchAdminAllUsers } from '../../store/thunks/adminThunks';
 //
 
@@ -20,8 +20,8 @@ import ActionUswerModal from './Modals/ActionUserModal';
 
 export default function UsersTable(){
     const { t } = useTranslation();
-    const dispatch = useDispatch();
-    const users = useSelector((state) => state.admin.users);
+    const dispatch = useAppDispatch();
+    const users = useAppSelector((state) => state.admin.users);
     const [ showModal, setShowModal ] = useState(false);
     const [ dataModal, setDataModal ] = useState({});
     
