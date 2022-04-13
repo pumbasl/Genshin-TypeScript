@@ -2,6 +2,7 @@ import Fetch from '../../fetch/fetch';
 import ErrorCatch from '../../js/ErrorCatcher';
 
 import { userSlice } from '../reducers/userSlice';
+import { webEventsSlice } from '../reducers/webEventsSlice';
 
 import {
     getUnRegisterData,
@@ -17,6 +18,7 @@ import {
 } from '../../graphql';
 
 const actions = userSlice.actions;
+const webEventsActions = webEventsSlice.actions;
 
 export function fetchLogout(){
     return async (dispatch) => {
@@ -212,7 +214,7 @@ export function fetchRegisterUserData(server){
             (response) => {
                 dispatch(actions.setUserPromoCodes(response?.getRegUserPromo.promos));
                 dispatch(actions.setPromoCodes(response?.promosByServer));
-                dispatch(actions.setWebEvents(response?.subfields));
+                dispatch(webEventsActions.fetchWebEventsSuccess(response?.subfields));
             },
             (error) => {
                 ErrorCatch(error, dispatch);
@@ -232,7 +234,7 @@ export function fetchUnRegisterData(server){
         .then(
             (response) => {
                 dispatch(actions.setPromoCodes(response?.promosByServer));
-                dispatch(actions.setWebEvents(response?.subfields));
+                dispatch(webEventsActions.fetchWebEventsSuccess(response?.subfields));
             },
             (error) => {
                 ErrorCatch(error, dispatch);

@@ -13,5 +13,5 @@ export { default as Avatar } from './Avatar/Avatar';
 export { default as TableWithInfo } from './TableWithInfo/TableWithInfo';
 export { default as WebEvents } from './WebEvents/WebEvents';
 export { default as Server } from './Server/Server';
-export { default as Form } from './Form/Form';
+// export { default as Form } from './Form/Form';
 export { default as EmptyContainer } from './EmptyContainer/EmptyContainer';

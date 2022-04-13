@@ -1,12 +1,12 @@
 import React from 'react';
-
+import { IWebEvents } from '../../types';
 
 //Style
 import { Image } from "react-bootstrap";
 //
 
 //components
-import { Card, EmptyContainer } from '../';
+import { Card, EmptyContainer, Preloader } from '..';
 //
 
 // Locales
@@ -18,23 +18,25 @@ import { EventLogo } from '../../media';
 //
 
 //redux
-import { useAppSelector } from '../../hooks/redux';
+import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 //
 
 export default function WebEvents(){
     const { t } = useTranslation();
-    const webEvents = useAppSelector((state) => state.user.webEvents);
+    const webEvents = useAppSelector((state) => state.webEvents.data);
+    const isLoaded = useAppSelector((state) => state.webEvents.isLoaded);
+    const errors = useAppSelector((state) => state.webEvents.errors);
 
-    const handleClick = async (webEvent) => {
+    const handleClick = async (webEvent: IWebEvents) => {
         try {
             const win = window.open(webEvent.link, '_blank');
             win?.focus();
-        } catch (e) {
+        } catch (e: any) {
             throw new Error(e);
         }
     };
 
-    const renderWebEvents = (webEvent) => {
+    const renderWebEvents = (webEvent: IWebEvents) => {
         if(webEvent.expired < Date.now()) return null;
 
         return(
@@ -52,13 +54,30 @@ export default function WebEvents(){
         );
     };
 
+    const DefaultComponent = () => (
+        <h4>
+            <b>{t('Браузерные события')}:</b>
+        </h4>
+    );
+    
+    if(isLoaded) return(
+        <>
+            <DefaultComponent />
+            <Preloader />
+        </>
+    );
+
+    if(errors !== '') return(
+        <>
+            <DefaultComponent />
+            #error
+        </>
+    );
+
     return(
         <>
-            <h4>
-                <b>{t('Браузерные события')}:</b>
-            </h4>
-
-            { webEvents.length !== 0 ? (webEvents.map(renderWebEvents)) : (<EmptyContainer />) }
+            <DefaultComponent />
+            {webEvents.length !== 0 ? (webEvents.map(renderWebEvents)) : (<EmptyContainer />)}
         </>
     );
 }

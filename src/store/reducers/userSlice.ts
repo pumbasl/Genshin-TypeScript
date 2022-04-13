@@ -1,28 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { IUserinfo, IPromoCode, IWebEvents } from '../../types';
+import { IUserinfo, IPromoCode } from '../../types';
 
-export interface StateProps {
+export interface IUserProps {
     token: string | null;
     server: string;
-    webEvents: IWebEvents[];
     errorsAuth: string | null;
     userinfo: IUserinfo | null;
     promocodes: IPromoCode[];
     userPromocodes: IPromoCode[];
-    threads: string[];
     news: string[] | null;
 };
 
-const initialState: StateProps = {
+const initialState: IUserProps = {
     token: localStorage.getItem('token') || null,
     server: localStorage.getItem('server') || 'Europe',
-    webEvents: [],
     errorsAuth: null,
     userinfo: null,
     promocodes: [],
     userPromocodes: [],
-    threads: [],
     news: null
 };
 
@@ -48,10 +44,6 @@ export const userSlice = createSlice({
 
         setToken(state, action) {
             state.token = action.payload;
-        },
-
-        setWebEvents(state, action) {
-            state.webEvents = action.payload;
         },
 
         setUserPromoCodes(state, action) {

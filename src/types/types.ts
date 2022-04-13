@@ -18,13 +18,18 @@ export interface IWebEvents{
     expired: number;
 }
 
+export interface IAvatar{
+    urlPath: string;
+    ref: string;
+}
+
 export interface IUserinfo{
     _id: string;
     login: string;
     reg: number;
     roles: string[];
     email: string | null;
-    avatar: string;
+    avatar: IAvatar;
     server: string;
     ua: string;
     gameInfo: IGameInfo

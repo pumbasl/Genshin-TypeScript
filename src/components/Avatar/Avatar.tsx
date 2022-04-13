@@ -3,15 +3,19 @@ import React from 'react';
 import { Image } from 'react-bootstrap';
 
 //media
-import { DefaultAvatar } from '../../media/';
+import { DefaultAvatar } from '../../media';
 //
 
 //redux
 import { useAppSelector } from '../../hooks/redux';
 //
 
-export default function Avatar({ type }){
-    const avatarSrc = useAppSelector((state) => state.user.userinfo.avatar);
+interface PropsTypes {
+    type: string;
+};
+
+export default function Avatar({ type }: PropsTypes){
+    const avatarSrc = useAppSelector((state) => state.user.userinfo?.avatar);
     const resultSrc = avatarSrc ? avatarSrc.urlPath : DefaultAvatar;
 
     if(type === 'rounded'){

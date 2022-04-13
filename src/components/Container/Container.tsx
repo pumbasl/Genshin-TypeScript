@@ -6,7 +6,12 @@ import { Container } from 'react-bootstrap';
 import { BackgroundContainer as Style } from '../../style/style';
 //
 
-export default function ContainerComp({ children, nostyled }){
+interface PropsTypes {
+    children: React.ReactNode;
+    nostyled?: boolean;
+};
+
+export default function ContainerComp({ children, nostyled }: PropsTypes){
     if(!nostyled){
         return(
             <Container>

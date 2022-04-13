@@ -4,7 +4,11 @@ import React from 'react';
 import { Badge } from 'react-bootstrap';
 //
 
-export default function ErrorsForm({ message }){
+interface IProps {
+    message: string;
+};
+
+export default function ErrorsForm({ message }: IProps){
     return(
         <Badge bg="danger">
             {message}

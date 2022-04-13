@@ -1,7 +1,6 @@
 export { default as changeServer } from './changeServer';
 export { default as getUnRegisterData } from './getUnRegisterData';
 export { default as getRegisterUserData } from './getRegisterUserData';
-export { default as getSubfields } from './getSubfields';
 export { default as newUserPromo } from './newUserPromo';
 export { default as login } from './login';
 export { default as registration } from './registration';
@@ -19,3 +18,4 @@ export { default as addWebEvent } from './addWebEvent';
 export { default as allThreads } from './allThreads';
 export { default as getThreadById } from './getThreadById';
 export { default as addThread } from './addThread';
+export { default as getWebEvents } from './getWebEvents';

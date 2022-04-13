@@ -28,23 +28,23 @@ const Admin = lazy(() => import('../pages/Admin/Admin'));
 
 export default function Routers(){
     return(
-        <Suspense fallback={<Preloader fetch />}>
+        <Suspense fallback={<Preloader />}>
             <Routes>
-                <Route exact path="/" element={<Main />} />
-                <Route exact path="policy" element={<Policy />} />
-                <Route exact path="help" element={<Help />} />
-                <Route exact path="news" element={<News />} />
+                <Route path="/" element={<Main />} />
+                <Route path="policy" element={<Policy />} />
+                <Route path="help" element={<Help />} />
+                <Route path="news" element={<News />} />
 
-                <Route exact path="auth/login" element={<Login />} />
-                <Route exact path="auth/reg" element={<Registration />} />
+                <Route path="auth/login" element={<Login />} />
+                <Route path="auth/reg" element={<Registration />} />
                 {/* <Route exact path="/auth/restore_password" element={<RestorePassword />} /> */}
 
-                <Route exact path="profile" element={<Profile />} />
-                <Route exact path="profile/settings" element={<Settings />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="profile/settings" element={<Settings />} />
 
-                <Route exact path="admin" element={<Admin />} />
+                <Route path="admin" element={<Admin />} />
 
-                <Route exact path="*" element={<Error id="404" />} />
+                <Route path="*" element={<Error id={404} />} />
             </Routes>
         </Suspense>
     );

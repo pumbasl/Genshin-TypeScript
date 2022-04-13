@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { IUserinfo } from '../../types';
 
 export interface IAdminState {
-    users: string[];
+    users: IUserinfo[];
 };
 
 const initialState: IAdminState = {

@@ -9,10 +9,17 @@ import { Badge } from 'react-bootstrap';
 import { PromoCardBlock, PromoExpired, PromoCard } from '../../style/style';
 //
 
+interface ICard extends React.HTMLAttributes<HTMLDivElement> {
+    children: React.ReactNode;
+};
+
+interface ICardTime extends ICard {
+    expired: number;
+};
 
 const Card = {
 
-    Label: function Label({ children, ...props }){
+    Label: function Label({ children, ...props }: ICard){
         return(
             <PromoCard {...props}>
                 {children}
@@ -20,7 +27,7 @@ const Card = {
         );
     },
 
-    Body: function Body({ children, ...props }){
+    Body: function Body({ children, ...props }: ICard){
         return(
             <PromoCardBlock {...props}>
                 {children}
@@ -28,7 +35,7 @@ const Card = {
         );
     },
 
-    Time: function Time({ children, expired, ...props }){
+    Time: function Time({ children, expired, ...props }: ICardTime){
         return(
             <PromoExpired {...props}>
                 <Badge bg="purple">
