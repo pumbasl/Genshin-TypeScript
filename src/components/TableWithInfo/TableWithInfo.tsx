@@ -7,9 +7,14 @@ import { TimeView } from '..';
 
 //locales
 import { useTranslation } from 'react-i18next';
+import { IUserinfo } from '../../types';
 //
 
-export default function TableWithInfo({ data }){
+interface IProps {
+    data: IUserinfo;
+};
+
+export default function TableWithInfo({ data }: IProps){
     const { t } = useTranslation();
 
     return(

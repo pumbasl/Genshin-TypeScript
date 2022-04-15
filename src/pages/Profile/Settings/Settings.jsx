@@ -53,14 +53,14 @@ export default function Settings(){
 
     useEffect(() => {
         if(errorsAuth){
-            toast({title: t('Уведомление'), body: errorsAuth, time: t('Несколько секунд назад')}); //уведомление
+            toast.error(errorsAuth); //уведомление
             dispatch(setErrors(null));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [errorsAuth]);
 
     const onSubmit = data => {
-        toast({title: t('Уведомление'), body: t('Успешно сохранено.'), time: t('Несколько секунд назад')}); //уведомление
+        toast.success(t('Успешно сохранено.')); //уведомление
         dispatch(fetchNewUserGameInfo(data));
         navigate('/profile');
     };

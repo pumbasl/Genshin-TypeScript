@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dropdown, Image } from "react-bootstrap";
+import { DropDirection } from 'react-bootstrap/esm/DropdownContext';
 
 // Locales
 import { useTranslation } from 'react-i18next';
@@ -9,16 +10,21 @@ import { useTranslation } from 'react-i18next';
 import { Earth } from '../../media';
 //
 
-export default function LanguageButton(props){
+interface IProps {
+    className: string;
+    drop: DropDirection;
+};
+
+export default function LanguageButton(props: IProps){
     const { i18n } = useTranslation();
-    const changeLanguage = (lng, hrefLang) => {
+    const changeLanguage = (lng: string, hrefLang: string) => {
         i18n.changeLanguage(lng);
         document.documentElement.lang = hrefLang;
         localStorage.setItem('i18nextLng', lng);
         localStorage.setItem('hrefLang', hrefLang);
     };
 
-    document.documentElement.lang = localStorage.getItem('hrefLang') ? localStorage.getItem('hrefLang') : 'en';
+    document.documentElement.lang = localStorage.getItem('hrefLang') || 'en';
 
     return(
         <Dropdown {...props}>

@@ -8,29 +8,32 @@ import {
 } from '../../style/style';
 //
 
+interface IProps {
+    children: React.ReactNode;
+};
 
 const List = {
 
-    Container: function Container(props){
+    Container: function Container({ children }: IProps){
         return(
             <FooterContainer>
-                {props.children}
+                {children}
             </FooterContainer>
         );
     },
 
-    Title: function Title(props){
+    Title: function Title({ children }: IProps){
         return(
             <FooterCardTitle>
-                {props.children}
+                {children}
             </FooterCardTitle>
         );
     },
 
-    Body: function Body(props){
+    Body: function Body({ children }: IProps){
         return(
             <FooterCardBody>
-                {props.children}
+                {children}
             </FooterCardBody>
         );
     }

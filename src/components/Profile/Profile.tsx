@@ -17,7 +17,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchLogout } from '../../store/thunks/userThunks';
 //
 
-export default function ProfileButtons(props){
+interface IProps {
+    className: string;
+};
+
+export default function ProfileButtons(props: IProps){
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const token = useAppSelector((state) => state.user.token);
@@ -29,11 +33,11 @@ export default function ProfileButtons(props){
     if(!token){
         return(
             <ButtonGroup className="dropDown-custom ms-1 me-2">
-                <Button as={Link} to="/auth/login" variant="dark-custom">
+                <Button as={Link as any} to="/auth/login" variant="dark-custom">
                     {t('Авторизация')}
                 </Button>
     
-                <Button as={Link} to="/auth/reg" variant="dark-custom">
+                <Button as={Link as any} to="/auth/reg" variant="dark-custom">
                     {t('Создать профиль')}
                 </Button>
             </ButtonGroup>

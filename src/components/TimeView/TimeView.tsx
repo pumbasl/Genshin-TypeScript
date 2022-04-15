@@ -2,7 +2,7 @@ import React from 'react';
 import { format } from 'date-fns';
 
 interface IProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     time: number;
     customFormat?: string;
 };
