@@ -34,7 +34,7 @@ export default function Profile(){
     if(!data){
         return(
             <Container>
-                <Preloader fetch />
+                <Preloader />
             </Container>
         );
     }
@@ -64,12 +64,12 @@ export default function Profile(){
                     <TableWithInfo data={data} />  
                     <div className="text-center">
                         <ButtonGroup>
-                            <Button as={Link} to="/profile/settings" variant="dark-custom">
+                            <Button as={Link as any} to="/profile/settings" variant="dark-custom">
                                 {t('Изменить данные')}
                             </Button>
                             {
                                 data.roles.includes('Admin') ? (
-                                    <Button as={Link} to="/admin" variant="danger">
+                                    <Button as={Link as any} to="/admin" variant="danger">
                                         Admin Panel
                                     </Button>
                                 ) : (

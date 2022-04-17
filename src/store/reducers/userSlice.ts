@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { IUserinfo, IPromoCode } from '../../types';
+import { IUserinfo, IPromoCode, INews } from '../../types';
 
 export interface IUserProps {
     token: string | null;
@@ -9,7 +9,7 @@ export interface IUserProps {
     userinfo: IUserinfo | null;
     promocodes: IPromoCode[];
     userPromocodes: IPromoCode[];
-    news: string[] | null;
+    news: INews[] | null;
 };
 
 const initialState: IUserProps = {
@@ -19,7 +19,7 @@ const initialState: IUserProps = {
     userinfo: null,
     promocodes: [],
     userPromocodes: [],
-    news: null
+    news: []
 };
 
 export const userSlice = createSlice({

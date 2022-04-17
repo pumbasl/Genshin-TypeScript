@@ -18,7 +18,7 @@ import { EventLogo } from '../../media';
 //
 
 //redux
-import { useAppSelector, useAppDispatch } from '../../hooks/redux';
+import { useAppSelector } from '../../hooks/redux';
 //
 
 export default function WebEvents(){

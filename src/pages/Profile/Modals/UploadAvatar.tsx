@@ -26,11 +26,16 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { fetchNewAvatar } from '../../../store/thunks/userThunks';
 //
 
-export default function UploadAvatar({ show, close }){
+interface IProps {
+    show: boolean;
+    close: () => void;
+};
+
+export default function UploadAvatar({ show, close }: IProps){
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    const avatarRef = useAppSelector((state) => state.user.userinfo.avatar?.ref);
-    const [ image, setImage ] = useState(false);
+    const avatarRef = useAppSelector((state) => state.user?.userinfo?.avatar?.ref);
+    const [ image, setImage ] = useState<File | null>(null);
 
     const upload = () => {
         if(!image) return;
@@ -42,7 +47,7 @@ export default function UploadAvatar({ show, close }){
 
         uploadBytes(imageRef, image).then(() => {
             getDownloadURL(imageRef).then((url) => {
-                dispatch(fetchNewAvatar(url, imageRef._location.path));
+                dispatch(fetchNewAvatar(url, imageRef.fullPath));
                 close();
             }).catch((error) => {
                 console.log(error);
@@ -57,9 +62,9 @@ export default function UploadAvatar({ show, close }){
                 });
             }
 
-            toast({title: t('Уведомление'), body: t('Аватарка успешно изменена.'), time: t('Несколько секунд назад')}); //уведомление
+            toast.success(t('Аватарка успешно изменена.')); //уведомление
         });
-    }
+    };
 
     return(
         <Modal centered show={show} onHide={close}>
@@ -72,7 +77,7 @@ export default function UploadAvatar({ show, close }){
                 <Form.Control
                     type="file"
                     accept="image/*"
-                    onChange={(e) => { setImage(e.target.files[0]) }}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setImage(e.currentTarget.files![0]) }}
                 />
             </Modal.Body>
             <Modal.Footer>

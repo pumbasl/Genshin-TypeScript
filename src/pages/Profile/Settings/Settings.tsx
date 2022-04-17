@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { IGameInfo } from '../../../types';
 
 //components
 import { Form, InputGroup, Image, Button } from 'react-bootstrap';
@@ -8,7 +9,7 @@ import { ContainerForForm } from '../../../style/style';
 //
 
 //useform
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 //
@@ -47,7 +48,7 @@ export default function Settings(){
         mainChar: yup.string().min(2, t('Это поле не может быть меньше 2 символов!')).max(24, t('Это поле не может быть больше 24 символов!'))
     }).required();
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm<IGameInfo>({
         resolver: yupResolver(schema)
     });
 
@@ -59,7 +60,7 @@ export default function Settings(){
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [errorsAuth]);
 
-    const onSubmit = data => {
+    const onSubmit: SubmitHandler<IGameInfo> = data => {
         toast.success(t('Успешно сохранено.')); //уведомление
         dispatch(fetchNewUserGameInfo(data));
         navigate('/profile');
@@ -81,7 +82,7 @@ export default function Settings(){
                         <InputGroup.Text>
                             <Image src={LoginIcon} width="100%" height="100%" />
                         </InputGroup.Text>
-                        <Form.Control type="text" placeholder={t('Игровой ник')} {...register("gameNickName", { minLength: 1, maxLength: 25 })} />
+                        <Form.Control type="text" placeholder={t('Игровой ник')} {...register("gameNickName", { required: true, minLength: 1, maxLength: 25 })} />
                     </InputGroup>
 
                     <ErrorsForm message={errors.gameNickName?.message} />
@@ -96,7 +97,7 @@ export default function Settings(){
                         <InputGroup.Text>
                             <Image src={LoginIcon} width="100%" height="100%" />
                         </InputGroup.Text>
-                        <Form.Control type="text" defaultValue={1} placeholder={t('Ранг приключений')} {...register("adventureLvl", { minLength: 1, maxLength: 2 })} />
+                        <Form.Control type="text" defaultValue={1} placeholder={t('Ранг приключений')} {...register("adventureLvl", { required: true, minLength: 1, maxLength: 2 })} />
                     </InputGroup>
 
                     <ErrorsForm message={errors.adventureLvl?.message} />
@@ -111,7 +112,7 @@ export default function Settings(){
                         <InputGroup.Text>
                             <Image src={LoginIcon} width="100%" height="100%" />
                         </InputGroup.Text>
-                        <Form.Control type="text" placeholder={t('Ваш мейн персонаж')} {...register("mainChar", { minLength: 2, maxLength: 24 })} />
+                        <Form.Control type="text" placeholder={t('Ваш мейн персонаж')} {...register("mainChar", { required: true, minLength: 2, maxLength: 24 })} />
                     </InputGroup>
 
                     <ErrorsForm message={errors.mainChar?.message} />

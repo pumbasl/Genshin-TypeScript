@@ -29,4 +29,6 @@ export default function Avatar({ type }: PropsTypes){
             <Image src={resultSrc} width="100%" height="100%" roundedCircle alt="avatar" />
         );
     }
+
+    return(null);
 }
