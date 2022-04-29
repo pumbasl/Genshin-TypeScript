@@ -15,7 +15,7 @@ import * as yup from "yup";
 //
 
 //icons
-import { LoginIcon } from '../../../media';
+import { Rank, Id, Name } from '../../../media';
 //
 
 //locales
@@ -80,7 +80,7 @@ export default function Settings(){
 
                     <InputGroup>
                         <InputGroup.Text>
-                            <Image src={LoginIcon} width="100%" height="100%" />
+                            <Image src={Name} width="18px" height="100%" />
                         </InputGroup.Text>
                         <Form.Control type="text" placeholder={t('Игровой ник')} {...register("gameNickName", { required: true, minLength: 1, maxLength: 25 })} />
                     </InputGroup>
@@ -95,7 +95,7 @@ export default function Settings(){
 
                     <InputGroup>
                         <InputGroup.Text>
-                            <Image src={LoginIcon} width="100%" height="100%" />
+                            <Image src={Rank} width="18px" height="100%" />
                         </InputGroup.Text>
                         <Form.Control type="text" defaultValue={1} placeholder={t('Ранг приключений')} {...register("adventureLvl", { required: true, minLength: 1, maxLength: 2 })} />
                     </InputGroup>
@@ -110,7 +110,7 @@ export default function Settings(){
 
                     <InputGroup>
                         <InputGroup.Text>
-                            <Image src={LoginIcon} width="100%" height="100%" />
+                            <Image src={Id} width="18px" height="100%" />
                         </InputGroup.Text>
                         <Form.Control type="text" placeholder={t('Ваш мейн персонаж')} {...register("mainChar", { required: true, minLength: 2, maxLength: 24 })} />
                     </InputGroup>

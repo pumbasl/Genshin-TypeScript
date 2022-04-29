@@ -16,3 +16,4 @@ export { default as Server } from './Server/Server';
 // export { default as Form } from './Form/Form';
 export { default as EmptyContainer } from './EmptyContainer/EmptyContainer';
 export { default as Wrapper } from './Wrapper/Wrapper';
+export { default as Alert } from './Alert/Alert';

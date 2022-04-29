@@ -46,7 +46,7 @@ export default function ProfileButtons(props: IProps){
         return(
             <Dropdown {...props}>
                 <Dropdown.Toggle variant="dark-custom">
-                {t('Профиль')}
+                    {t('Профиль')}
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu variant="dark" className="me-1">

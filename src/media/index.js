@@ -7,6 +7,9 @@ export { default as EventLogo } from './img/svgLogo/confetti.svg';
 export { default as Earth } from './img/svgLogo/earth.svg';
 export { default as DefaultAvatar } from './img/defaultAvatar.webp';
 export { default as News } from './img/news.webp';
+export { default as Rank } from './img/svgLogo/rank.svg';
+export { default as Id } from './img/svgLogo/id.svg';
+export { default as Name } from './img/svgLogo/name.svg';
 
 //background img
 export { default as One } from './img/Background/1.webp';

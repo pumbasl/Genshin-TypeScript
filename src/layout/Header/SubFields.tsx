@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 //Style
-import { Nav, Navbar } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 //
 
 //Pictures
@@ -16,33 +16,33 @@ import { useTranslation } from 'react-i18next';
 export default function Subfields(){
     const { t } = useTranslation();
     return(
-        <Navbar.Collapse className="justify-content-center">
+        <Nav className="me-auto">
             <Nav.Link
                 className="custom-link"
                 as={NavLink}
                 to="/news"
             >
-                <img src={WikiLogo} width="18px" height="100%" className="me-2 mb-1" alt="wikiLogo" />
+                <img src={WikiLogo} width="18px" height="100%" className="ms-1 me-2 mb-1" alt="wikiLogo" />
                 {t('Новости')}
             </Nav.Link>
 
             <Nav.Link
                 className="custom-link"
-                href="https://webstatic-sea.mihoyo.com/app/ys-map-sea/index.html"
+                href="https://webstatic-sea.hoyolab.com/ys/app/interactive-map/index.html"
                 target="_blank"
             >
-                <img src={MapLogo} width="18px" height="100%" className="me-2 mb-1" alt="mapLogo" />
+                <img src={MapLogo} width="18px" height="100%" className="ms-1 me-2 mb-1" alt="mapLogo" />
                 {t('Интерактивная карта')}
             </Nav.Link>
 
             <Nav.Link
                 className="custom-link"
-                href="https://genshin-helper.com/"
+                href="https://genshin-impact.fandom.com/"
                 target="_blank"
             >
-                <img src={GenshinLogo} width="18px" height="100%" className="me-2 mb-1" alt="genshinLogo" />
-                Genshin Helper
+                <img src={GenshinLogo} width="18px" height="100%" className="ms-1 me-2 mb-1" alt="genshinLogo" />
+                Genshin Wiki
             </Nav.Link>
-        </Navbar.Collapse>
+        </Nav>
     )
 }

@@ -17,11 +17,10 @@ const HeaderWrapper = styled.div`
 export default function Header(){
     return(
         <HeaderWrapper>
-            <Navbar collapseOnSelect expand="xl" variant="dark" className="navbar-custom">
-            <NavLink to="/" className="navbar-brand ms-3">Genshin Promo</NavLink>
+            <Navbar expand="xl" variant="dark" className="navbar-custom">
+                <NavLink to="/" className="navbar-brand ms-3">Genshin Promo</NavLink>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    
+                <Navbar.Collapse>
                     <Subfields />
 
                     <Nav className="ml-auto">
