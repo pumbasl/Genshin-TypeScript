@@ -1,5 +1,5 @@
 const addWebEvent = `
-mutation AddWebEvent($name: String!, $link: String!, $expired: Float!){
+mutation AddWebEvent($name: String!, $link: String!, $expired: String!){
   addSubfields(name: $name, link: $link, expired: $expired){
     _id
     name

@@ -12,7 +12,11 @@ const AddNews = lazy(() => import('./Components/AddNews'));
 const AddWebEvent = lazy(() => import('./Components/AddWebEvent'));
 //
 
-const FormButtons = ({ id }) => {
+interface IPropsFormButtons {
+    id: number | null;
+};
+
+const FormButtons = ({ id }: IPropsFormButtons) => {
     if(!id) return <SelectFormLoading />;
 
     if(id === 1){
@@ -26,10 +30,12 @@ const FormButtons = ({ id }) => {
     if(id === 3) {
         return <AddWebEvent />;
     }
+
+    return null;
 };
 
 export default function ActionButtons(){
-    const [ form, setForm ] = useState(false);
+    const [ form, setForm ] = useState<number | null>(null);
     return(
         <div className="text-center">
             <ButtonGroup>
@@ -48,7 +54,7 @@ export default function ActionButtons(){
 
             </ButtonGroup>
 
-            <Suspense fallback={<Preloader fetch />}>
+            <Suspense fallback={<Preloader />}>
                 <div className="mt-2 text-start">
                     <FormButtons id={form} />
                 </div>

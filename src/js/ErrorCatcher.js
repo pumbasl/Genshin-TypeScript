@@ -12,6 +12,6 @@ export default function ErrorCatch(error, dispatch){
         dispatch(actions.setToken(null));
         dispatch(actions.setUserPromoCodes([]));
     } else {
-        toast.error(error);
+        toast.error(error.message);
     }
 }

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 //useform
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 //
@@ -17,23 +17,28 @@ import { ErrorsForm } from '../../components';
 import { LoginIcon, PasswordIcon } from '../../media';
 //
 
-//notify
-import { toast } from 'react-hot-toast';
-//
-
 //locales
 import { useTranslation } from 'react-i18next';
 //
 
+//notify
+import { toast } from 'react-hot-toast';
+//
+
 //redux
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { fetchRegistration } from '../../store/thunks/userThunks';
+import { fetchLogin } from '../../store/thunks/userThunks';
 import { userSlice } from '../../store/reducers/userSlice';
 //
 
 const setErrors = userSlice.actions.setErrors;
 
-export default function Registration(){
+interface ILoginForm {
+    login: string;
+    password: string;
+};
+
+export default function Login(){
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -49,15 +54,10 @@ export default function Registration(){
 
         password: yup.string()
         .required(t('Это поле обязательно для заполнения!'))
-        .min(4, t('Пароль не может быть меньше 4 символов!')),
-
-        re_password: yup.string()
-        .required(t('Это поле обязательно для заполнения!'))
         .min(4, t('Пароль не может быть меньше 4 символов!'))
-        .oneOf([yup.ref('password'), null], t('Пароли не совпадают.'))
     }).required();
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm<ILoginForm>({
         resolver: yupResolver(schema)
     });
 
@@ -71,15 +71,14 @@ export default function Registration(){
 
     useEffect(() => {
         if(token){
-            toast.success(t('Вы успешно зарегистрировались.')); //уведомление
+            toast.success(t('Вы успешно авторизовались.')); //уведомление
             navigate('/');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token]);
 
-    const onSubmit = data => {
-        data.server = "Europe";
-        dispatch(fetchRegistration(data));
+    const onSubmit: SubmitHandler<ILoginForm> = data => {
+        dispatch(fetchLogin(data));
     };
 
     return(
@@ -100,7 +99,7 @@ export default function Registration(){
                     <ErrorsForm message={errors.login?.message} />
                 </Form.Group>
 
-                <Form.Group className="mb-3">
+                <Form.Group>
                     <Form.Label>
                         {t('Пароль')}: 
                     </Form.Label>
@@ -113,20 +112,15 @@ export default function Registration(){
                     </InputGroup>
 
                     <ErrorsForm message={errors.password?.message} />
+
+                    <br />
+
+                    <Form.Text className="text-light">
+                        <Link to="/auth/restore_password" className="custom-link">{t('Забыли пароль')}?</Link>
+                    </Form.Text>
                 </Form.Group>
 
-                <Form.Group className="mb-3">
-                    <InputGroup>
-                        <InputGroup.Text>
-                            <Image src={PasswordIcon} width="100%" height="100%" />
-                        </InputGroup.Text>
-                        <Form.Control type="password" placeholder={t('Повторите пароль')} {...register("re_password", { required: true, minLength: 4 })} />
-                    </InputGroup>
-
-                    <ErrorsForm message={errors.re_password?.message} />
-                </Form.Group>
-
-                <Button type="submit" className="mt-3" variant='dark-custom'>{t('Создать профиль')}</Button>
+                <Button type="submit" className="mt-3" variant='dark-custom'>{t('Авторизоваться')}</Button>
             </Form>
         </ContainerForForm>
     );

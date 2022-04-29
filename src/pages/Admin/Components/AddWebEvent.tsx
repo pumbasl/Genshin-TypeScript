@@ -10,7 +10,7 @@ import { TextIcon, LinkIcon } from '../../../media';
 //
 
 //useform
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 //
@@ -29,6 +29,12 @@ import { toast } from 'react-hot-toast';
 //actions
 const setErrors = userSlice.actions.setErrors;
 
+interface IWebEventAdd {
+    name: string;
+    link: string;
+    expired: string;
+};
+
 export default function AddPromo(){
     const dispatch = useAppDispatch();
     const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
@@ -42,18 +48,17 @@ export default function AddPromo(){
 
     }).required();
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm<IWebEventAdd>({
         resolver: yupResolver(schema)
     });
 
-    const onSubmit = data => {
-        data.expired = Date.parse(data.expired);
+    const onSubmit: SubmitHandler<IWebEventAdd> = data => {
         dispatch(fetchAddWebEvent(data));
     };
     
     useEffect(() => {
         if(errorsAuth){
-            toast({title: "Уведомление", body: errorsAuth, time: "Несколько секунд назад"}); //уведомление
+            toast.error(errorsAuth); //уведомление
             dispatch(setErrors(null));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -73,7 +78,7 @@ export default function AddPromo(){
                     <Form.Control type="text" placeholder="Ивент" {...register("name", { required: true })} />
                 </InputGroup>
 
-                <ErrorsForm message={errors.code?.message} />
+                <ErrorsForm message={errors.name?.message} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="actionFormAddCode">
@@ -88,7 +93,7 @@ export default function AddPromo(){
                     <Form.Control type="text" placeholder="Ссылка" {...register("link", { required: true })} />
                 </InputGroup>
 
-                <ErrorsForm message={errors.code?.message} />
+                <ErrorsForm message={errors.link?.message} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="actionFormDate">
@@ -101,7 +106,7 @@ export default function AddPromo(){
                     {...register("expired", { required: true })}
                 />
 
-                <ErrorsForm message={errors.date?.message} />
+                <ErrorsForm message={errors.expired?.message} />
             </Form.Group>
 
             <Button variant="dark-custom" type="submit">Создать</Button>

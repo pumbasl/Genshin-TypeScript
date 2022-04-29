@@ -10,7 +10,7 @@ import { TextIcon } from '../../../media';
 //
 
 //useform
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 //
@@ -29,6 +29,12 @@ import { toast } from 'react-hot-toast';
 //actions
 const setErrors = userSlice.actions.setErrors;
 
+interface IAddPromo {
+    code: string;
+    server: 'All' | 'Europe' | 'America' | 'Asia';
+    expired: string;
+};
+
 export default function AddPromo(){
     const dispatch = useAppDispatch();
     const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
@@ -45,12 +51,11 @@ export default function AddPromo(){
 
     }).required();
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm<IAddPromo>({
         resolver: yupResolver(schema)
     });
 
-    const onSubmit = data => {
-        data.expired = Date.parse(data.expired);
+    const onSubmit: SubmitHandler<IAddPromo> = data => {
         dispatch(fetchAddPromoCode(data));
     };
     
@@ -104,7 +109,7 @@ export default function AddPromo(){
                     {...register("expired", { required: true })}
                 />
 
-                <ErrorsForm message={errors.date?.message} />
+                <ErrorsForm message={errors.expired?.message} />
             </Form.Group>
 
             <Button variant="dark-custom" type="submit">Создать</Button>

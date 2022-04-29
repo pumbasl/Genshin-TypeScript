@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { IUserinfo } from '../../types';
 
 //components
 import { Table, Button } from 'react-bootstrap';
@@ -23,17 +24,17 @@ export default function UsersTable(){
     const dispatch = useAppDispatch();
     const users = useAppSelector((state) => state.admin.users);
     const [ showModal, setShowModal ] = useState(false);
-    const [ dataModal, setDataModal ] = useState({});
+    const [ dataModal, setDataModal ] = useState<IUserinfo | null>(null);
     
 
-    const handleClick = (user) => {
+    const handleClick = (user: IUserinfo) => {
         setShowModal(true);
         setDataModal(user);
     };
 
     const handleClose = () => setShowModal(false);
 
-    const tableRender = (user, index) => {
+    const tableRender = (user: IUserinfo, index: number) => {
         return(
             <tr key={user._id}>
                 <td>{++index}</td>

@@ -80,7 +80,7 @@ export default function ActionUswerModal({ show, close, data }){
 
     useEffect(() => {
         if(errorsAuth){
-            toast({title: "Уведомление", body: errorsAuth, time: "Несколько секунд назад"}); //уведомление
+            toast.error(errorsAuth); //уведомление
             dispatch(setErrors(null));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -88,12 +88,16 @@ export default function ActionUswerModal({ show, close, data }){
 
     useEffect(() => {
         (() => {
-            reset({
-                login: data.login,
-                role: RolesParse(data.roles)
-            });
+            if(data){
+                reset({
+                    login: data.login,
+                    role: RolesParse(data.roles)
+                });
+            }
         })()
     }, [data, reset]);
+
+    if(!data) return null;
 
     return(
         <Modal show={show} onHide={close} centered>

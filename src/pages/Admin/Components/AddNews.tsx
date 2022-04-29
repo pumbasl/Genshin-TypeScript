@@ -6,7 +6,7 @@ import { ErrorsForm } from '../../../components';
 //
 
 //useform
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 //
@@ -24,6 +24,12 @@ import { toast } from 'react-hot-toast';
 //actions
 const setErrors = userSlice.actions.setErrors;
 
+interface IAddNews {
+    title: string;
+    subtitle: string;
+    text: string;
+};
+
 export default function AddNews(){
     const dispatch = useAppDispatch();
     const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
@@ -34,17 +40,17 @@ export default function AddNews(){
         text: yup.string().required("Это поле обязательно для заполнения!")
     }).required();
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm<IAddNews>({
         resolver: yupResolver(schema)
     });
 
-    const onSubmit = data => {
+    const onSubmit: SubmitHandler<IAddNews> = data => {
         dispatch(fetchAddNews(data));
     };
     
     useEffect(() => {
         if(errorsAuth){
-            toast({title: "Уведомление", body: errorsAuth, time: "Несколько секунд назад"}); //уведомление
+            toast.error(errorsAuth); //уведомление
             dispatch(setErrors(null));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
