@@ -5,7 +5,7 @@ import {
     FooterContainer,
     FooterCardTitle,
     FooterCardBody,
-} from '../../style/style';
+} from './style';
 //
 
 interface IProps {
@@ -13,7 +13,6 @@ interface IProps {
 };
 
 const List = {
-
     Container: function Container({ children }: IProps){
         return(
             <FooterContainer>

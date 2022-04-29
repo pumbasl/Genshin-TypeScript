@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
+import styled from 'styled-components';
 import { Navbar, Nav } from "react-bootstrap";
 
 //Components
@@ -9,12 +9,14 @@ import { LanguageButton, Profile, Server } from '../../components';
 //
 
 //Style
-import { Header as HeaderStyle } from '../../style/style';
+const HeaderWrapper = styled.div`
+    flex: 0 0 auto;
+`;
 //
 
 export default function Header(){
     return(
-        <HeaderStyle>
+        <HeaderWrapper>
             <Navbar collapseOnSelect expand="xl" variant="dark" className="navbar-custom">
             <NavLink to="/" className="navbar-brand ms-3">Genshin Promo</NavLink>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -29,6 +31,6 @@ export default function Header(){
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
-        </HeaderStyle>
+        </HeaderWrapper>
     );
 }

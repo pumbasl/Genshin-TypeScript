@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
+import styled from 'styled-components';
 
 // Locales
 import { useTranslation } from 'react-i18next';
@@ -11,22 +12,30 @@ import { List } from '../../components';
 //
 
 //логотипы
-import { MAILLogo, TELEGRAMLogo, VKLogo } from '../../media';
+import { MAILLogo, TELEGRAMLogo } from '../../media';
 //
 
 //Style
-import { 
-    Footer as FooterStyle,
-    FooterCopyright
-} from '../../style/style';
-
 import './style.scss';
+
+const FooterCopyright = styled.div`
+    text-align: center;
+    font-weight: 300;
+    font-size: 90%;
+    margin-bottom: 10px;
+`;
+
+const FooterWrapper = styled.div({
+    flex: '0 0 auto',
+    backgroundColor: 'black',
+    color: 'white'
+});
 //
 
 export default function Footer(){
     const { t } = useTranslation();
     return(
-        <FooterStyle>
+        <FooterWrapper>
             <Container>
                 <List.Container>
                     <List.Title>
@@ -65,9 +74,6 @@ export default function Footer(){
                     <List.Title>
                         {t('Контакты')}:
                         <List.Body>
-                            <a href="https://vk.com/niklauswiberg" className="custom-contact">
-                                    <img src={VKLogo} width="30px" height="100%" alt="vklogo" />
-                            </a>
                             <a href="https://t.me/deniswiberg" className="custom-contact">
                                 <img src={TELEGRAMLogo} width="30px" height="100%" alt="tglogo" />
                             </a>
@@ -79,11 +85,11 @@ export default function Footer(){
                 </List.Container>
                 <hr color='white' />
                 <FooterCopyright>
-                    Genshin-promo.com не связан с miHoYo. <br />
-                    Genshin Impact, контент и материалы игры являются товарными знаками и принадлежат miHoYo. <br />
+                    Genshin-promo.com не связан с HoYoverse.<br />
+                    Genshin Impact, контент и материалы игры являются товарными знаками и принадлежат HoYoverse. <br />
                     Copyright &copy; 2021 Genshin-promo.com
                 </FooterCopyright>
             </Container>
-        </FooterStyle>
+        </FooterWrapper>
     );
 }

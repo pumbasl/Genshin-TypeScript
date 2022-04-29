@@ -1,5 +1,5 @@
 import React from 'react';
-import { format } from 'date-fns';
+import dayjs from 'dayjs';
 
 interface IProps {
     children?: React.ReactNode;
@@ -8,12 +8,12 @@ interface IProps {
 };
 
 export default function TimeSee({ children, time, customFormat }: IProps){
-    const date = format(time, customFormat || 'dd.MM.yyyy HH:mm')
+    const newDate = dayjs(time).format(customFormat || 'DD.MM.YYYY HH:mm');
 
     return(
         <b>
             {children}
-            {date}
+            {newDate}
         </b>
     );
 }

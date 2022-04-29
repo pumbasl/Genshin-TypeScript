@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useEffect, useState, Suspense } from 'react';
+import { useNavigate, Link, Outlet } from 'react-router-dom';
+import { IStateButton } from '../../types';
 
 //components
 import { Container, Avatar, TableWithInfo, Preloader } from '../../components';
@@ -13,16 +14,19 @@ import { useTranslation } from 'react-i18next';
 //redux
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchUserInfo } from '../../store/thunks/userThunks';
-import UploadAvatar from './Modals/UploadAvatar';
 //
 
 export default function Profile(){
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { t } = useTranslation();
-    const [ showModal, setShowModal ] = useState(false);
     const token = useAppSelector((state) => state.user.token);
     const data = useAppSelector((state) => state.user.userinfo);
+    const [ stateButton, setStateButton ] = useState<IStateButton>({
+        text: 'Изменить аватарку',
+        disabled: false
+    });
+    
     document.title = 'Genshin Promo | Profile';
 
     useEffect(() => {
@@ -39,11 +43,20 @@ export default function Profile(){
         );
     }
 
-    const handleOpenModal = () => setShowModal(true);
+    const handleOpenModal = () => {
+        setStateButton({
+            text: 'Загрузка...',
+            disabled: true
+        });
+        navigate('upload');
+    };
 
     return(
         <Container>
-            <UploadAvatar show={showModal} close={() => setShowModal(false)} />
+            <Suspense fallback={<Preloader fixed />}>
+                <Outlet context={{ setStateButton }} />
+            </Suspense>
+
             <Row>
                 <Col className="text-center">
                     <Avatar type="rounded"/>
@@ -54,8 +67,9 @@ export default function Profile(){
                         <Button
                             variant="dark-custom"
                             onClick={handleOpenModal}
+                            disabled={stateButton.disabled}
                         >
-                            {t('Изменить аватарку')}
+                            {t(stateButton.text)}
                         </Button>
 
                     </div>

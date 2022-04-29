@@ -48,3 +48,9 @@ export interface IFetch{
     query: string;
     variables: any;
 }
+
+
+export interface IStateButton {
+    text: string;
+    disabled: boolean;
+}

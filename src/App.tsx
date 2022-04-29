@@ -10,7 +10,6 @@ import './i18n';
 
 //styles
 import './style/scss/mainStyle.scss';
-import { Wrapper } from './style/style';
 //
 
 //Предохранитель
@@ -19,7 +18,7 @@ import ErrorBoundary from './errors/ErrorBoundary';
 
 //components
 import { Toaster } from 'react-hot-toast';
-import { Background, CookieNotify } from './components';
+import { Background, CookieNotify, Wrapper } from './components';
 //
 
 //layout

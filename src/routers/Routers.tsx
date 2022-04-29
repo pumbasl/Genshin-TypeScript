@@ -23,6 +23,7 @@ const Profile = lazy(() => import('../pages/Profile/Profile'));
 const News = lazy(() => import('../pages/News/News'));
 const Settings = lazy(() => import('../pages/Profile/Settings/Settings'));
 const Admin = lazy(() => import('../pages/Admin/Admin'));
+const UploadAvatar = lazy(() => import('../pages/Profile/Modals/UploadAvatar'));
 
 //
 
@@ -39,7 +40,9 @@ export default function Routers(){
                 <Route path="auth/reg" element={<Registration />} />
                 {/* <Route exact path="/auth/restore_password" element={<RestorePassword />} /> */}
 
-                <Route path="profile" element={<Profile />} />
+                <Route path="profile" element={<Profile />}>
+                    <Route path="upload" element={<UploadAvatar />} />
+                </Route>
                 <Route path="profile/settings" element={<Settings />} />
 
                 <Route path="admin" element={<Admin />} />

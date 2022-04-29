@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import dayjs from 'dayjs';
 import { INews } from '../../types';
 
 //components
@@ -6,7 +7,6 @@ import { Container, Preloader } from '../../components';
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import { Image, Badge } from 'react-bootstrap';
-import { format } from 'date-fns';
 //
 
 //media
@@ -50,7 +50,7 @@ export default function News(){
             key={value._id}
             className="vertical-timeline-element--work"
             contentStyle={{ background: 'white', color: 'black' }}
-            date={`${t('Дата')}: ${format(value.date, 'dd.MM.yyyy')}`}
+            date={`${t('Дата')}: ${dayjs(value.date).format('DD.MM.YYYY')}`}
             iconStyle={{ background: 'indianred', color: '#fff' }}
             icon={<Image width="100%" height="100%" src={NewsIcon} />}
         >

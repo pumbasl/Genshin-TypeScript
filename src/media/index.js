@@ -1,4 +1,3 @@
-export { default as VKLogo } from './img/contactsLogos/logo-vk.svg'
 export { default as TELEGRAMLogo } from './img/contactsLogos/logo-telegram.svg';
 export { default as MAILLogo } from './img/contactsLogos/email.svg';
 export { default as MapLogo } from './img/svgLogo/map.svg';
@@ -15,6 +14,7 @@ export { default as Two } from './img/Background/2.webp';
 export { default as Three } from './img/Background/3.webp';
 export { default as Four } from './img/Background/4.webp';
 export { default as Five } from './img/Background/5.webp';
+export { default as Six } from './img/Background/6.webp';
 //
 
 //form

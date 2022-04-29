@@ -49,7 +49,7 @@ function ActualPromo({ data }: ActualPromoProps){
         await sleep(2000);
 
         try {
-            const win = window.open(`https://genshin.mihoyo.com/en/gift?code=${promo.code}`, '_blank');
+            const win = window.open(`https://genshin.hoyoverse.com/ru/gift?code=${promo.code}`, '_blank');
             win?.focus();
         } catch (e: any) {
             throw new Error(e);

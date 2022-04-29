@@ -42,10 +42,11 @@ function PromoCodes(){
 
     useEffect(() => { // проверка на загрузку данных
         if(promocodes.length){
+            console.log(1)
             setIsLoading(true);
             setResultCodes(CheckCodes(promocodes, userPromocodes));
         }
-    }, [promocodes.length, userPromocodes]);
+    }, [promocodes.length, promocodes, userPromocodes]);
 
     if(!isLoading) {
         return(

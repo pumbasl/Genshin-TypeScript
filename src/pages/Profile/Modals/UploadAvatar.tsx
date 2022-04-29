@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate, useOutletContext } from 'react-router-dom';
+import { IStateButton } from '../../../types';
 
 //components
 import { Modal, Button, Form } from 'react-bootstrap';
@@ -26,16 +28,25 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { fetchNewAvatar } from '../../../store/thunks/userThunks';
 //
 
-interface IProps {
-    show: boolean;
-    close: () => void;
+interface IStateContext {
+    setStateButton: React.Dispatch<React.SetStateAction<IStateButton>>;
 };
 
-export default function UploadAvatar({ show, close }: IProps){
+export default function UploadAvatar(){
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const { setStateButton } = useOutletContext<IStateContext>();
     const avatarRef = useAppSelector((state) => state.user?.userinfo?.avatar?.ref);
     const [ image, setImage ] = useState<File | null>(null);
+
+    const handleClose = () => {
+        setStateButton({
+            text: 'Изменить аватарку',
+            disabled: false
+        });
+        navigate('/profile');
+    };
 
     const upload = () => {
         if(!image) return;
@@ -48,9 +59,10 @@ export default function UploadAvatar({ show, close }: IProps){
         uploadBytes(imageRef, image).then(() => {
             getDownloadURL(imageRef).then((url) => {
                 dispatch(fetchNewAvatar(url, imageRef.fullPath));
-                close();
+                handleClose();
             }).catch((error) => {
                 console.log(error);
+                toast.error(error);
             });
 
             if(avatarRef){
@@ -59,6 +71,7 @@ export default function UploadAvatar({ show, close }: IProps){
                     console.log('old image deleted');
                 }).catch((error) => {
                     console.log(error);
+                    toast.error(error);
                 });
             }
 
@@ -67,7 +80,7 @@ export default function UploadAvatar({ show, close }: IProps){
     };
 
     return(
-        <Modal centered show={show} onHide={close}>
+        <Modal centered show={true} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title>
                     {t('Изменение аватарки')}
@@ -81,7 +94,7 @@ export default function UploadAvatar({ show, close }: IProps){
                 />
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={close}>
+                <Button variant="secondary" onClick={handleClose}>
                     {t('Закрыть')}
                 </Button>
 

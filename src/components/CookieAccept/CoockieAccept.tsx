@@ -1,38 +1,39 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Container } from 'react-bootstrap';
-
-//style
-import { CoockieContainer } from "../../style/style";
-//
+import styled from 'styled-components';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 // Locales
 import { useTranslation } from 'react-i18next';
 //
 
-export default function Cookie(){
-    const [ show, setShow ] = useState(false);
-    const [ t ] = useTranslation();
-    const handleClick = () => {
-        localStorage.setItem('cookie', 'true');
-        setShow(false)
-    };
+//style
+const CoockieContainer = styled.div`
+    position: fixed;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, .9);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    z-index: 999;
+`;
 
-    if(!localStorage.getItem('cookie') && !show){
-        setShow(true);
-    }
+export default function Cookie(){
+    const [ show, setShow ] = useLocalStorage('cookie', true);
+    const [ t ] = useTranslation();
+
+    if(!show) return null;
 
     return(
-        show 
-        ? (<CoockieContainer>
-                <Container>
-                    <p><b>{t('cookie')}</b></p>
-                    <div className="text-right">
-                        <Button onClick={handleClick}>
-                            {t('Закрыть')}
-                        </Button>
-                    </div>
-                </Container>
-            </CoockieContainer>)
-        : (null)
+        <CoockieContainer>
+            <Container>
+                <p><b>{t('cookie')}</b></p>
+                <div className="text-right">
+                    <Button onClick={() => setShow(false)}>
+                        {t('Закрыть')}
+                    </Button>
+                </div>
+            </Container>
+        </CoockieContainer>
     );
 }
