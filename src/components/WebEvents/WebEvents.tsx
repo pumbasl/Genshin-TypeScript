@@ -1,32 +1,16 @@
 import React from 'react';
 import { IWebEvents } from '../../types';
-
-//Style
 import { Image } from "react-bootstrap";
-//
-
-//components
-import { Card, EmptyContainer, Preloader } from '..';
-//
-
-// Locales
+import { Badge, Card, EmptyContainer, Preloader } from '..';
 import { useTranslation } from 'react-i18next';
-//
-
-//Pictures
 import { EventLogo } from '../../media';
-//
-
-//redux
 import { useAppSelector } from '../../hooks/redux';
-//
+import getDays from '../../service/getDays';
 
 export default function WebEvents(){
     const { t } = useTranslation();
-    const webEvents = useAppSelector((state) => state.webEvents.data);
-    const isLoaded = useAppSelector((state) => state.webEvents.isLoaded);
-    const errors = useAppSelector((state) => state.webEvents.errors);
-
+    const { data, errors, isLoaded } = useAppSelector((state) => state.webEvents);
+    
     const handleClick = async (webEvent: IWebEvents) => {
         try {
             const win = window.open(webEvent.link, '_blank');
@@ -45,6 +29,11 @@ export default function WebEvents(){
                     <Image src={EventLogo} width="25px" height="100%" />
                     &nbsp;
                     {webEvent.name}
+                    &nbsp;
+                    
+                    <Badge check={ getDays(webEvent.created) <= 4 }>
+                        New!
+                    </Badge>
 
                     <Card.Time expired={webEvent.expired}>
                         {t('Действует до')}: &nbsp;
@@ -77,7 +66,7 @@ export default function WebEvents(){
     return(
         <>
             <DefaultComponent />
-            {webEvents.length !== 0 ? (webEvents.map(renderWebEvents)) : (<EmptyContainer />)}
+            {data.length !== 0 ? (data.map(renderWebEvents)) : (<EmptyContainer />)}
         </>
     );
 }

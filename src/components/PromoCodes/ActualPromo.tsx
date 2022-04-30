@@ -2,23 +2,14 @@ import React from 'react';
 import { IPromoCode } from '../../types';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-hot-toast';
-import { Card, EmptyContainer } from '../index';
+import { Card, EmptyContainer, Badge } from '../index';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchClickPromo } from '../../store/thunks/userThunks';
+import getDays from '../../service/getDays';
 import sleep from '../../js/sleep';
-import { Badge } from 'react-bootstrap';
 
 interface ActualPromoProps {
     data: IPromoCode[];
-};
-
-interface IBadgeCheck {
-    check: boolean;
-};
-
-const BadgeHOC = ({ check }: IBadgeCheck) => {
-    if(check) return <Badge bg='purple'>New!</Badge>;
-    return null;
 };
 
 function ActualPromo({ data }: ActualPromoProps){
@@ -56,7 +47,11 @@ function ActualPromo({ data }: ActualPromoProps){
         return(
             <Card.Label key={promo._id}>
                 <Card.Body onClick={() => { handleClick(promo) }}>
-                    {promo.code} <BadgeHOC check={ Math.round((Date.now() - promo.created)/86400000) <= 2 } />
+                    {promo.code} &nbsp; 
+                    <Badge check={ getDays(promo.created) <= 2 }>
+                        New!
+                    </Badge>
+
                     <Card.Time expired={promo.expired}>
                         {t('Действует до')}: &nbsp;
                     </Card.Time>
