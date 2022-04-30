@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 import { BrowserRouter } from 'react-router-dom';
 import './i18n';
@@ -14,19 +14,17 @@ export default function App(){
     return(
         <ErrorBoundary>
             <Background />
-            <Suspense fallback={<></>}>
-                <Toaster />
-                <CookieNotify />
-                <Alert />
+            <Toaster />
+            <CookieNotify />
+            <Alert />
 
-                <Wrapper>
-                    <BrowserRouter>
-                        <Header />
-                        <Main />
-                        <Footer />
-                    </BrowserRouter>
-                </Wrapper>
-            </Suspense>
+            <Wrapper>
+                <BrowserRouter>
+                    <Header />
+                    <Main />
+                    <Footer />
+                </BrowserRouter>
+            </Wrapper>
         </ErrorBoundary>
     );
 }

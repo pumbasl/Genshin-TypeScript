@@ -5,6 +5,7 @@ query GetPromoCodesAndUserCodesAndWebEvents($server: String!){
     code
     server
     expired
+    created
   }
   
   getRegUserPromo{
@@ -13,6 +14,7 @@ query GetPromoCodesAndUserCodesAndWebEvents($server: String!){
       code
       server
       expired
+      created
     }
   }
   

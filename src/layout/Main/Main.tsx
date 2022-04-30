@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
-//Routers
 import Routers from '../../routers/Routers';
-//
 
 //style
 const Main = styled.div`

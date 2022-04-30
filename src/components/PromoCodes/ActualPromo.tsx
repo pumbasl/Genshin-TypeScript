@@ -1,28 +1,24 @@
 import React from 'react';
-
 import { IPromoCode } from '../../types';
-
-// Locales
 import { useTranslation } from 'react-i18next';
-//
-
-//notify
 import { toast } from 'react-hot-toast';
-//
-
-//Components
 import { Card, EmptyContainer } from '../index';
-//
-
-//redux
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchClickPromo } from '../../store/thunks/userThunks';
-//
-
 import sleep from '../../js/sleep';
+import { Badge } from 'react-bootstrap';
 
 interface ActualPromoProps {
     data: IPromoCode[];
+};
+
+interface IBadgeCheck {
+    check: boolean;
+};
+
+const BadgeHOC = ({ check }: IBadgeCheck) => {
+    if(check) return <Badge bg='purple'>New!</Badge>;
+    return null;
 };
 
 function ActualPromo({ data }: ActualPromoProps){
@@ -31,7 +27,7 @@ function ActualPromo({ data }: ActualPromoProps){
     const userPromos = useAppSelector((state) => state.user.userPromocodes);
 
     const handleClick = async (promo: IPromoCode) => {
-    if(localStorage.getItem('token')){
+        if(localStorage.getItem('token')){
             toast.success(t('Вы будете перенаправлены на страницу ввода промокода через 2 секунды.')); //уведомление
 
             let tempArray: string[] = [];
@@ -60,7 +56,7 @@ function ActualPromo({ data }: ActualPromoProps){
         return(
             <Card.Label key={promo._id}>
                 <Card.Body onClick={() => { handleClick(promo) }}>
-                    {promo.code}
+                    {promo.code} <BadgeHOC check={ Math.round((Date.now() - promo.created)/86400000) <= 2 } />
                     <Card.Time expired={promo.expired}>
                         {t('Действует до')}: &nbsp;
                     </Card.Time>
@@ -75,7 +71,7 @@ function ActualPromo({ data }: ActualPromoProps){
                 <b>{t('Актуальные промокоды')}:</b>
             </h4>
 
-            { data.length !== 0 ? (data.map(renderPromocode)) : (<EmptyContainer />) }
+            { data.length !== 0 ? (data.map(renderPromocode).reverse()) : (<EmptyContainer />) }
         </>
     );
 }

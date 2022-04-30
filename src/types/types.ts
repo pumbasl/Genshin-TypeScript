@@ -7,8 +7,9 @@ export interface IGameInfo{
 export interface IPromoCode{
     _id: string;
     code: string;
-    server: string;
+    server: 'All' | 'Europe' | 'America' | 'Asia';
     expired: number;
+    created: number;
 }
 
 export interface IWebEvents{

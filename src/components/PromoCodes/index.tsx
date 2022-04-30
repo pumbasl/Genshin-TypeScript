@@ -28,9 +28,7 @@ interface IResultCodes {
 
 function PromoCodes(){
     const dispatch = useAppDispatch();
-    const promocodes = useAppSelector((state) => state.user.promocodes);
-    const userPromocodes = useAppSelector((state) => state.user.userPromocodes);
-    const server = useAppSelector((state) => state.user.server);
+    const { promocodes, userPromocodes, server } = useAppSelector((state) => state.user);
     const [ isLoading, setIsLoading ] = useState(false);
     const [ resultCodes, setResultCodes ] = useState<IResultCodes | null>(null);
 
@@ -42,7 +40,6 @@ function PromoCodes(){
 
     useEffect(() => { // проверка на загрузку данных
         if(promocodes.length){
-            console.log(1)
             setIsLoading(true);
             setResultCodes(CheckCodes(promocodes, userPromocodes));
         }

@@ -5,6 +5,7 @@ query GetPromoCodesAndWebEvents($server: String!){
     code
     server
     expired
+    created
   }
   
   subfields{
@@ -12,6 +13,7 @@ query GetPromoCodesAndWebEvents($server: String!){
     name
     link
     expired
+    created
   }
 }`;
 
