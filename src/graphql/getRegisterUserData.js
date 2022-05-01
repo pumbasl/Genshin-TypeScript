@@ -23,6 +23,7 @@ query GetPromoCodesAndUserCodesAndWebEvents($server: String!){
     name
     link
     expired
+    created
   }
 }`;
 

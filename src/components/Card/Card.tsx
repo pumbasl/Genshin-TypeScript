@@ -1,51 +1,34 @@
 import React from 'react';
-
-//components
-import { TimeView } from '../index';
-//
-
-//Style
+import { Badge as BadgeHOC } from '../index';
 import { Badge } from 'react-bootstrap';
-import { PromoCardBlock, PromoExpired, PromoCard } from '../../style/style';
-//
+import { CardStyle } from './style';
+import getDays from '../../service/getDays';
+import { IPromoCode, IWebEvents } from '../../types';
 
-interface ICard extends React.HTMLAttributes<HTMLDivElement> {
+interface ICard{
     children: React.ReactNode;
+    data: IPromoCode | IWebEvents;
+    handleClick?: (data: IPromoCode | IWebEvents) => Promise<void>;
+    expiredText: React.ReactNode;
 };
 
-interface ICardTime extends ICard {
-    expired: number;
-};
+export const Card = ({ data, children, handleClick, expiredText }: ICard) => {
+    return(
+        <CardStyle className="row">
+            <div className='col' { ...(handleClick ? { onClick: () => handleClick(data) } : {}) }>
+                {children} &nbsp; 
+                <BadgeHOC check={ getDays(data.created) <= 2 }>
+                    New!
+                </BadgeHOC>
+            </div>
 
-const Card = {
-
-    Label: function Label({ children, ...props }: ICard){
-        return(
-            <PromoCard {...props}>
-                {children}
-            </PromoCard>
-        );
-    },
-
-    Body: function Body({ children, ...props }: ICard){
-        return(
-            <PromoCardBlock {...props}>
-                {children}
-            </PromoCardBlock>
-        );
-    },
-
-    Time: function Time({ children, expired, ...props }: ICardTime){
-        return(
-            <PromoExpired {...props}>
+            <div className='col text-end'>
                 <Badge bg="purple">
-                    <TimeView time={expired}>
-                        {children}
-                    </TimeView>
+                    {expiredText}
                 </Badge>
-            </PromoExpired>
-        );
-    }
+            </div>
+        </CardStyle>
+    );
 };
 
 export default Card;

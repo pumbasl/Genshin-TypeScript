@@ -1,11 +1,10 @@
 import React from 'react';
 import { IWebEvents } from '../../types';
 import { Image } from "react-bootstrap";
-import { Badge, Card, EmptyContainer, Preloader } from '..';
+import { TimeView, Card, EmptyContainer, Preloader } from '..';
 import { useTranslation } from 'react-i18next';
 import { EventLogo } from '../../media';
 import { useAppSelector } from '../../hooks/redux';
-import getDays from '../../service/getDays';
 
 export default function WebEvents(){
     const { t } = useTranslation();
@@ -24,22 +23,17 @@ export default function WebEvents(){
         if(webEvent.expired < Date.now()) return null;
 
         return(
-            <Card.Label key={webEvent._id}>
-                <Card.Body onClick={() => { handleClick(webEvent) }}>
-                    <Image src={EventLogo} width="25px" height="100%" />
-                    &nbsp;
-                    {webEvent.name}
-                    &nbsp;
-                    
-                    <Badge check={ getDays(webEvent.created) <= 4 }>
-                        New!
-                    </Badge>
-
-                    <Card.Time expired={webEvent.expired}>
-                        {t('Действует до')}: &nbsp;
-                    </Card.Time>
-                </Card.Body>
-            </Card.Label>
+            <Card
+                data={webEvent}
+                key={webEvent._id}
+                expiredText={<TimeView time={webEvent.expired}> {t('Действует до')}: &nbsp; </TimeView>}
+                handleClick={() => handleClick(webEvent)}
+            >
+                <Image src={EventLogo} width="25px" height="100%" />
+                &nbsp;
+                {webEvent.name}
+                &nbsp;
+            </Card>
         );
     };
 

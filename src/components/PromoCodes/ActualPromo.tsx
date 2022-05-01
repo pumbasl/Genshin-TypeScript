@@ -2,10 +2,9 @@ import React from 'react';
 import { IPromoCode } from '../../types';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-hot-toast';
-import { Card, EmptyContainer, Badge } from '../index';
+import { Card, EmptyContainer, TimeView } from '../index';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchClickPromo } from '../../store/thunks/userThunks';
-import getDays from '../../service/getDays';
 import sleep from '../../js/sleep';
 
 interface ActualPromoProps {
@@ -43,22 +42,16 @@ function ActualPromo({ data }: ActualPromoProps){
         }
     };
 
-    const renderPromocode = (promo: IPromoCode) => {
-        return(
-            <Card.Label key={promo._id}>
-                <Card.Body onClick={() => { handleClick(promo) }}>
-                    {promo.code} &nbsp; 
-                    <Badge check={ getDays(promo.created) <= 2 }>
-                        New!
-                    </Badge>
-
-                    <Card.Time expired={promo.expired}>
-                        {t('Действует до')}: &nbsp;
-                    </Card.Time>
-                </Card.Body>
-            </Card.Label>
-        );
-    };
+    const renderPromocode = (promo: IPromoCode) => (
+        <Card
+            data={promo}
+            key={promo._id}
+            expiredText={<TimeView time={promo.expired}> {t('Действует до')}: &nbsp; </TimeView>}
+            handleClick={() => handleClick(promo)}
+        >
+            {promo.code}
+        </Card>
+    );
 
     return(
         <>

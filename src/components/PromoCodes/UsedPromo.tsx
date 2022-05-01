@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 //
 
 //Components
-import { Card, EmptyContainer } from '../index';
+import { Card, EmptyContainer, TimeView } from '../index';
 //
 
 interface ActivatedProps {
@@ -20,18 +20,15 @@ function Activated({ data }: ActivatedProps){
     let copyArrayData = data.slice(0);
     copyArrayData = copyArrayData.reverse();
 
-    const renderPromocode = (promo: IPromoCode) => {
-        return(
-            <Card.Label key={promo._id}>
-                <Card.Body>
-                    {promo.code}
-                    <Card.Time expired={promo.expired}>
-                        {t('Действует до')}: &nbsp; 
-                    </Card.Time>
-                </Card.Body>
-            </Card.Label>
-        );
-    };
+    const renderPromocode = (promo: IPromoCode) => (
+        <Card
+            data={promo}
+            key={promo._id}
+            expiredText={<TimeView time={promo.expired}> {t('Действует до')}: &nbsp; </TimeView>}
+        >
+            {promo.code}
+        </Card>
+    );
 
     return(
         <>

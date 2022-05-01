@@ -20,8 +20,7 @@ export default function Profile(){
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { t } = useTranslation();
-    const token = useAppSelector((state) => state.user.token);
-    const data = useAppSelector((state) => state.user.userinfo);
+    const { token, userinfo } = useAppSelector((state) => state.user);
     const [ stateButton, setStateButton ] = useState<IStateButton>({
         text: 'Изменить аватарку',
         disabled: false
@@ -35,7 +34,7 @@ export default function Profile(){
 
     if(!token) navigate('/');
 
-    if(!data){
+    if(!userinfo){
         return(
             <Container>
                 <Preloader />
@@ -75,14 +74,14 @@ export default function Profile(){
                     </div>
                 </Col>
                 <Col>
-                    <TableWithInfo data={data} />  
+                    <TableWithInfo data={userinfo} />  
                     <div className="text-center">
                         <ButtonGroup>
                             <Button as={Link as any} to="/profile/settings" variant="dark-custom">
                                 {t('Изменить данные')}
                             </Button>
                             {
-                                data.roles.includes('Admin') ? (
+                                userinfo.roles.includes('Admin') ? (
                                     <Button as={Link as any} to="/admin" variant="danger">
                                         Admin Panel
                                     </Button>

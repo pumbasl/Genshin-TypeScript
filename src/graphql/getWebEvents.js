@@ -4,6 +4,7 @@ const webEvents = `query fetchWebEvents{
     name
     link
     expired
+    created
   }
 }`;
 

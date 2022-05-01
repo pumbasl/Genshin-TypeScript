@@ -6,7 +6,7 @@ import { IPromoCode } from '../../types';
 //
 
 //Components
-import { Card, EmptyContainer } from '../index';
+import { Card, EmptyContainer, TimeView } from '../index';
 //
 
 interface HistoryProps{
@@ -16,18 +16,15 @@ interface HistoryProps{
 function History({ data }: HistoryProps){
     const { t } = useTranslation();
 
-    const renderPromocode = (promo: IPromoCode) => {
-        return(
-            <Card.Label key={promo._id}>
-                <Card.Body>
-                    {promo.code}
-                    <Card.Time expired={promo.expired}>
-                        {t('Действовал до')}: &nbsp; 
-                    </Card.Time>
-                </Card.Body>
-            </Card.Label>
-        );
-    };
+    const renderPromocode = (promo: IPromoCode) => (
+        <Card
+            data={promo}
+            key={promo._id}
+            expiredText={<TimeView time={promo.expired}> {t('Действовал до')}: &nbsp; </TimeView>}
+        >
+            {promo.code}
+        </Card>
+    );
 
     return(
         <>
