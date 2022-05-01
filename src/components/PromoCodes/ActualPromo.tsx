@@ -18,7 +18,9 @@ function ActualPromo({ data }: ActualPromoProps){
 
     const handleClick = async (promo: IPromoCode) => {
         if(localStorage.getItem('token')){
-            toast.success(t('Вы будете перенаправлены на страницу ввода промокода через 2 секунды.')); //уведомление
+            toast.success(t('Вы будете перенаправлены на страницу ввода промокода через 2 секунды.'), {
+                duration: 2000
+            }); //уведомление
 
             let tempArray: string[] = [];
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 //components
 import { Row, Col } from 'react-bootstrap';
@@ -17,16 +17,16 @@ export default function Admin(){
     document.title = 'Genshin Promo | Admin Panel';
 
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
+    const location = useLocation();
     const token = useAppSelector((state) => state.user.token);
     const userinfo = useAppSelector((state) => state.user.userinfo);
-    
-    if(!token) navigate('/');
-    if(userinfo && !userinfo.roles.includes('Admin')) navigate('/');
 
     useEffect(() => {
-        dispatch(fetchUserInfo());
-    }, [dispatch]);
+        if(token) dispatch(fetchUserInfo());
+    }, [dispatch, token]);
+    
+    if(!token) return <Navigate to="/" state={{ from: location }} replace />;
+    if(userinfo && !userinfo.roles.includes('Admin')) return <Navigate to="/" state={{ from: location }} replace />;
 
     return(
         <Container>

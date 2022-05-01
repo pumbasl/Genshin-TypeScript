@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Suspense } from 'react';
-import { useNavigate, Link, Outlet } from 'react-router-dom';
+import { useNavigate, useLocation, Link, Outlet, Navigate } from 'react-router-dom';
 import { IStateButton } from '../../types';
 
 //components
@@ -18,6 +18,7 @@ import { fetchUserInfo } from '../../store/thunks/userThunks';
 
 export default function Profile(){
     const navigate = useNavigate();
+    const location = useLocation();
     const dispatch = useAppDispatch();
     const { t } = useTranslation();
     const { token, userinfo } = useAppSelector((state) => state.user);
@@ -29,10 +30,10 @@ export default function Profile(){
     document.title = 'Genshin Promo | Profile';
 
     useEffect(() => {
-        dispatch(fetchUserInfo());
-    }, [dispatch]);
+        if(token) dispatch(fetchUserInfo());
+    }, [dispatch, token]);
 
-    if(!token) navigate('/');
+    if(!token) return <Navigate to="/auth/login" state={{ from: location }} replace />;
 
     if(!userinfo){
         return(

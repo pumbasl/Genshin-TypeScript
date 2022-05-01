@@ -79,7 +79,7 @@ export default function Registration(){
     useEffect(() => {
         if(token){
             toast.success(t('Вы успешно зарегистрировались.')); //уведомление
-            navigate('/');
+            navigate('/', { replace: true });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token]);

@@ -11,7 +11,13 @@ interface IProps {
 };
 
 export default function Preloader({ fixed }: IProps){
-    if(!fixed) return <Spinner animation="grow" variant="purple" />;
+    if(!fixed) {
+        return(
+            <div>
+                <Spinner animation="grow" variant="purple" />
+            </div>
+        );
+    }
 
     return(
         <FixedComponent>

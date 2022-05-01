@@ -1,15 +1,11 @@
-import styled, { keyframes } from 'styled-components';
-import { pulse } from 'react-animations';
-
-const pulseAnimation = keyframes`${pulse}`;
+import styled from 'styled-components';
 
 export const CardStyle = styled.div`
     border: 1px solid #000;
     margin: 0px;
-    padding: 15px;
+    padding: 15px 5px 15px 5px;
 
     &:hover{
-        animation: .3s ${pulseAnimation};
         cursor: pointer;
         text-decoration: none;
         color: inherit;

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 const AlertStyle = styled.div`
     padding: 10px;
@@ -18,11 +19,15 @@ const ColorLink = styled.span`
 `;
 
 const Alert = () => {
+    const { t } = useTranslation();
+
     return(
         <AlertStyle className='text-center'>
-            Поддержите Украину 🇺🇦 
+            {t('Поддержите Украину')} 🇺🇦 
             <ColorLink>
-                <a href='https://opensource.fb.com/support-ukraine'>Помогите с гуманитарной помощью Украине. Россияне, не молчите! Нет войне!</a>
+                <a href='https://opensource.fb.com/support-ukraine'>
+                    {t('Помогите с гуманитарной помощью Украине. Россияне, не молчите! Нет войне!')}
+                </a>
             </ColorLink>
         </AlertStyle>
     );

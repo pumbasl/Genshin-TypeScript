@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge as BadgeHOC } from '../index';
+import { Badge as BadgeHOC, DeleteCol } from '../index';
 import { Badge } from 'react-bootstrap';
 import { CardStyle } from './style';
 import getDays from '../../service/getDays';
@@ -26,6 +26,8 @@ export const Card = ({ data, children, handleClick, expiredText }: ICard) => {
                 <Badge bg="purple">
                     {expiredText}
                 </Badge>
+
+                <DeleteCol data={data} />
             </div>
         </CardStyle>
     );

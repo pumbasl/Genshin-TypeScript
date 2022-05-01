@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate, useLocation } from 'react-router-dom';
 import { IGameInfo } from '../../../types';
 
 //components
@@ -38,6 +38,7 @@ export default function Settings(){
     document.title = 'Genshin Promo | Settings';
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const location = useLocation();
     const dispatch = useAppDispatch();
     const token = useAppSelector((state) => state.user.token);
     const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
@@ -66,9 +67,7 @@ export default function Settings(){
         navigate('/profile');
     };
 
-    if(!token){
-        navigate('/');
-    }
+    if(!token) return <Navigate to="/auth/login" state={{ from: location }} replace />;
 
     return(
         <ContainerForForm>

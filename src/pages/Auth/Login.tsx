@@ -72,7 +72,7 @@ export default function Login(){
     useEffect(() => {
         if(token){
             toast.success(t('Вы успешно авторизовались.')); //уведомление
-            navigate('/');
+            navigate('/', { replace: true });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token]);
