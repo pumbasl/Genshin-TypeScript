@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-
-//componentns
 import {
     Modal,
     Button,
@@ -9,29 +7,13 @@ import {
     Image
 } from 'react-bootstrap';
 import { ErrorsForm } from '../../../components';
-//
-
-//useform
 import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
-//
-
-//redux
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { userSlice } from '../../../store/reducers/userSlice';
 import { adminSlice } from '../../../store/reducers/adminSlice';
 import { fetchLogOutUser, fetchEditUser } from '../../../store/thunks/adminThunks';
-//
-
-//icons
 import { LoginIcon } from '../../../media';
-//
-
-//notify
 import { toast } from 'react-hot-toast';
-//
-
 
 //actions
 const setErrors = userSlice.actions.setErrors;
@@ -42,13 +24,8 @@ export default function ActionUswerModal({ show, close, data }){
     const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
     const users = useAppSelector((state) => state.admin.users);
 
-    const schema = yup.object({
-        login: yup.string().required("Это поле обязательно для заполнения!").min(4, "Логин не может быть меньше 4 символов!").max(25, "Логин не может быть больше 25 символов!"),
-        role: yup.string().required("Это поле обязательно для заполнения!")
-    }).required();
-
     const { register, handleSubmit, reset, formState: { errors } } = useForm({
-        resolver: yupResolver(schema)
+        mode: 'onChange'
     });
 
     const onSubmit = resultForm => {
@@ -117,7 +94,20 @@ export default function ActionUswerModal({ show, close, data }){
                             <InputGroup.Text>
                                 <Image src={LoginIcon} width="100%" height="100%" />
                             </InputGroup.Text>
-                            <Form.Control type="text" placeholder="Логин" {...register("login", { minLength: 4, maxLength: 24 })} />
+                            <Form.Control
+                                type="text"
+                                placeholder="Логин"
+                                {...register("login", {
+                                    required: 'Это поле обязательно для заполнения!',
+                                    minLength: {
+                                        value: 4,
+                                        message: 'Логин не может быть меньше 4 символов!'
+                                    },
+                                    maxLength: {
+                                        value: 25,
+                                        message: 'Логин не может быть больше 25 символов!'
+                                    }
+                                })} />
                         </InputGroup>
 
                         <ErrorsForm message={errors.login?.message} />
@@ -133,7 +123,7 @@ export default function ActionUswerModal({ show, close, data }){
                             type='radio'
                             label='Admin'
                             value='Admin'
-                            {...register("role")}
+                            {...register("role", { required: 'Это поле обязательно для заполнения!'})}
                         />
 
                         <Form.Check
@@ -141,7 +131,7 @@ export default function ActionUswerModal({ show, close, data }){
                             type='radio'
                             label='User'
                             value='User'
-                            {...register("role")}
+                            {...register("role", { required: 'Это поле обязательно для заполнения!'})}
                         />
 
                         <ErrorsForm message={errors.role?.message} />

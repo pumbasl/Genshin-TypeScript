@@ -1,25 +1,11 @@
 import React, { useEffect } from 'react';
-
-//components
 import { Form, Button } from 'react-bootstrap';
 import { ErrorsForm } from '../../../components';
-//
-
-//useform
 import { useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
-//
-
-//redux
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { userSlice } from '../../../store/reducers/userSlice';
 import { fetchAddNews } from '../../../store/thunks/adminThunks';
-//
-
-//notify
 import { toast } from 'react-hot-toast';
-//
 
 //actions
 const setErrors = userSlice.actions.setErrors;
@@ -33,15 +19,9 @@ interface IAddNews {
 export default function AddNews(){
     const dispatch = useAppDispatch();
     const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
-    
-    const schema = yup.object({
-        title: yup.string().required("Это поле обязательно для заполнения!"),
-        subtitle: yup.string().required("Это поле обязательно для заполнения!"),
-        text: yup.string().required("Это поле обязательно для заполнения!")
-    }).required();
 
     const { register, handleSubmit, formState: { errors } } = useForm<IAddNews>({
-        resolver: yupResolver(schema)
+        mode: 'onChange'
     });
 
     const onSubmit: SubmitHandler<IAddNews> = data => {
@@ -63,14 +43,24 @@ export default function AddNews(){
                     Заголовок:
                 </Form.Label>
 
-                <Form.Control type="text" placeholder="Заголовок" {...register("title", { required: true })} />
+                <Form.Control
+                    type="text"
+                    placeholder="Заголовок"
+                    {...register("title", {
+                        required: "Это поле обязательно для заполнения!"
+                    })} />
 
                 <ErrorsForm message={errors.title?.message} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="actionFormAddNews">
 
-                <Form.Control type="text" placeholder="Под заголовок" {...register("subtitle", { required: true })} />
+                <Form.Control
+                    type="text"
+                    placeholder="Под заголовок"
+                    {...register("subtitle", {
+                        required: "Это поле обязательно для заполнения!"
+                    })} />
 
                 <ErrorsForm message={errors.subtitle?.message} />
             </Form.Group>
@@ -80,7 +70,12 @@ export default function AddNews(){
                     Текст новости:
                 </Form.Label>
                 
-                <Form.Control as="textarea" placeholder="Текст новости" {...register("text", { required: true })} />
+                <Form.Control
+                    as="textarea"
+                    placeholder="Текст новости"
+                    {...register("text", {
+                        required: "Это поле обязательно для заполнения!"
+                    })} />
 
                 <ErrorsForm message={errors.text?.message} />
             </Form.Group>

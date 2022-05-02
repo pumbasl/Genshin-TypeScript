@@ -1,30 +1,12 @@
 import React, { useEffect } from 'react';
-
-//components
 import { Form, InputGroup, Image, Button } from 'react-bootstrap';
 import { ErrorsForm } from '../../../components';
-//
-
-//icons
 import { TextIcon, LinkIcon } from '../../../media';
-//
-
-//useform
 import { useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
-//
-
-//redux
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { userSlice } from '../../../store/reducers/userSlice';
 import { fetchAddWebEvent } from '../../../store/thunks/adminThunks';
-//
-
-//notify
 import { toast } from 'react-hot-toast';
-//
-
 
 //actions
 const setErrors = userSlice.actions.setErrors;
@@ -38,22 +20,13 @@ interface IWebEventAdd {
 export default function AddPromo(){
     const dispatch = useAppDispatch();
     const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
-    
-    const schema = yup.object({
-        name: yup.string()
-        .required("Это поле обязательно для заполнения!"),
-
-        expired: yup.string()
-        .required("Это поле обязательно для заполнения!")
-
-    }).required();
 
     const { register, handleSubmit, formState: { errors } } = useForm<IWebEventAdd>({
-        resolver: yupResolver(schema)
+        mode: 'onChange'
     });
 
     const onSubmit: SubmitHandler<IWebEventAdd> = data => {
-        dispatch(fetchAddWebEvent(data));
+        if(!data.expired) dispatch(fetchAddWebEvent(data));
     };
     
     useEffect(() => {
@@ -75,7 +48,12 @@ export default function AddPromo(){
                     <InputGroup.Text>
                         <Image src={TextIcon} width="100%" height="100%" />
                     </InputGroup.Text>
-                    <Form.Control type="text" placeholder="Ивент" {...register("name", { required: true })} />
+                    <Form.Control
+                        type="text"
+                        placeholder="Ивент"
+                        {...register("name", {
+                            required: "Это поле обязательно для заполнения!"
+                        })} />
                 </InputGroup>
 
                 <ErrorsForm message={errors.name?.message} />
@@ -90,7 +68,12 @@ export default function AddPromo(){
                     <InputGroup.Text>
                         <Image src={LinkIcon} width="100%" height="100%" />
                     </InputGroup.Text>
-                    <Form.Control type="text" placeholder="Ссылка" {...register("link", { required: true })} />
+                    <Form.Control
+                        type="text"
+                        placeholder="Ссылка"
+                        {...register("link", {
+                            required: "Это поле обязательно для заполнения!"
+                        })} />
                 </InputGroup>
 
                 <ErrorsForm message={errors.link?.message} />
@@ -103,7 +86,10 @@ export default function AddPromo(){
 
                 <Form.Control
                     type="datetime-local"
-                    {...register("expired", { required: true })}
+                    {...register("expired", {
+                        required: "Это поле обязательно для заполнения!",
+                        valueAsDate: true
+                    })}
                 />
 
                 <ErrorsForm message={errors.expired?.message} />

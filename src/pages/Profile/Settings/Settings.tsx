@@ -1,36 +1,16 @@
 import React, { useEffect } from 'react';
 import { useNavigate, Navigate, useLocation } from 'react-router-dom';
 import { IGameInfo } from '../../../types';
-
-//components
 import { Form, InputGroup, Image, Button } from 'react-bootstrap';
 import { ErrorsForm } from '../../../components';
 import { ContainerForForm } from '../../../style/style';
-//
-
-//useform
 import { useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
-//
-
-//icons
 import { Rank, Id, Name } from '../../../media';
-//
-
-//locales
 import { useTranslation } from 'react-i18next';
-//
-
-//notify
 import { toast } from 'react-hot-toast';
-//
-
-//redux
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
-import { fetchNewUserGameInfo } from '../../../store/thunks/userThunks';
+import { fetchNewUserGameInfo, fetchUserInfo } from '../../../store/thunks/userThunks';
 import { userSlice } from '../../../store/reducers/userSlice';
-//
 
 const setErrors = userSlice.actions.setErrors;
 
@@ -40,17 +20,10 @@ export default function Settings(){
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useAppDispatch();
-    const token = useAppSelector((state) => state.user.token);
-    const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
-
-    const schema = yup.object({
-        gameNickName: yup.string().min(1, t('Игровое имя не может быть меньше 1 символа!')).max(25, t('Игровое имя  не может быть больше 25 символов!')),
-        adventureLvl: yup.number().min(1, t('Уровень приключений не может быть меньше 1 символа!')).max(60, t('Уровень приключений не может быть больше 2 символов!')),
-        mainChar: yup.string().min(2, t('Это поле не может быть меньше 2 символов!')).max(24, t('Это поле не может быть больше 24 символов!'))
-    }).required();
+    const { token, errorsAuth, userinfo } = useAppSelector((state) => state.user);
 
     const { register, handleSubmit, formState: { errors } } = useForm<IGameInfo>({
-        resolver: yupResolver(schema)
+        mode: 'onChange'
     });
 
     useEffect(() => {
@@ -60,6 +33,10 @@ export default function Settings(){
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [errorsAuth]);
+
+    useEffect(() => {
+        dispatch(fetchUserInfo());
+    }, [dispatch]);
 
     const onSubmit: SubmitHandler<IGameInfo> = data => {
         toast.success(t('Успешно сохранено.')); //уведомление
@@ -81,7 +58,21 @@ export default function Settings(){
                         <InputGroup.Text>
                             <Image src={Name} width="18px" height="100%" />
                         </InputGroup.Text>
-                        <Form.Control type="text" placeholder={t('Игровой ник')} {...register("gameNickName", { required: true, minLength: 1, maxLength: 25 })} />
+                        <Form.Control
+                            type="text"
+                            placeholder={t('Игровой ник')}
+                            defaultValue={userinfo?.gameInfo?.gameNickName}
+                            {...register("gameNickName", {
+                                required: t('Это поле обязательно для заполнения!'),
+                                minLength: {
+                                    value: 1,
+                                    message: t('Игровое имя не может быть меньше 1 символа!')
+                                },
+                                maxLength: {
+                                    value: 25,
+                                    message: t('Игровое имя  не может быть больше 25 символов!')
+                                }
+                            })} />
                     </InputGroup>
 
                     <ErrorsForm message={errors.gameNickName?.message} />
@@ -96,7 +87,22 @@ export default function Settings(){
                         <InputGroup.Text>
                             <Image src={Rank} width="18px" height="100%" />
                         </InputGroup.Text>
-                        <Form.Control type="text" defaultValue={1} placeholder={t('Ранг приключений')} {...register("adventureLvl", { required: true, minLength: 1, maxLength: 2 })} />
+                        <Form.Control
+                            type="number"
+                            placeholder={t('Ранг приключений')}
+                            defaultValue={userinfo?.gameInfo?.adventureLvl}
+                            {...register("adventureLvl", {
+                                required: t('Это поле обязательно для заполнения!'),
+                                valueAsNumber: true,
+                                min: {
+                                    value: 1,
+                                    message: t('Уровень приключений не может быть меньше 1 уровня!')
+                                },
+                                max: {
+                                    value: 60,
+                                    message: t('Уровень приключений не может быть больше 60 уровня!')
+                                }
+                            })} />
                     </InputGroup>
 
                     <ErrorsForm message={errors.adventureLvl?.message} />
@@ -111,7 +117,21 @@ export default function Settings(){
                         <InputGroup.Text>
                             <Image src={Id} width="18px" height="100%" />
                         </InputGroup.Text>
-                        <Form.Control type="text" placeholder={t('Ваш мейн персонаж')} {...register("mainChar", { required: true, minLength: 2, maxLength: 24 })} />
+                        <Form.Control 
+                            type="text"
+                            placeholder={t('Ваш мейн персонаж')}
+                            defaultValue={userinfo?.gameInfo?.mainChar}
+                            {...register("mainChar", {
+                                required: t('Это поле обязательно для заполнения!'),
+                                minLength: {
+                                    value: 2,
+                                    message: t('Это поле не может быть меньше 2 символов!')
+                                },
+                                maxLength: {
+                                    value: 24,
+                                    message: t('Это поле не может быть больше 24 символов!')
+                                }
+                            })} />
                     </InputGroup>
 
                     <ErrorsForm message={errors.mainChar?.message} />

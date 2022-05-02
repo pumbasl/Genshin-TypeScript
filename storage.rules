@@ -6,7 +6,7 @@ service firebase.storage {
       allow write: if request.resource.size < 1 * 1024 * 1024
                    && request.resource.contentType.matches('image/.*');
       allow delete: if true;
-      allow get: if true;
+      allow read: if true;
     }
   }
 }

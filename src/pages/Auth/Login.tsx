@@ -1,35 +1,15 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
-//useform
 import { useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
-//
-
-//components
 import { Form, InputGroup, Image, Button } from 'react-bootstrap';
 import { ContainerForForm } from '../../style/style';
 import { ErrorsForm } from '../../components';
-//
-
-//icons
 import { LoginIcon, PasswordIcon } from '../../media';
-//
-
-//locales
 import { useTranslation } from 'react-i18next';
-//
-
-//notify
 import { toast } from 'react-hot-toast';
-//
-
-//redux
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchLogin } from '../../store/thunks/userThunks';
 import { userSlice } from '../../store/reducers/userSlice';
-//
 
 const setErrors = userSlice.actions.setErrors;
 
@@ -45,20 +25,8 @@ export default function Login(){
     const token = useAppSelector((state) => state.user.token);
     const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
 
-    const schema = yup.object({
-        login: yup.string()
-        .required(t('Это поле обязательно для заполнения!'))
-        .min(4, t('Логин не может быть меньше 4 символов!'))
-        .max(25, t('Логин не может быть больше 25 символов!'))
-        .matches(/^[a-zA-Z0-9]+$/, t('Логин может состоять только из латинских символов и цифр.')),
-
-        password: yup.string()
-        .required(t('Это поле обязательно для заполнения!'))
-        .min(4, t('Пароль не может быть меньше 4 символов!'))
-    }).required();
-
     const { register, handleSubmit, formState: { errors } } = useForm<ILoginForm>({
-        resolver: yupResolver(schema)
+        mode: 'onChange'
     });
 
     useEffect(() => {
@@ -93,7 +61,24 @@ export default function Login(){
                         <InputGroup.Text>
                             <Image src={LoginIcon} width="100%" height="100%" />
                         </InputGroup.Text>
-                        <Form.Control type="text" placeholder={t('Логин')} {...register("login", { required: true, minLength: 4, maxLength: 24 })} />
+                        <Form.Control 
+                            type="text"
+                            placeholder={t('Логин')}
+                            {...register("login", {
+                                required: t('Это поле обязательно для заполнения!'),
+                                minLength: {
+                                    value: 4,
+                                    message: t('Логин не может быть меньше 4 символов!')
+                                },
+                                maxLength: {
+                                    value: 25,
+                                    message: t('Логин не может быть больше 25 символов!')
+                                },
+                                pattern: {
+                                    value: /^[a-zA-Z0-9]+$/,
+                                    message: t('Логин может состоять только из латинских символов и цифр.')
+                                }
+                            })} />
                     </InputGroup>
 
                     <ErrorsForm message={errors.login?.message} />
@@ -108,7 +93,16 @@ export default function Login(){
                         <InputGroup.Text>
                             <Image src={PasswordIcon} width="100%" height="100%" />
                         </InputGroup.Text>
-                        <Form.Control type="password" placeholder={t('Пароль')} {...register("password", { required: true, minLength: 4 })} />
+                        <Form.Control
+                            type="password"
+                            placeholder={t('Пароль')}
+                            {...register("password", { 
+                                required: t('Это поле обязательно для заполнения!'),
+                                minLength: {
+                                    value: 4,
+                                    message: t('Пароль не может быть меньше 4 символов!')
+                                }
+                            })} />
                     </InputGroup>
 
                     <ErrorsForm message={errors.password?.message} />

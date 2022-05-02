@@ -18,4 +18,4 @@ export { default as EmptyContainer } from './EmptyContainer/EmptyContainer';
 export { default as Wrapper } from './Wrapper/Wrapper';
 export { default as Alert } from './Alert/Alert';
 export { default as Badge } from './Badge/Badge';
-export { default as DeleteCol } from './DeleteCol/DeleteCol';
+export { default as ScrollUp } from './ScrollUp/ScrollUp';

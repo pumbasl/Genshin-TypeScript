@@ -5,7 +5,7 @@ import './i18n';
 import './style/scss/mainStyle.scss';
 import ErrorBoundary from './errors/ErrorBoundary';
 import { Toaster } from 'react-hot-toast';
-import { Background, CookieNotify, Wrapper, Alert } from './components';
+import { Background, CookieNotify, Wrapper, Alert, ScrollUp } from './components';
 import Header from './layout/Header/Header';
 import Main from './layout/Main/Main';
 import Footer from './layout/Footer/Footer';
@@ -16,6 +16,7 @@ export default function App(){
             <Background />
             <Toaster />
             <CookieNotify />
+            <ScrollUp />
             <Alert />
 
             <Wrapper>

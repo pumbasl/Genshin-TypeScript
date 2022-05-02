@@ -1,30 +1,12 @@
 import React, { useEffect } from 'react';
-
-//components
 import { Form, InputGroup, Image, Button } from 'react-bootstrap';
 import { ErrorsForm } from '../../../components';
-//
-
-//icons
 import { TextIcon } from '../../../media';
-//
-
-//useform
 import { useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
-//
-
-//redux
 import { userSlice } from '../../../store/reducers/userSlice';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { fetchAddPromoCode } from '../../../store/thunks/adminThunks';
-//
-
-//notify
 import { toast } from 'react-hot-toast';
-//
-
 
 //actions
 const setErrors = userSlice.actions.setErrors;
@@ -38,21 +20,9 @@ interface IAddPromo {
 export default function AddPromo(){
     const dispatch = useAppDispatch();
     const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
-    
-    const schema = yup.object({
-        code: yup.string()
-        .required("Это поле обязательно для заполнения!"),
-
-        server: yup.string()
-        .required("Это поле обязательно для заполнения!"),
-
-        expired: yup.string()
-        .required("Это поле обязательно для заполнения!")
-
-    }).required();
 
     const { register, handleSubmit, formState: { errors } } = useForm<IAddPromo>({
-        resolver: yupResolver(schema)
+        mode: 'onChange'
     });
 
     const onSubmit: SubmitHandler<IAddPromo> = data => {
@@ -78,7 +48,12 @@ export default function AddPromo(){
                     <InputGroup.Text>
                         <Image src={TextIcon} width="100%" height="100%" />
                     </InputGroup.Text>
-                    <Form.Control type="text" placeholder="Промокод" {...register("code", { required: true })} />
+                    <Form.Control
+                        type="text"
+                        placeholder="Промокод"
+                        {...register("code", {
+                            required: "Это поле обязательно для заполнения!"
+                        })} />
                 </InputGroup>
 
                 <ErrorsForm message={errors.code?.message} />
@@ -89,7 +64,7 @@ export default function AddPromo(){
                     Выберите сервер:
                 </Form.Label>
 
-                <Form.Select {...register("server", { required: true })}>
+                <Form.Select {...register("server", { required: "Это поле обязательно для заполнения!" })}>
                     <option>Europe</option>
                     <option>Asia</option>
                     <option>America</option>
@@ -106,7 +81,10 @@ export default function AddPromo(){
 
                 <Form.Control
                     type="datetime-local"
-                    {...register("expired", { required: true })}
+                    {...register("expired", {
+                        required: "Это поле обязательно для заполнения!",
+                        valueAsDate: true
+                    })}
                 />
 
                 <ErrorsForm message={errors.expired?.message} />
