@@ -2,16 +2,17 @@ import React from 'react';
 import { IPromoCode } from '../../types';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-hot-toast';
-import { Card, EmptyContainer, TimeView } from '../index';
+import { Card, EmptyContainer, Preloader, TimeView } from '../index';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchClickPromo } from '../../store/thunks/userThunks';
 import sleep from '../../js/sleep';
 
 interface ActualPromoProps {
-    data: IPromoCode[];
+    data?: IPromoCode[];
+    isLoading?: boolean;
 };
 
-function ActualPromo({ data }: ActualPromoProps){
+function ActualPromo({ data, isLoading }: ActualPromoProps){
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const userPromos = useAppSelector((state) => state.user.userPromocodes);
@@ -22,14 +23,10 @@ function ActualPromo({ data }: ActualPromoProps){
                 duration: 2000
             }); //уведомление
 
-            let tempArray: string[] = [];
-
-            userPromos.forEach((promoOld: IPromoCode) => {
-                tempArray.push(promoOld._id);
-            })
-
-            tempArray.push(promo._id);
-            dispatch(fetchClickPromo(tempArray));
+            let tempArray = userPromos.slice(0);
+            tempArray.push(promo);
+            
+            dispatch(fetchClickPromo(promo, tempArray));
         } else {
             toast.success(t('Для сохранения промокодов Вам нужно авторизоваться или зарегистрировать свой аккаунт. Через две секунды Вас перенаправит на ввод промокода.')); //уведомление
         }
@@ -44,6 +41,12 @@ function ActualPromo({ data }: ActualPromoProps){
         }
     };
 
+    const Header = () => (
+        <h4>
+            <b>{t('Актуальные промокоды')}:</b>
+        </h4>
+    );
+
     const renderPromocode = (promo: IPromoCode) => (
         <Card
             data={promo}
@@ -55,13 +58,20 @@ function ActualPromo({ data }: ActualPromoProps){
         </Card>
     );
 
+    if(isLoading) {
+        return(
+            <>
+                <Header />
+                <Preloader skeleton />
+            </>
+        );
+    }
+
     return(
         <>
-            <h4>
-                <b>{t('Актуальные промокоды')}:</b>
-            </h4>
+            <Header />
 
-            { data.length !== 0 ? (data.map(renderPromocode).reverse()) : (<EmptyContainer />) }
+            { data?.length !== 0 ? (data?.map(renderPromocode).reverse()) : (<EmptyContainer />) }
         </>
     );
 }

@@ -44,10 +44,10 @@ export default function WebEvents(){
     );
     
     if(isLoaded) return(
-        <>
+        <div className='mb-4'>
             <DefaultComponent />
-            <Preloader />
-        </>
+            <Preloader skeletonSmall />
+        </div>
     );
 
     if(errors !== '') return(

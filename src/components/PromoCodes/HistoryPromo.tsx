@@ -1,20 +1,22 @@
 import React from 'react';
 
-// Locales
 import { useTranslation } from 'react-i18next';
 import { IPromoCode } from '../../types';
-//
-
-//Components
-import { Card, EmptyContainer, TimeView } from '../index';
-//
+import { Card, EmptyContainer, TimeView, Preloader } from '../index';
 
 interface HistoryProps{
-    data: IPromoCode[];
+    data?: IPromoCode[];
+    isLoading?: boolean;
 };
 
-function History({ data }: HistoryProps){
+function History({ data, isLoading }: HistoryProps){
     const { t } = useTranslation();
+
+    const Header = () => (
+        <h4>
+            <b>{t('Истёкшие промокоды')}:</b>
+        </h4>
+    );
 
     const renderPromocode = (promo: IPromoCode) => (
         <Card
@@ -26,13 +28,19 @@ function History({ data }: HistoryProps){
         </Card>
     );
 
+    if(isLoading) {
+        return(
+            <>
+                <Header />
+                <Preloader skeleton />
+            </>
+        );
+    }
+
     return(
         <>
-            <h4>
-                <b>{t('Истёкшие промокоды')}:</b>
-            </h4>
-
-            { data.length !== 0 ? (data.slice(0, 5).map(renderPromocode)) : (<EmptyContainer />) }
+            <Header />
+            { data?.length !== 0 ? (data?.slice(0, 5).map(renderPromocode)) : (<EmptyContainer />) }
         </>
     );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { IChildren } from '../../types'
 
 const WrapperStyle = styled.div`
     display: flex;
@@ -7,11 +8,7 @@ const WrapperStyle = styled.div`
     height: 100%;
 `;
 
-interface IProps {
-    children: React.ReactNode;
-};
-
-const Wrapper = ({ children }: IProps) => (
+const Wrapper = ({ children }: IChildren) => (
     <WrapperStyle>
         {children}
     </WrapperStyle>

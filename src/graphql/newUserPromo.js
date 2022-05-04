@@ -1,5 +1,5 @@
 const newUserPromo = `
-mutation clickPromo($promos: [String!]){
+mutation clickPromo($promos: String!){
   editRegUserPromos(promos: $promos){
     promos{
       _id

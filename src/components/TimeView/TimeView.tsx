@@ -1,13 +1,13 @@
 import React from 'react';
 import dayjs from 'dayjs';
+import { IChildren } from '../../types';
 
-interface IProps {
-    children?: React.ReactNode;
+interface IProps extends IChildren {
     time: number;
     customFormat?: string;
 };
 
-export default function TimeSee({ children, time, customFormat }: IProps){
+function TimeSee({ children, time, customFormat }: IProps){
     const newDate = dayjs(time).format(customFormat || 'DD.MM.YYYY HH:mm');
 
     return(
@@ -17,3 +17,5 @@ export default function TimeSee({ children, time, customFormat }: IProps){
         </b>
     );
 }
+
+export default React.memo(TimeSee);

@@ -1,24 +1,25 @@
 import React from 'react';
 
 import { IPromoCode } from '../../types';
-
-// Locales
 import { useTranslation } from 'react-i18next';
-//
-
-//Components
-import { Card, EmptyContainer, TimeView } from '../index';
-//
+import { Card, EmptyContainer, Preloader, TimeView } from '../index';
 
 interface ActivatedProps {
-    data: IPromoCode[];
+    data?: IPromoCode[];
+    isLoading?: boolean;
 };
 
-function Activated({ data }: ActivatedProps){
+function Activated({ data, isLoading }: ActivatedProps){
     const { t } = useTranslation();
 
-    let copyArrayData = data.slice(0);
-    copyArrayData = copyArrayData.reverse();
+    let copyArrayData = data?.slice(0);
+    copyArrayData = copyArrayData?.reverse();
+
+    const Header = () => (
+        <h4>
+            <b>{t('Активированные промокоды')}:</b>
+        </h4>
+    );
 
     const renderPromocode = (promo: IPromoCode) => (
         <Card
@@ -30,13 +31,19 @@ function Activated({ data }: ActivatedProps){
         </Card>
     );
 
+    if(isLoading) {
+        return(
+            <>
+                <Header />
+                <Preloader skeleton />
+            </>
+        );
+    }
+
     return(
         <>
-            <h4>
-                <b>{t('Активированные промокоды')}:</b>
-            </h4>
-
-            { copyArrayData.length !== 0 ? (copyArrayData.slice(0, 5).map(renderPromocode)) : (<EmptyContainer />) }
+            <Header />
+            { copyArrayData?.length !== 0 ? (copyArrayData?.slice(0, 5).map(renderPromocode)) : (<EmptyContainer />) }
         </>
     );
 }

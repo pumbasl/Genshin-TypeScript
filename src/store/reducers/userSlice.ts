@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 import { IUserinfo, IPromoCode, INews } from '../../types';
 
 export interface IUserProps {

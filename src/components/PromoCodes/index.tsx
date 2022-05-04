@@ -1,25 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-//redux
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchUnRegisterData, fetchRegisterUserData } from '../../store/thunks/userThunks';
-//
-
-//service
 import CheckCodes from '../../service/CheckPromoCodes';
-//
-
-//error
 import ErrorBoundary from '../../errors/ErrorBoundary';
-//
-
-//components
 import ActualPromo from './ActualPromo';
 import UsedPromo from './UsedPromo';
 import HistoryPromo from './HistoryPromo';
-import { Preloader } from '../index';
 import { IPromoCode } from '../../types';
-//
 
 interface IResultCodes {
     actualCodes: IPromoCode[];
@@ -29,7 +17,6 @@ interface IResultCodes {
 function PromoCodes(){
     const dispatch = useAppDispatch();
     const { promocodes, userPromocodes, server } = useAppSelector((state) => state.user);
-    const [ isLoading, setIsLoading ] = useState(false);
     const [ resultCodes, setResultCodes ] = useState<IResultCodes | null>(null);
 
     useEffect(() => { // начало загрузки данных
@@ -40,16 +27,9 @@ function PromoCodes(){
 
     useEffect(() => { // проверка на загрузку данных
         if(promocodes.length){
-            setIsLoading(true);
             setResultCodes(CheckCodes(promocodes, userPromocodes));
         }
     }, [promocodes.length, promocodes, userPromocodes]);
-
-    if(!isLoading) {
-        return(
-            <Preloader />
-        )
-    }
 
     if(resultCodes){
         return(
@@ -61,7 +41,13 @@ function PromoCodes(){
         );
     }
 
-    return(null);
+    return(
+        <>
+            <ActualPromo isLoading />
+            <UsedPromo isLoading />
+            <HistoryPromo isLoading />
+        </>
+    );
 }
 
 export default React.memo(PromoCodes);

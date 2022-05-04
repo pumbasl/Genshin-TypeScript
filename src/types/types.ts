@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface IGameInfo{
     gameNickName: string;
     adventureLvl: number;
@@ -62,4 +64,8 @@ export interface IAlert {
     text: string;
     expired: number;
     type: string;
+}
+
+export interface IChildren {
+    children?: React.ReactNode;
 }

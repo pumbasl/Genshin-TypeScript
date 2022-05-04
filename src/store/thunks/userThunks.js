@@ -164,22 +164,15 @@ export function fetchLogin(data){
     }
 }
 
-export function fetchClickPromo(promos){
+export function fetchClickPromo(promo, all){
     return async (dispatch) => {
+        dispatch(actions.setUserPromoCodes(all));
         await Fetch({
             query: newUserPromo,
             variables: JSON.stringify({
-                promos: promos
+                promos: promo._id
             })
-        }, 'api')
-        .then(
-            (response) => {
-                dispatch(actions.setUserPromoCodes(response.editRegUserPromos.promos));
-            },
-            (error) => {
-                ErrorCatch(error, dispatch);
-            }
-        )
+        }, 'api');
     }
 }
 
