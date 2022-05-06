@@ -3,23 +3,23 @@ import { Dropdown, Image } from "react-bootstrap";
 import { DropDirection } from 'react-bootstrap/esm/DropdownContext';
 import { useTranslation } from 'react-i18next';
 import { Earth } from '../../media';
-import useLocalStorage from '../../hooks/useLocalStorage';
 
 interface IProps {
     className: string;
     drop: DropDirection;
 };
 
-export default function LanguageButton(props: IProps){
+function LanguageButton(props: IProps){
     const { i18n } = useTranslation();
-    const [ lang, setLang ] = useLocalStorage('i18nextLng', 'en');
+
     const changeLanguage = (lng: string, hrefLang: string) => {
-        document.documentElement.lang = hrefLang;
         i18n.changeLanguage(lng);
-        setLang(lng);
+        document.documentElement.lang = hrefLang;
+        localStorage.setItem('i18nextLng', lng);
+        localStorage.setItem('hrefLang', hrefLang);
     };
 
-    document.documentElement.lang = lang;
+    document.documentElement.lang = localStorage.getItem('hrefLang') || 'en';
 
     return(
         <Dropdown {...props}>
@@ -37,7 +37,7 @@ export default function LanguageButton(props: IProps){
                     English
                 </Dropdown.Item>
 
-                <Dropdown.Item as="button" onClick={() => changeLanguage('de', 'de')}>
+                {/* <Dropdown.Item as="button" onClick={() => changeLanguage('de', 'de')}>
                     Deutsch
                 </Dropdown.Item>
 
@@ -55,9 +55,11 @@ export default function LanguageButton(props: IProps){
 
                 <Dropdown.Item as="button" onClick={() => changeLanguage('ja', 'ja')}>
                     日本語
-                </Dropdown.Item>
+                </Dropdown.Item> */}
                 
             </Dropdown.Menu>
         </Dropdown>
     );
 }
+
+export default React.memo(LanguageButton);

@@ -5,16 +5,9 @@ import { TimeView, Card, EmptyContainer, Preloader } from '..';
 import { useTranslation } from 'react-i18next';
 import { EventLogo } from '../../media';
 import { useAppSelector } from '../../hooks/redux';
+import DefaultEvents from './DefaultsEvents';
 
-const defaultEventsArray: IWebEvents[] = [{
-    _id: 'defaultWevEvent1',
-    created: 0,
-    expired: 0,
-    link: 'https://webstatic-sea.hoyolab.com/ys/event/signin-sea-v3/index.html?act_id=e202102251931481',
-    name: 'HoYoLAB Ежедневная отметка'
-}];
-
-export default function WebEvents(){
+function WebEvents(){
     const { t } = useTranslation();
     const { data, errors, isLoaded } = useAppSelector((state) => state.webEvents);
     
@@ -45,22 +38,6 @@ export default function WebEvents(){
         );
     };
 
-    const DefaultEvents = (webEvent: IWebEvents) => {
-        return(
-            <Card
-                data={webEvent}
-                key={webEvent._id}
-                expiredText={<b>{t('Постоянный')}</b>}
-                handleClick={() => handleClick(webEvent)}
-            >
-                <Image src={EventLogo} width="25px" height="100%" />
-                &nbsp;
-                {t(webEvent.name)}
-                &nbsp;
-            </Card>
-        );
-    };
-
     const DefaultComponent = () => (
         <h4>
             <b>{t('Браузерные события')}:</b>
@@ -84,8 +61,10 @@ export default function WebEvents(){
     return(
         <>
             <DefaultComponent />
-            {defaultEventsArray.map(DefaultEvents)}
-            {data.length !== 0 ? (data.map(RenderWebEvents)) : (<EmptyContainer />)}
+            <DefaultEvents />
+            {data.length !== 0 ? (data.map(RenderWebEvents)) : (null)}
         </>
     );
 }
+
+export default React.memo(WebEvents);

@@ -2,20 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
-
-// Locales
 import { useTranslation } from 'react-i18next';
-//
-
-//Components
 import { List } from '../../components';
-//
-
-//логотипы
 import { MAILLogo, TELEGRAMLogo } from '../../media';
-//
-
-//Style
 import './style.scss';
 
 const FooterCopyright = styled.div`
@@ -87,7 +76,7 @@ export default function Footer(){
                 <FooterCopyright>
                     Genshin-promo.com не связан с HoYoverse.<br />
                     Genshin Impact, контент и материалы игры являются товарными знаками и принадлежат HoYoverse. <br />
-                    Copyright &copy; 2021 Genshin-promo.com
+                    Copyright &copy; 2021-2022 Genshin-promo.com
                 </FooterCopyright>
             </Container>
         </FooterWrapper>
