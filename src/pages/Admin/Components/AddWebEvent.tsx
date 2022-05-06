@@ -26,7 +26,7 @@ export default function AddPromo(){
     });
 
     const onSubmit: SubmitHandler<IWebEventAdd> = data => {
-        if(!data.expired) dispatch(fetchAddWebEvent(data));
+        if(data.expired) dispatch(fetchAddWebEvent(data));
     };
     
     useEffect(() => {
