@@ -8,7 +8,7 @@ export interface IUserProps {
     userinfo: IUserinfo | null;
     promocodes: IPromoCode[];
     userPromocodes: IPromoCode[];
-    news: INews[] | null;
+    news: INews[];
 };
 
 const initialState: IUserProps = {

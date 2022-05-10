@@ -4,6 +4,7 @@ export const CardStyle = styled.div`
     border: 1px solid #000;
     margin: 0px;
     padding: 15px 5px 15px 5px;
+    height: 100%;
 
     &:hover{
         cursor: pointer;

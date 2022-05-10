@@ -1,7 +1,7 @@
 import React from 'react';
 import { IWebEvents } from '../../types';
 import { Image } from "react-bootstrap";
-import { TimeView, Card, EmptyContainer, Preloader } from '..';
+import { TimeView, Card, Preloader } from '..';
 import { useTranslation } from 'react-i18next';
 import { EventLogo } from '../../media';
 import { useAppSelector } from '../../hooks/redux';

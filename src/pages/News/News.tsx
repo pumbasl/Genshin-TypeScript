@@ -1,26 +1,14 @@
 import React, { useEffect } from 'react';
 import dayjs from 'dayjs';
 import { INews } from '../../types';
-
-//components
-import { Container, Preloader } from '../../components';
+import { Container } from '../../components';
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import { Image, Badge } from 'react-bootstrap';
-//
-
-//media
 import { News as NewsIcon } from '../../media';
-//
-
-//redux
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchNews } from '../../store/thunks/userThunks';
-//
-
-//locales
 import { useTranslation } from 'react-i18next';
-//
 
 export default function News(){
     const dispatch = useAppDispatch();
@@ -30,12 +18,6 @@ export default function News(){
     useEffect(() => {
         dispatch(fetchNews());
     }, [dispatch]);
-
-    if(!news) {
-        return(
-            <Preloader />
-        );
-    }
 
     if(news?.length === 0){
         return(
@@ -50,7 +32,9 @@ export default function News(){
             key={value._id}
             className="vertical-timeline-element--work"
             contentStyle={{ background: 'white', color: 'black' }}
-            date={`${t('Дата')}: ${dayjs(value.date).format('DD.MM.YYYY')}`}
+            date={<Badge bg='purple'>
+                    { `${t('Дата')}: ${dayjs(value.date).format('DD.MM.YYYY')}` }
+                </Badge>}
             iconStyle={{ background: 'indianred', color: '#fff' }}
             icon={<Image width="100%" height="100%" src={NewsIcon} />}
         >
