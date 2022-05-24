@@ -6,10 +6,24 @@ export interface IGameInfo{
     mainChar: string;
 }
 
-export interface IPromoCode{
+export interface ILoginData {
+    login: string;
+    password: string;
+};
+
+export interface IRegistradionData extends IServer {
+    login: string;
+    password: string;
+    re_password: string;
+};
+
+export interface IServer {
+    server: 'All' | 'Europe' | 'America' | 'Asia';
+}
+
+export interface IPromoCode extends IServer{
     _id: string;
     code: string;
-    server: 'All' | 'Europe' | 'America' | 'Asia';
     expired: number;
     created: number;
 }
@@ -27,14 +41,13 @@ export interface IAvatar{
     ref: string;
 }
 
-export interface IUserinfo{
+export interface IUserinfo extends IServer{
     _id: string;
     login: string;
     reg: number;
     roles: string[];
     email: string | null;
     avatar: IAvatar;
-    server: string;
     ua: string;
     gameInfo: IGameInfo
 }
@@ -68,4 +81,9 @@ export interface IAlert {
 
 export interface IChildren {
     children?: React.ReactNode;
+}
+
+export interface IRefreshResponse {
+    ok: boolean;
+    accessToken: string;
 }

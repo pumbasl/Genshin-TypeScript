@@ -1,6 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import adminSlice from './adminSlice';
-// import alertSlice from './alertSlice';
 import userSlice from './userSlice';
 import webEventsSlice from './webEventsSlice';
 

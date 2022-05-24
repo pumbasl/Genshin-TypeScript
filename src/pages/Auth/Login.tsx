@@ -10,13 +10,9 @@ import { toast } from 'react-hot-toast';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchLogin } from '../../store/thunks/userThunks';
 import { userSlice } from '../../store/reducers/userSlice';
+import { ILoginData } from '../../types';
 
 const setErrors = userSlice.actions.setErrors;
-
-interface ILoginForm {
-    login: string;
-    password: string;
-};
 
 export default function Login(){
     const { t } = useTranslation();
@@ -25,7 +21,7 @@ export default function Login(){
     const token = useAppSelector((state) => state.user.token);
     const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
 
-    const { register, handleSubmit, formState: { errors } } = useForm<ILoginForm>({
+    const { register, handleSubmit, formState: { errors } } = useForm<ILoginData>({
         mode: 'onChange'
     });
 
@@ -45,7 +41,7 @@ export default function Login(){
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token]);
 
-    const onSubmit: SubmitHandler<ILoginForm> = data => {
+    const onSubmit: SubmitHandler<ILoginData> = data => {
         dispatch(fetchLogin(data));
     };
 

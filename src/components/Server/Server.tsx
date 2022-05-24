@@ -31,7 +31,7 @@ export default function Server(props: ServerProps){
 
         localStorage.setItem('server', event.currentTarget.value);
         if(localStorage.getItem('token')){
-            dispatch(fetchChangeServer(event.currentTarget.value))
+            dispatch(fetchChangeServer({ server: event.currentTarget.value }))
         } else {
             dispatch(setServer(event.currentTarget.value));
         }

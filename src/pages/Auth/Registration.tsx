@@ -10,15 +10,9 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchRegistration } from '../../store/thunks/userThunks';
 import { userSlice } from '../../store/reducers/userSlice';
+import { IRegistradionData } from '../../types';
 
 const setErrors = userSlice.actions.setErrors;
-
-interface IRegistradionForm {
-    login: string;
-    password: string;
-    re_password: string;
-    server: string;
-};
 
 export default function Registration(){
     const { t } = useTranslation();
@@ -27,7 +21,7 @@ export default function Registration(){
     const token = useAppSelector((state) => state.user.token);
     const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
 
-    const { register, handleSubmit, formState: { errors } } = useForm<IRegistradionForm>({
+    const { register, handleSubmit, formState: { errors } } = useForm<IRegistradionData>({
         mode: 'onChange'
     });
 
@@ -47,7 +41,7 @@ export default function Registration(){
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token]);
 
-    const onSubmit: SubmitHandler<IRegistradionForm> = data => {
+    const onSubmit: SubmitHandler<IRegistradionData> = data => {
         data.server = "Europe";
         dispatch(fetchRegistration(data));
     };

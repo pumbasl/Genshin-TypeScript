@@ -16,14 +16,14 @@ interface IResultCodes {
 
 function PromoCodes(){
     const dispatch = useAppDispatch();
-    const { promocodes, userPromocodes, server } = useAppSelector((state) => state.user);
+    const { promocodes, userPromocodes, server, token } = useAppSelector((state) => state.user);
     const [ resultCodes, setResultCodes ] = useState<IResultCodes | null>(null);
 
     useEffect(() => { // начало загрузки данных
-        localStorage.getItem('token') ?
-        dispatch(fetchRegisterUserData(server)) : dispatch(fetchUnRegisterData(server))
+        token ?
+        dispatch(fetchRegisterUserData({ server })) : dispatch(fetchUnRegisterData({ server }))
 
-    }, [dispatch, server]);
+    }, [dispatch, server, token]);
 
     useEffect(() => { // проверка на загрузку данных
         if(promocodes.length){

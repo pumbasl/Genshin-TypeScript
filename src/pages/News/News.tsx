@@ -32,6 +32,7 @@ export default function News(){
             key={value._id}
             className="vertical-timeline-element--work"
             contentStyle={{ background: 'white', color: 'black' }}
+            // @ts-ignore
             date={<Badge bg='purple'>
                     { `${t('Дата')}: ${dayjs(value.date).format('DD.MM.YYYY')}` }
                 </Badge>}

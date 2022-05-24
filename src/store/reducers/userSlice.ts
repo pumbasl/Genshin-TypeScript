@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IUserinfo, IPromoCode, INews } from '../../types';
+import { IUserinfo, IPromoCode, INews, IServer } from '../../types';
 
-export interface IUserProps {
+export interface IUserProps extends IServer {
     token: string | null;
-    server: string;
     errorsAuth: string | null;
     userinfo: IUserinfo | null;
     promocodes: IPromoCode[];
@@ -13,6 +12,7 @@ export interface IUserProps {
 
 const initialState: IUserProps = {
     token: localStorage.getItem('token') || null,
+    // @ts-ignore
     server: localStorage.getItem('server') || 'Europe',
     errorsAuth: null,
     userinfo: null,

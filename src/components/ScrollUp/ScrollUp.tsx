@@ -49,7 +49,7 @@ const ScrollUp = () => {
     if(show) {
         return(
             <ScrollUpDiv onClick={() => handleClick()}>
-                <img src={ArrowUp} alt='arrow' width='100%' height='100%' />
+                <img className='text-align' src={ArrowUp} alt='arrow' width='100%' height='100%' />
             </ScrollUpDiv>
         );
     }
