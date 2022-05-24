@@ -31,6 +31,7 @@ export default function ActionUswerModal({ show, close, data }){
     const onSubmit = resultForm => {
         resultForm.id = data._id;
         dispatch(fetchEditUser(resultForm));
+        console.log(resultForm)
 
         users.forEach((value, index) => {
             if(value._id === data._id){

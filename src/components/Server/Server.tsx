@@ -1,18 +1,10 @@
 import React from 'react';
-
-// Locales
 import { useTranslation } from 'react-i18next';
-//
-
-//redux
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchChangeServer } from '../../store/thunks/userThunks';
 import { userSlice } from '../../store/reducers/userSlice';
-//
-
-//styles
 import { Dropdown } from 'react-bootstrap';
-//
+import { IServer } from '../../types';
 
 const setServer = userSlice.actions.setServer;
 const serverList = ['Europe', 'America', 'Asia'];
@@ -31,7 +23,7 @@ export default function Server(props: ServerProps){
 
         localStorage.setItem('server', event.currentTarget.value);
         if(localStorage.getItem('token')){
-            dispatch(fetchChangeServer({ server: event.currentTarget.value }))
+            dispatch(fetchChangeServer({ server: event.currentTarget.value} as IServer))
         } else {
             dispatch(setServer(event.currentTarget.value));
         }

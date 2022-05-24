@@ -216,7 +216,7 @@ export function fetchUnRegisterData({ server }: IServer){
                 })
             });
     
-            if(response.data.data){
+            if(response.data){
                 dispatch(actions.setPromoCodes(response.data.promosByServer));
                 dispatch(webEventsActions.fetchWebEventsSuccess(response.data.subfields));
             }

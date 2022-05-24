@@ -7,25 +7,20 @@ import { userSlice } from '../../../store/reducers/userSlice';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { fetchAddPromoCode } from '../../../store/thunks/adminThunks';
 import { toast } from 'react-hot-toast';
+import { IAddPromoData } from '../../../types';
 
 //actions
 const setErrors = userSlice.actions.setErrors;
-
-interface IAddPromo {
-    code: string;
-    server: 'All' | 'Europe' | 'America' | 'Asia';
-    expired: string;
-};
 
 export default function AddPromo(){
     const dispatch = useAppDispatch();
     const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
 
-    const { register, handleSubmit, formState: { errors } } = useForm<IAddPromo>({
+    const { register, handleSubmit, formState: { errors } } = useForm<IAddPromoData>({
         mode: 'onChange'
     });
 
-    const onSubmit: SubmitHandler<IAddPromo> = data => {
+    const onSubmit: SubmitHandler<IAddPromoData> = data => {
         dispatch(fetchAddPromoCode(data));
     };
     

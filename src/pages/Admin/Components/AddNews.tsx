@@ -6,25 +6,20 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { userSlice } from '../../../store/reducers/userSlice';
 import { fetchAddNews } from '../../../store/thunks/adminThunks';
 import { toast } from 'react-hot-toast';
+import { IAddNewsData } from '../../../types';
 
 //actions
 const setErrors = userSlice.actions.setErrors;
-
-interface IAddNews {
-    title: string;
-    subtitle: string;
-    text: string;
-};
 
 export default function AddNews(){
     const dispatch = useAppDispatch();
     const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
 
-    const { register, handleSubmit, formState: { errors } } = useForm<IAddNews>({
+    const { register, handleSubmit, formState: { errors } } = useForm<IAddNewsData>({
         mode: 'onChange'
     });
 
-    const onSubmit: SubmitHandler<IAddNews> = data => {
+    const onSubmit: SubmitHandler<IAddNewsData> = data => {
         dispatch(fetchAddNews(data));
     };
     

@@ -28,6 +28,30 @@ export interface IPromoCode extends IServer{
     created: number;
 }
 
+export interface IEditUserData {
+    id: string;
+    role: string[];
+    login: string;
+}
+
+export interface IAddPromoData {
+    code: string;
+    server: 'All' | 'Europe' | 'America' | 'Asia';
+    expired: string;
+};
+
+export interface IAddNewsData {
+    title: string;
+    subtitle: string;
+    text: string;
+};
+
+export interface IWebEventsData {
+    name: string;
+    link: string;
+    expired: string;
+}
+
 export interface IWebEvents{
     _id: string;
     name: string;

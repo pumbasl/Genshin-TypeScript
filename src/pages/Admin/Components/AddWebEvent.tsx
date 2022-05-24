@@ -7,25 +7,20 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { userSlice } from '../../../store/reducers/userSlice';
 import { fetchAddWebEvent } from '../../../store/thunks/adminThunks';
 import { toast } from 'react-hot-toast';
+import { IWebEventsData } from '../../../types';
 
 //actions
 const setErrors = userSlice.actions.setErrors;
-
-interface IWebEventAdd {
-    name: string;
-    link: string;
-    expired: string;
-};
 
 export default function AddPromo(){
     const dispatch = useAppDispatch();
     const errorsAuth = useAppSelector((state) => state.user.errorsAuth);
 
-    const { register, handleSubmit, formState: { errors } } = useForm<IWebEventAdd>({
+    const { register, handleSubmit, formState: { errors } } = useForm<IWebEventsData>({
         mode: 'onChange'
     });
 
-    const onSubmit: SubmitHandler<IWebEventAdd> = data => {
+    const onSubmit: SubmitHandler<IWebEventsData> = data => {
         if(data.expired) dispatch(fetchAddWebEvent(data));
     };
     
