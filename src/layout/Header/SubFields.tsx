@@ -1,17 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
-//Style
 import { Nav } from "react-bootstrap";
-//
-
-//Pictures
-import { MapLogo, WikiLogo, GenshinLogo } from '../../media';
-//
-
-// Locales
+import { MapLogo, WikiLogo, NewsIcon } from '../../media';
 import { useTranslation } from 'react-i18next';
-//
 
 export default function Subfields(){
     const { t } = useTranslation();
@@ -22,7 +13,7 @@ export default function Subfields(){
                 as={NavLink}
                 to="/news"
             >
-                <img src={WikiLogo} width="18px" height="100%" className="ms-1 me-2 mb-1" alt="wikiLogo" />
+                <img src={NewsIcon} width="18px" height="100%" className="ms-1 me-2 mb-1" alt="newsLogo" />
                 {t('Новости')}
             </Nav.Link>
 
@@ -40,8 +31,8 @@ export default function Subfields(){
                 href="https://genshin-impact.fandom.com/"
                 target="_blank"
             >
-                <img src={GenshinLogo} width="18px" height="100%" className="ms-1 me-2 mb-1" alt="genshinLogo" />
-                Genshin Wiki
+                <img src={WikiLogo} width="18px" height="100%" className="ms-1 me-2 mb-1" alt="hoyoWIKI" />
+                HoYoWiki
             </Nav.Link>
         </Nav>
     )

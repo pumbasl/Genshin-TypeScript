@@ -18,7 +18,7 @@ import { toast } from 'react-hot-toast';
 import Fetch from '../../features/axios';
 import ErrorCatch from '../../js/ErrorCatcher';
 import { AppDispatch } from '../store';
-import { IAddNewsData, IAddPromoData, IEditUserData, IWebEventsData } from '../../types/types';
+import { IAddNewsData, IAddPromoData, IEditUserData, IError, IWebEventsData } from '../../types';
 import { IAllUsersResponse, ILogOutForUserResponse, ISearchUserByLoginResponse } from './types/adminResponseTypes';
 
 const userActions = userSlice.actions;
@@ -34,7 +34,8 @@ export function fetchAddWebEvent(data: IWebEventsData){
 
             toast.success('Веб-ивент успешно создан'); //уведомление
         } catch (error) {
-            ErrorCatch(error, dispatch);
+            const err = error as IError;
+            ErrorCatch(err, dispatch);
         }
     };
 }
@@ -49,7 +50,8 @@ export function fetchAdminAllUsers(){
             
             dispatch(adminActions.setAdminUsers(response.data.regUsers));
         } catch (error) {
-            ErrorCatch(error, dispatch);
+            const err = error as IError;
+            ErrorCatch(err, dispatch);
         }
     };
 }
@@ -64,7 +66,8 @@ export function fetchAddNews(data: IAddNewsData){
     
             toast.success('Новость успешно создана'); //уведомление
         } catch (error) {
-            ErrorCatch(error, dispatch);
+            const err = error as IError;
+            ErrorCatch(err, dispatch);
         }
     };
 }
@@ -79,7 +82,8 @@ export function fetchAddPromoCode(data: IAddPromoData){
     
             toast.success('Промокод успешно добавлен'); //уведомление
         } catch (error) {
-            ErrorCatch(error, dispatch);
+            const err = error as IError;
+            ErrorCatch(err, dispatch);
         }
     };
 }
@@ -94,7 +98,8 @@ export function fetchEditUser(data: IEditUserData){
     
             toast.success('Пользователь успешно сохранен.'); //уведомление
         } catch (error) {
-            ErrorCatch(error, dispatch);
+            const err = error as IError;
+            ErrorCatch(err, dispatch);
         }
     };
 }
@@ -109,7 +114,8 @@ export function fetchSearchUsers(name: string){
     
             dispatch(adminActions.setAdminUsers(response.data.searchUsersByName));
         } catch (error) {
-            ErrorCatch(error, dispatch);
+            const err = error as IError;
+            ErrorCatch(err, dispatch);
         }
     };
 }
@@ -130,7 +136,8 @@ export function fetchLogOutUser(id: string){
                 toast.error('Что то пошло не так.'); //уведомление
             }
         } catch (error) {
-            ErrorCatch(error, dispatch);
+            const err = error as IError;
+            ErrorCatch(err, dispatch);
         }
     };
 }

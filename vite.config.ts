@@ -1,11 +1,23 @@
-import { defineConfig, loadEnv } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig, loadEnv } from 'vite';
+import react from '@vitejs/plugin-react';
+import legacy from '@vitejs/plugin-legacy';
+import eslint from 'vite-plugin-eslint';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
+  let isProd: boolean = false, isDev: boolean = false;
+  if(mode === 'development') {
+    isDev = true;
+  } else {
+    isProd = true;
+  }
 
   return {
-    plugins: [react()],
+    plugins: [
+      react(),
+      isDev && eslint(),
+      isProd && legacy() 
+    ],
     envPrefix: "REACT_APP_",
     define: {
       'process.env': {
@@ -16,18 +28,19 @@ export default defineConfig(({ mode }) => {
       port: 3000
     },
     build: {
-      manifest: true,
+      manifest: "asset-manifest.json",
       rollupOptions: {
         output: {
           assetFileNames: (assetInfo) => {
-            let extType = assetInfo.name.split('.').at(1);
-            if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
+            let extType = assetInfo.name.split('.')[1];
+            if (/png|jpe?g|webp|svg|gif|tiff|bmp|ico/i.test(extType)) {
               extType = 'img';
             }
+
             return `assets/${extType}/[name]-[hash][extname]`;
           },
-          chunkFileNames: 'assets/js/[name]-[hash].js',
-          entryFileNames: 'assets/js/[name]-[hash].js',
+          chunkFileNames: 'assets/js/chunks/[name]-[hash].js',
+          entryFileNames: 'assets/js/main-[hash].js',
         }
       }
     }

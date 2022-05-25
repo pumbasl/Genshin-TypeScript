@@ -11,6 +11,7 @@ export { default as Rank } from './img/svgLogo/rank.svg';
 export { default as Id } from './img/svgLogo/id.svg';
 export { default as Name } from './img/svgLogo/name.svg';
 export { default as ArrowUp } from './img/svgLogo/arrowup.svg';
+export { default as NewsIcon } from './img/svgLogo/news.svg';
 
 //background img
 export { default as One } from './img/Background/1.webp';

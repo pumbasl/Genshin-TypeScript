@@ -34,7 +34,7 @@ export default function ProfileButtons(props: IProps){
         return(
             <ButtonGroup className="dropDown-custom ms-1 me-2">
                 <Button as={Link as any} to="/auth/login" variant="dark-custom">
-                    {t('Авторизация')}
+                    {t('Войти')}
                 </Button>
     
                 <Button as={Link as any} to="/auth/reg" variant="dark-custom">

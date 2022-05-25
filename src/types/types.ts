@@ -111,3 +111,11 @@ export interface IRefreshResponse {
     ok: boolean;
     accessToken: string;
 }
+
+export interface IError {
+    response?: {
+        status: number;
+    };
+
+    message: string;
+};

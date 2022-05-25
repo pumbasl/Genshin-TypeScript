@@ -1,7 +1,7 @@
 import Fetch from '../../features/axios';
 import ErrorCatch from '../../js/ErrorCatcher';
 import { IGetNewsResponse, ILoginResponse, IRegistreationResponse, IRegUserInfoResponse, IUserRegData } from './types/userResponseTypes';
-import { IGameInfo, ILoginData, IPromoCode, IRegistradionData, IServer } from '../../types';
+import { IError, IGameInfo, ILoginData, IPromoCode, IRegistradionData, IServer } from '../../types';
 import { userSlice } from '../reducers/userSlice';
 import { webEventsSlice } from '../reducers/webEventsSlice';
 import { AppDispatch } from '../store';
@@ -45,7 +45,8 @@ export function fetchNews(){
                 dispatch(actions.setNews(response.data.getNews.reverse()));
             }
         } catch (error) {
-            ErrorCatch(error, dispatch);
+            const err = error as IError;
+            ErrorCatch(err, dispatch);
         }
     };
 }
@@ -66,7 +67,8 @@ export function fetchNewAvatar(url: string, ref: string) {
                 dispatch(fetchUserInfo());
             }
         } catch (error) {
-            ErrorCatch(error, dispatch);
+            const err = error as IError;
+            ErrorCatch(err, dispatch);
         }
     };
 }
@@ -79,7 +81,8 @@ export function fetchNewUserGameInfo(data: IGameInfo){
                 variables: JSON.stringify(data)
             });
         } catch (error) {
-            ErrorCatch(error, dispatch);
+            const err = error as IError;
+            ErrorCatch(err, dispatch);
         }
     };
 }
@@ -96,7 +99,8 @@ export function fetchUserInfo(){
                 dispatch(actions.setUserInfo(response.data.regUser));
             }
         } catch (error) {
-            ErrorCatch(error, dispatch);
+            const err = error as IError;
+            ErrorCatch(err, dispatch);
         }
     };
 }
@@ -119,7 +123,8 @@ export function fetchRegistration(data: IRegistradionData){
                 dispatch(actions.setToken(token));
             }
        } catch (error) {
-            ErrorCatch(error, dispatch);
+            const err = error as IError;
+            ErrorCatch(err, dispatch);
        }
     }
 }
@@ -142,7 +147,8 @@ export function fetchLogin(data: ILoginData){
                 dispatch(actions.setToken(token));
             }
         } catch (error) {
-            ErrorCatch(error, dispatch);
+            const err = error as IError;
+            ErrorCatch(err, dispatch);
         }
     }
 }
@@ -161,7 +167,8 @@ export function fetchClickPromo(promoClicked: IPromoCode, allUsersPromocodes: IP
                 dispatch(actions.setUserPromoCodes(allUsersPromocodes));
             }
         } catch (error) {
-            ErrorCatch(error, dispatch);
+            const err = error as IError;
+            ErrorCatch(err, dispatch);
         }
     }
 }
@@ -180,7 +187,8 @@ export function fetchChangeServer({ server }: IServer){
                 dispatch(actions.setServer(server));
             }
         } catch (error) {
-            ErrorCatch(error, dispatch);
+            const err = error as IError;
+            ErrorCatch(err, dispatch);
         }
     }
 }
@@ -201,7 +209,8 @@ export function fetchRegisterUserData({ server }: IServer){
                 dispatch(webEventsActions.fetchWebEventsSuccess(response.data.subfields));
             }
         } catch (error) {
-            ErrorCatch(error, dispatch);
+            const err = error as IError;
+            ErrorCatch(err, dispatch);
         }
     }
 }
@@ -221,7 +230,8 @@ export function fetchUnRegisterData({ server }: IServer){
                 dispatch(webEventsActions.fetchWebEventsSuccess(response.data.subfields));
             }
         } catch (error) {
-            ErrorCatch(error, dispatch);
+            const err = error as IError;
+            ErrorCatch(err, dispatch);
         }
     }
 }
