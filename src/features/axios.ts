@@ -1,12 +1,14 @@
 import axios from 'axios';
 import { IRefreshResponse } from '../types/types';
 
+const endpoint = import.meta.env.REACT_APP_ENDPOINT;
+
 const api = axios.create({
-    baseURL: process.env.REACT_APP_ENDPOINT,
+    baseURL: endpoint,
     headers: {
         cache: 'no-cache',
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': process.env.REACT_APP_ENDPOINT
+        'Access-Control-Allow-Origin': endpoint
     },
     withCredentials: true
 });
@@ -22,7 +24,7 @@ api.interceptors.response.use(async (response) => {
     if(response.data.errors){
         for(const value of response.data.errors){
             if(value.message === 'not authenticated'){
-                const response = await axios.get<IRefreshResponse>(`${process.env.REACT_APP_ENDPOINT}/refresh_token`, { withCredentials: true });
+                const response = await axios.get<IRefreshResponse>(`${endpoint}/refresh_token`, { withCredentials: true });
 
                 if(response.status === 401){
                     throw Error('FAIL_UPDATE_TOKENS');
