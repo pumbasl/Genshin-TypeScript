@@ -4,7 +4,7 @@ import legacy from '@vitejs/plugin-legacy';
 import eslint from 'vite-plugin-eslint';
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '');
+  const env = loadEnv(mode, process.cwd(), 'REACT_APP_');
   let isProd: boolean = false, isDev: boolean = false;
   if(mode === 'development') {
     isDev = true;

@@ -14,7 +14,7 @@ function sortActivatedCodes(a: IPromoCode[], b: IPromoCode[]){
     return b;
 }
 
-function sortOldCodes(a: IPromoCode[], b: IPromoCode[]){
+export function sortOldCodes(a: IPromoCode[], b: IPromoCode[]){
     //сортировка от истёкших кодов
     const tempHistory: IPromoCode[] = [];
 

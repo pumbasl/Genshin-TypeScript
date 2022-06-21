@@ -60,7 +60,8 @@
     "1MB максимальный размер фотографии.": "1MB maximum size of a photo",
     "Игровое имя не может быть меньше 1 символа!": "The in-game name cannot be less than 1 character!",
     "Игровое имя  не может быть больше 25 символов!": "The in-game name cannot be more than 25 characters!",
-    "Уровень приключений не может быть больше 2 символов!": "Adventure rank cannot be more than 2 characters!",
+    "Уровень приключений не может быть меньше 1 уровня!": "Adventure level cannot be lower than level 1!",
+    "Уровень приключений не может быть больше 60 уровня!": "Adventure level cannot be higher than level 60!",
     "Это поле не может быть меньше 2 символов!": "This field cannot be less than 2 characters!",
     "Это поле не может быть больше 24 символов!": "This field cannot be longer than 24 characters!",
     "Эта строка принимает только число!": "This line only accepts a number!",
@@ -80,5 +81,6 @@
     "Поддержите Украину": "Support Ukraine",
     "Помогите с гуманитарной помощью Украине. Россияне, не молчите! Нет войне!": "Help Provide Humanitarian Aid to Ukraine.",
     "Постоянный": "Permanent",
-    "HoYoLAB Ежедневная отметка": "HoYoLAB Daily Check-In"
+    "HoYoLAB Ежедневная отметка": "HoYoLAB Daily Check-In",
+    "С 1 августа наш сайт временно переезжает на новый адрес -": "From August 1, our site temporarily moves to a new address -"
 }

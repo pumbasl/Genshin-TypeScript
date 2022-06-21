@@ -1,10 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { CloseButton } from 'react-bootstrap';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
-const AlertStyle = styled.div`
+interface AlertStyleProps {
+    bgColor?: string;
+};
+
+const AlertStyle = styled.div<AlertStyleProps>`
     padding: 10px;
-    background-color: rgb(45, 47, 51);
+    background-color: ${props => props.bgColor ? props.bgColor : 'rgb(45, 47, 51)'};
     color: white;
     font-size: 18px;
 `;
@@ -18,7 +24,33 @@ const ColorLink = styled.span`
     }
 `;
 
-const Alert = () => {
+const TransferAlert = () => {
+    const { t } = useTranslation();
+    const [ show, setShow ] = useLocalStorage('transferAlert', true);
+
+    const handleCloseButton = () => {
+        setShow(false);
+    };
+
+    if(!show) return null;
+
+    return(
+        <AlertStyle className='text-center clearfix' bgColor='purple'>
+            {t('С 1 августа наш сайт временно переезжает на новый адрес -')}
+            <ColorLink>
+                <a href='https://genshin-promo.web.app/' target="_blank" rel="noreferrer">
+                    genshin-promo.web.app
+                </a>
+            </ColorLink>
+
+            <div style={{ float: 'right' }}>
+                <CloseButton onClick={handleCloseButton} variant="white" title='Close' />
+            </div>
+        </AlertStyle>
+    );
+};
+
+const WarAlert = () => {
     const { t } = useTranslation();
 
     return(
@@ -33,4 +65,9 @@ const Alert = () => {
     );
 };
 
-export default Alert;
+const Alerts = {
+    War: WarAlert,
+    Transfer: TransferAlert
+};
+
+export default Alerts;

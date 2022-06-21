@@ -1,6 +1,7 @@
 import Fetch from '../../features/axios';
 import ErrorCatch from '../../js/ErrorCatcher';
 import { IGetNewsResponse, ILoginResponse, IRegistreationResponse, IRegUserInfoResponse, IUserRegData } from './types/userResponseTypes';
+import { sortOldCodes } from '../../service/CheckPromoCodes';
 import { IError, IGameInfo, ILoginData, IPromoCode, IRegistradionData, IServer } from '../../types';
 import { userSlice } from '../reducers/userSlice';
 import { webEventsSlice } from '../reducers/webEventsSlice';
@@ -204,7 +205,9 @@ export function fetchRegisterUserData({ server }: IServer){
             });
     
             if(response.data){
-                dispatch(actions.setUserPromoCodes(response.data.getRegUserPromo.promos));
+                const actualUserPromoCodes = sortOldCodes(response.data.getRegUserPromo.promos.slice(0), response.data.getRegUserPromo.promos);
+
+                dispatch(actions.setUserPromoCodes(actualUserPromoCodes.a));
                 dispatch(actions.setPromoCodes(response.data.promosByServer));
                 dispatch(webEventsActions.fetchWebEventsSuccess(response.data.subfields));
             }

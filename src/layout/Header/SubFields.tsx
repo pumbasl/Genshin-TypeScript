@@ -28,7 +28,7 @@ export default function Subfields(){
 
             <Nav.Link
                 className="custom-link"
-                href="https://genshin-impact.fandom.com/"
+                href="https://wiki.hoyolab.com/"
                 target="_blank"
             >
                 <img src={WikiLogo} width="18px" height="100%" className="ms-1 me-2 mb-1" alt="hoyoWIKI" />

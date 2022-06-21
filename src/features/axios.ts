@@ -22,7 +22,7 @@ api.interceptors.response.use(async (response) => {
     if(response.data.errors){
         for(const value of response.data.errors){
             if(value.message === 'not authenticated'){
-                const response = await axios.get<IRefreshResponse>(`${process.env.REACT_APP_ENDPOINT}refresh_token`, { withCredentials: true });
+                const response = await axios.get<IRefreshResponse>(`${process.env.REACT_APP_ENDPOINT}/refresh_token`, { withCredentials: true });
 
                 if(response.status === 401){
                     throw Error('FAIL_UPDATE_TOKENS');
