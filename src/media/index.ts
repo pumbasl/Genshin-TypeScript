@@ -29,3 +29,9 @@ export { default as PasswordIcon } from './img/form/password.svg';
 export { default as EmailIcon } from './img/form/email.svg';
 export { default as LinkIcon } from './img/form/link.svg';
 //
+
+//flags
+export { default as UaFlag } from './img/flags/ua.svg';
+export { default as GbFlag } from './img/flags/gb.svg';
+export { default as RuFlag } from './img/flags/ru.svg';
+//

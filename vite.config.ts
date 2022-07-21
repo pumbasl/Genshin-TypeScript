@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import legacy from '@vitejs/plugin-legacy';
 import eslint from 'vite-plugin-eslint';
 
 export default defineConfig(({ mode }) => {
@@ -14,8 +13,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       react(),
-      isDev && eslint(),
-      isProd && legacy() 
+      isDev && eslint()
     ],
     envPrefix: "REACT_APP_",
     preview: {

@@ -1,28 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { CloseButton } from 'react-bootstrap';
+import { AlertStyle, ColorLink } from './style';
 import useLocalStorage from '../../hooks/useLocalStorage';
-
-interface AlertStyleProps {
-    bgColor?: string;
-};
-
-const AlertStyle = styled.div<AlertStyleProps>`
-    padding: 10px;
-    background-color: ${props => props.bgColor ? props.bgColor : 'rgb(45, 47, 51)'};
-    color: white;
-    font-size: 18px;
-`;
-
-const ColorLink = styled.span`
-    margin-left: 5px;
-
-    a{
-        color: #61dafb;
-        text-decoration: none;
-    }
-`;
 
 const TransferAlert = () => {
     const { t } = useTranslation();
@@ -65,9 +45,6 @@ const WarAlert = () => {
     );
 };
 
-const Alerts = {
-    War: WarAlert,
-    Transfer: TransferAlert
-};
+const Alerts = { War: WarAlert, Transfer: TransferAlert };
 
 export default Alerts;

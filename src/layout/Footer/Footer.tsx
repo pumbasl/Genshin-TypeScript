@@ -74,8 +74,8 @@ export default function Footer(){
                 </List.Container>
                 <hr color='white' />
                 <FooterCopyright>
-                    Genshin-promo.com не связан с HoYoverse.<br />
-                    Genshin Impact, контент и материалы игры являются товарными знаками и принадлежат HoYoverse. <br />
+                    {t('Genshin-promo.com не связан с miHoYo.')}<br />
+                    {t('Genshin Impact, контент и материалы игры являются товарными знаками и принадлежат miHoYo.')} <br />
                     Copyright &copy; 2021-2022 Genshin-promo.com
                 </FooterCopyright>
             </Container>

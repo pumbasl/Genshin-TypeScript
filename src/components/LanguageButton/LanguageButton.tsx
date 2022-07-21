@@ -2,7 +2,7 @@ import React from 'react';
 import { Dropdown, Image } from "react-bootstrap";
 import { DropDirection } from 'react-bootstrap/esm/DropdownContext';
 import { useTranslation } from 'react-i18next';
-import { Earth } from '../../media';
+import { Earth, UaFlag, GbFlag, RuFlag } from '../../media';
 
 interface IProps {
     className: string;
@@ -29,33 +29,20 @@ function LanguageButton(props: IProps){
 
             <Dropdown.Menu variant="dark">
 
+                <Dropdown.Item as="button" onClick={() => changeLanguage('uk-UA', 'uk')}>
+                    <img src={UaFlag} width='15px' height="100%" alt='UAFLAG' className='me-2' />
+                    Українська
+                </Dropdown.Item>
+
                 <Dropdown.Item as="button" onClick={() => changeLanguage('ru-RU', 'ru')}>
+                    <img src={RuFlag} width='15px' height="100%" alt='RUFLAG' className='me-2' />
                     Русский
                 </Dropdown.Item>
 
                 <Dropdown.Item as="button" onClick={() => changeLanguage('en-US', 'en')}>
+                    <img src={GbFlag} width='15px' height="100%" alt='GBFLAG' className='me-2' />
                     English
                 </Dropdown.Item>
-
-                {/* <Dropdown.Item as="button" onClick={() => changeLanguage('de', 'de')}>
-                    Deutsch
-                </Dropdown.Item>
-
-                <Dropdown.Item as="button" onClick={() => changeLanguage('fr-FR', 'fr')}>
-                    Français
-                </Dropdown.Item>
-
-                <Dropdown.Item as="button" onClick={() => changeLanguage('ko', 'ko')}>
-                    한국어
-                </Dropdown.Item>
-
-                <Dropdown.Item as="button" onClick={() => changeLanguage('zh-TW', 'zh')}>
-                    中文（繁體）
-                </Dropdown.Item>
-
-                <Dropdown.Item as="button" onClick={() => changeLanguage('ja', 'ja')}>
-                    日本語
-                </Dropdown.Item> */}
                 
             </Dropdown.Menu>
         </Dropdown>
