@@ -8,6 +8,13 @@ export interface IUserRegData {
     subfields: IWebEvents[];
 };
 
+export interface INewAvatarResponse {
+    code: boolean;
+    ref?: string;
+    urlPath?: string;
+    message: string;
+};
+
 export interface ILoginResponse {
     login: {
         accessToken: string;

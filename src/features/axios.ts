@@ -40,7 +40,13 @@ api.interceptors.response.use(async (response) => {
         }
     }
 
-    return response.data;
+
+    if(response.data.data){
+        const copyObject = Object.assign({}, response.data.data);
+        response.data = copyObject;
+    }
+    
+    return response;
 });
 
 export default api;

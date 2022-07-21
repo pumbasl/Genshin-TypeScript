@@ -7,6 +7,7 @@ import { IError } from '../types';
 const actions = userSlice.actions;
 const endpoint = import.meta.env.REACT_APP_ENDPOINT;
 
+
 export default function ErrorCatch(error: IError, dispatch: AppDispatch){
     if(error?.response?.status === 401){
         console.log('FAILED REFRESH TOKEN | LOGOUT');

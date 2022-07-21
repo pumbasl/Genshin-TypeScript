@@ -1,6 +1,7 @@
 import Fetch from '../../features/axios';
+import { toast } from 'react-hot-toast';
 import ErrorCatch from '../../js/ErrorCatcher';
-import { IGetNewsResponse, ILoginResponse, IRegistreationResponse, IRegUserInfoResponse, IUserRegData } from './types/userResponseTypes';
+import { IGetNewsResponse, ILoginResponse, IRegistreationResponse, INewAvatarResponse, IRegUserInfoResponse, IUserRegData } from './types/userResponseTypes';
 import { sortOldCodes } from '../../service/CheckPromoCodes';
 import { IError, IGameInfo, ILoginData, IPromoCode, IRegistradionData, IServer } from '../../types';
 import { userSlice } from '../reducers/userSlice';
@@ -16,8 +17,7 @@ import {
     registration,
     regUser,
     UserGameInfo,
-    getNews,
-    setAvatar
+    getNews
 } from '../../graphql';
 
 const actions = userSlice.actions;
@@ -52,20 +52,16 @@ export function fetchNews(){
     };
 }
 
-export function fetchNewAvatar(url: string, ref: string) {
+export function fetchNewAvatar({ newAvatarForm }: { newAvatarForm: FormData }) {
     return async (dispatch: AppDispatch) => {
         try {
-            const response = await Fetch.post('api', {
-                query: setAvatar,
-                variables: JSON.stringify({
-                    url,
-                    ref
-                })
-            });
-    
-            if(response.data){
-                console.log('ok');
+            const { data } = await Fetch.post<INewAvatarResponse>('upload', newAvatarForm)
+
+            if(data.code){
+                toast.success('Аватарка успешно изменена.'); //уведомление
                 dispatch(fetchUserInfo());
+            } else {
+                toast.success(data.message); //уведомление
             }
         } catch (error) {
             const err = error as IError;
