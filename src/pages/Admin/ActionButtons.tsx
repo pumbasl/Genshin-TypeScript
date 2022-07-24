@@ -1,16 +1,10 @@
-import React, { useState, lazy, Suspense } from 'react';
-
-//components
+import React, { useState } from 'react';
 import { ButtonGroup, Button } from 'react-bootstrap';
-import { Preloader } from '../../components';
-import SelectFormLoading from './Components/SelectFormLoading';
-//
 
-//lazy form
-const AddPromo = lazy(() => import('./Components/AddPromo'));
-const AddNews = lazy(() => import('./Components/AddNews'));
-const AddWebEvent = lazy(() => import('./Components/AddWebEvent'));
-//
+import SelectFormLoading from './Components/SelectFormLoading';
+import AddPromo from './Components/AddPromo';
+import AddNews from './Components/AddNews';
+import AddWebEvent from './Components/AddWebEvent';
 
 interface IPropsFormButtons {
     id: number | null;
@@ -54,11 +48,9 @@ export default function ActionButtons(){
 
             </ButtonGroup>
 
-            <Suspense fallback={<Preloader />}>
-                <div className="mt-2 text-start">
-                    <FormButtons id={form} />
-                </div>
-            </Suspense>
+            <div className="mt-2 text-start">
+                <FormButtons id={form} />
+            </div>
         </div>
     );
 }

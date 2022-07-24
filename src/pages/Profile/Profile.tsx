@@ -1,31 +1,18 @@
-import React, { useEffect, useState, Suspense } from 'react';
-import { useNavigate, useLocation, Link, Outlet, Navigate } from 'react-router-dom';
-import { IStateButton } from '../../types';
-
-//components
+import React, { useEffect, useState } from 'react';
+import { useLocation, Link, Navigate } from 'react-router-dom';
 import { Container, Avatar, TableWithInfo, Preloader } from '../../components';
 import { Row, Col, Button, ButtonGroup, Badge } from 'react-bootstrap';
-//
-
-//locales
 import { useTranslation } from 'react-i18next';
-//
-
-//redux
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchUserInfo } from '../../store/thunks/userThunks';
-//
+import UploadAvatar from './Modals/UploadAvatar';
 
 export default function Profile(){
-    const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useAppDispatch();
     const { t } = useTranslation();
     const { token, userinfo } = useAppSelector((state) => state.user);
-    const [ stateButton, setStateButton ] = useState<IStateButton>({
-        text: 'Изменить аватарку',
-        disabled: false
-    });
+    const [ show, setShow ] = useState(false);
     
     document.title = 'Genshin Promo | Profile';
 
@@ -43,19 +30,9 @@ export default function Profile(){
         );
     }
 
-    const handleOpenModal = () => {
-        setStateButton({
-            text: 'Загрузка...',
-            disabled: true
-        });
-        navigate('upload');
-    };
-
     return(
         <Container>
-            <Suspense fallback={<Preloader fixed />}>
-                <Outlet context={{ setStateButton }} />
-            </Suspense>
+            <UploadAvatar show={show} setShow={setShow} />
 
             <Row>
                 <Col className="text-center">
@@ -66,10 +43,9 @@ export default function Profile(){
                     <div className="mt-2">
                         <Button
                             variant="dark-custom"
-                            onClick={handleOpenModal}
-                            disabled={stateButton.disabled}
+                            onClick={() => setShow(true)}
                         >
-                            {t(stateButton.text)}
+                            {t('Изменить аватарку')}
                         </Button>
 
                     </div>
@@ -91,7 +67,6 @@ export default function Profile(){
                                 )
                             }
                         </ButtonGroup>
-                        
                     </div>
                 </Col>
             </Row>

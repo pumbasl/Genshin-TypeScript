@@ -1,27 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { IUserinfo } from '../../types';
-
-//components
 import { Table, Button } from 'react-bootstrap';
 import Search from './SearchComponents';
-//
-
-//redux
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { fetchAdminAllUsers } from '../../store/thunks/adminThunks';
-//
-
-// Locales
+import { useAppSelector } from '../../hooks/redux';
 import { useTranslation } from 'react-i18next';
-//
-
-//modals
 import ActionUswerModal from './Modals/ActionUserModal';
-//
 
 export default function UsersTable(){
     const { t } = useTranslation();
-    const dispatch = useAppDispatch();
     const users = useAppSelector((state) => state.admin.users);
     const [ showModal, setShowModal ] = useState(false);
     const [ dataModal, setDataModal ] = useState<IUserinfo | null>(null);
@@ -48,10 +34,6 @@ export default function UsersTable(){
             </tr>
         );
     };
-
-    useEffect(() => {
-        dispatch(fetchAdminAllUsers());
-    }, [dispatch]);
 
     return(
         <>

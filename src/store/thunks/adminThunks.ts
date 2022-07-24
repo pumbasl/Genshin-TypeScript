@@ -1,4 +1,3 @@
-import { userSlice } from '../reducers/userSlice';
 import { adminSlice } from '../reducers/adminSlice';
 
 import {
@@ -21,7 +20,6 @@ import { AppDispatch } from '../store';
 import { IAddNewsData, IAddPromoData, IEditUserData, IError, IWebEventsData } from '../../types';
 import { IAllUsersResponse, ILogOutForUserResponse, ISearchUserByLoginResponse } from './types/adminResponseTypes';
 
-const userActions = userSlice.actions;
 const adminActions = adminSlice.actions;
 
 export function fetchAddWebEvent(data: IWebEventsData){

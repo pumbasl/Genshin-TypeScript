@@ -15,7 +15,5 @@ export { default as addPromoCode } from './addPromoCode';
 export { default as addNews } from './addNews';
 export { default as setAvatar } from './setAvatar';
 export { default as addWebEvent } from './addWebEvent';
-export { default as allThreads } from './allThreads';
 export { default as getThreadById } from './getThreadById';
-export { default as addThread } from './addThread';
 export { default as getWebEvents } from './getWebEvents';

@@ -1,17 +1,11 @@
 import React, { useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-
-//components
 import { Row, Col } from 'react-bootstrap';
 import UsersTable from './UsersTable';
 import ActionButtons from './ActionButtons';
 import { Container } from '../../components';
-//
-
-//redux
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchUserInfo } from '../../store/thunks/userThunks';
-//
 
 export default function Admin(){
     document.title = 'Genshin Promo | Admin Panel';

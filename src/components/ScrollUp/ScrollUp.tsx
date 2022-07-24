@@ -23,11 +23,7 @@ const ScrollUp = () => {
     const [ show, setShow ] = useState(false); 
 
     const checkScroll = () => {
-        if(window.scrollY > 200){
-            setShow(true);
-        } else {
-            setShow(false);
-        }
+        setShow(window.scrollY > 200)
     };
 
     useEffect(() => {
@@ -48,7 +44,7 @@ const ScrollUp = () => {
 
     if(show) {
         return(
-            <ScrollUpDiv onClick={() => handleClick()}>
+            <ScrollUpDiv onClick={handleClick}>
                 <img className='text-align' src={ArrowUp} alt='arrow' width='100%' height='100%' />
             </ScrollUpDiv>
         );

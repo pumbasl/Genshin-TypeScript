@@ -14,8 +14,8 @@ interface ICard{
 
 export const Card = ({ data, children, handleClick, expiredText }: ICard) => {
     return(
-        <Row as={CardStyle}>
-            <Col sm={8} { ...(handleClick ? { onClick: () => handleClick(data) } : {}) }>
+        <Row as={CardStyle} { ...(handleClick ? { onClick: () => handleClick(data) } : {}) }>
+            <Col sm={8}>
                 {children} &nbsp; 
                 <BadgeHOC check={ getDays(data.created) <= 2 }>
                     New!

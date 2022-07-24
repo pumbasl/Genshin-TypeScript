@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { IPromoCode } from '../../types';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-hot-toast';
@@ -17,7 +17,7 @@ function ActualPromo({ data, isLoading }: ActualPromoProps){
     const dispatch = useAppDispatch();
     const userPromos = useAppSelector((state) => state.user.userPromocodes);
 
-    const handleClick = async (promo: IPromoCode) => {
+    const handleClick = useCallback(async (promo: IPromoCode) => {
         if(localStorage.getItem('token')){
             toast.success(t('Вы будете перенаправлены на страницу ввода промокода через 2 секунды.'), {
                 duration: 2000
@@ -39,7 +39,7 @@ function ActualPromo({ data, isLoading }: ActualPromoProps){
         } catch (e: any) {
             throw new Error(e);
         }
-    };
+    }, [t, dispatch, userPromos]);
 
     const Header = () => (
         <h4>

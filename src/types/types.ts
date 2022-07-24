@@ -90,12 +90,6 @@ export interface IFetch{
     variables: any;
 }
 
-
-export interface IStateButton {
-    text: string;
-    disabled: boolean;
-}
-
 export interface IAlert {
     _id: string;
     text: string;

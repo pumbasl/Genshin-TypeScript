@@ -1,28 +1,21 @@
 import React, { useState } from 'react';
-import { useNavigate, useOutletContext } from 'react-router-dom';
-import { IStateButton } from '../../../types';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../../hooks/redux';
 import { fetchNewAvatar } from '../../../store/thunks/userThunks';
 
-interface IStateContext {
-    setStateButton: React.Dispatch<React.SetStateAction<IStateButton>>;
+interface IPropsUploadAvatar {
+    show: boolean;
+    setShow: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function UploadAvatar(){
+export default function UploadAvatar({ show, setShow }: IPropsUploadAvatar){
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    const { setStateButton } = useOutletContext<IStateContext>();
     const [ image, setImage ] = useState<File | null>(null);
 
     const handleClose = () => {
-        setStateButton({
-            text: 'Изменить аватарку',
-            disabled: false
-        });
-        navigate('/profile');
+        setShow(false);
     };
 
     const upload = () => {
@@ -32,17 +25,10 @@ export default function UploadAvatar(){
         newAvatarForm.append('avatar', image);
         
         dispatch(fetchNewAvatar({ newAvatarForm }));
-        
-        setStateButton({
-            text: 'Изменить аватарку',
-            disabled: false
-        });
-        navigate('/profile');
-        
     };
 
     return(
-        <Modal centered show={true} onHide={handleClose}>
+        <Modal centered show={show} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title>
                     {t('Изменение аватарки')}
