@@ -25,6 +25,7 @@ export default function UploadAvatar({ show, setShow }: IPropsUploadAvatar){
         newAvatarForm.append('avatar', image);
         
         dispatch(fetchNewAvatar({ newAvatarForm }));
+        setShow(false);
     };
 
     return(

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, PromoCodes, WebEvents } from '../../components';
+import { Container, PromoCodes, WebEvents, EventsCarousel } from '../../components';
 import ErrorBoundary from '../../errors/ErrorBoundary';
 
 export default function Main(){
@@ -7,6 +7,8 @@ export default function Main(){
     
     return(
         <Container>
+            <EventsCarousel />
+            
             <ErrorBoundary>
                 <WebEvents />
             </ErrorBoundary>

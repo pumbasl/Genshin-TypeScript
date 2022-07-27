@@ -37,10 +37,12 @@ function History({ data, isLoading }: HistoryProps){
         );
     }
 
+    const codes = data?.length !== 0 ? (data?.slice(0, 5).reverse().map(renderPromocode)) : <EmptyContainer />;
+
     return(
         <>
             <Header />
-            { data?.length !== 0 ? (data?.slice(0, 5).map(renderPromocode)) : (<EmptyContainer />) }
+            { codes }
         </>
     );
 }

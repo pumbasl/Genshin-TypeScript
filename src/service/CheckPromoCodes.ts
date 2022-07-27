@@ -3,7 +3,7 @@ import { IPromoCode } from "../types";
 export default function CheckCodes(serverAllCodes: IPromoCode[], usersActivatedCodes: IPromoCode[]){
     let resultActualCodes = sortOldCodes(serverAllCodes.slice(0), serverAllCodes); // сортировка от просроченных кодов
     resultActualCodes.a = sortActivatedCodes(usersActivatedCodes, resultActualCodes.a); // сортировка активированых промокодов
-    return { actualCodes: resultActualCodes.a, history: resultActualCodes.b };
+    return { actualCodes: resultActualCodes.a, history: resultActualCodes.b.reverse() };
 }
 
 function sortActivatedCodes(a: IPromoCode[], b: IPromoCode[]){

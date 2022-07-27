@@ -6,9 +6,7 @@ import './style/scss/mainStyle.scss';
 import ErrorBoundary from './errors/ErrorBoundary';
 import { Toaster } from 'react-hot-toast';
 import { Background, CookieNotify, Wrapper, Alerts, ScrollUp } from './components';
-import Header from './layout/Header/Header';
-import Main from './layout/Main/Main';
-import Footer from './layout/Footer/Footer';
+import Layout from './layout';
 
 export default function App(){
     return(
@@ -23,9 +21,7 @@ export default function App(){
 
             <Wrapper>
                 <BrowserRouter>
-                    <Header />
-                    <Main />
-                    <Footer />
+                    <Layout />
                 </BrowserRouter>
             </Wrapper>
         </ErrorBoundary>

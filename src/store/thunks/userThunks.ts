@@ -1,4 +1,4 @@
-import Fetch from '../../features/axios';
+import api from '../../features/axios';
 import { toast } from 'react-hot-toast';
 import ErrorCatch from '../../js/ErrorCatcher';
 import { IGetNewsResponse, ILoginResponse, IRegistreationResponse, INewAvatarResponse, IRegUserInfoResponse, IUserRegData } from './types/userResponseTypes';
@@ -25,7 +25,7 @@ const webEventsActions = webEventsSlice.actions;
 
 export function fetchLogout(){
     return async (dispatch: AppDispatch) => {
-        Fetch.get('logout').then(() => {
+        api.get('logout').then(() => {
             delete localStorage.token;
             dispatch(actions.setToken(null));
             dispatch(actions.setUserInfo(null));
@@ -37,7 +37,7 @@ export function fetchLogout(){
 export function fetchNews(){
     return async (dispatch: AppDispatch) => {
         try {
-            const response = await Fetch.post<IGetNewsResponse>('api', {
+            const response = await api.post<IGetNewsResponse>('api', {
                 query: getNews,
                 variables: {}
             });
@@ -55,7 +55,7 @@ export function fetchNews(){
 export function fetchNewAvatar({ newAvatarForm }: { newAvatarForm: FormData }) {
     return async (dispatch: AppDispatch) => {
         try {
-            const { data } = await Fetch.post<INewAvatarResponse>('upload', newAvatarForm)
+            const { data } = await api.post<INewAvatarResponse>('upload', newAvatarForm)
 
             if(data.code){
                 toast.success('Аватарка успешно изменена.'); //уведомление
@@ -73,7 +73,7 @@ export function fetchNewAvatar({ newAvatarForm }: { newAvatarForm: FormData }) {
 export function fetchNewUserGameInfo(data: IGameInfo){
     return async (dispatch: AppDispatch) => {
         try {
-            await Fetch.post('api', {
+            await api.post('api', {
                 query: UserGameInfo,
                 variables: JSON.stringify(data)
             });
@@ -87,7 +87,7 @@ export function fetchNewUserGameInfo(data: IGameInfo){
 export function fetchUserInfo(){
     return async (dispatch: AppDispatch) => {
         try {
-            const response = await Fetch.post<IRegUserInfoResponse>('api', {
+            const response = await api.post<IRegUserInfoResponse>('api', {
                 query: regUser,
                 variables: {}
             });
@@ -106,7 +106,7 @@ export function fetchRegistration(data: IRegistradionData){
     console.log(data)
     return async (dispatch: AppDispatch) => {
        try {
-            const response = await Fetch.post<IRegistreationResponse>('api', {
+            const response = await api.post<IRegistreationResponse>('api', {
                 query: registration,
                 variables: JSON.stringify({
                     ...data,
@@ -130,7 +130,7 @@ export function fetchLogin(data: ILoginData){
     const { login, password } = data;
     return async (dispatch: AppDispatch) => {
         try {
-            const response = await Fetch.post<ILoginResponse>('api', {
+            const response = await api.post<ILoginResponse>('api', {
                 query: loginQuery,
                 variables: JSON.stringify({
                     login: login,
@@ -153,7 +153,7 @@ export function fetchLogin(data: ILoginData){
 export function fetchClickPromo(promoClicked: IPromoCode, allUsersPromocodes: IPromoCode[]){
     return async (dispatch: AppDispatch) => {
         try {
-            const response = await Fetch.post('api', {
+            const response = await api.post('api', {
                 query: newUserPromo,
                 variables: JSON.stringify({
                     promos: promoClicked._id
@@ -173,7 +173,7 @@ export function fetchClickPromo(promoClicked: IPromoCode, allUsersPromocodes: IP
 export function fetchChangeServer({ server }: IServer){
     return async (dispatch: AppDispatch) => {
         try {
-            const response = await Fetch.post('api', {
+            const response = await api.post('api', {
                 query: changeServer,
                 variables: JSON.stringify({
                     server
@@ -193,7 +193,7 @@ export function fetchChangeServer({ server }: IServer){
 export function fetchRegisterUserData({ server }: IServer){
     return async (dispatch: AppDispatch) => { 
         try {
-            const response = await Fetch.post<IUserRegData>('api', {
+            const response = await api.post<IUserRegData>('api', {
                 query: getRegisterUserData,
                 variables: JSON.stringify({
                     server
@@ -217,7 +217,7 @@ export function fetchRegisterUserData({ server }: IServer){
 export function fetchUnRegisterData({ server }: IServer){
     return async (dispatch: AppDispatch) => {
         try {
-            const response = await Fetch.post('api', {
+            const response = await api.post('api', {
                 query: getUnRegisterData,
                 variables: JSON.stringify({
                     server

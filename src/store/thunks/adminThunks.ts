@@ -14,7 +14,7 @@ import {
 import { toast } from 'react-hot-toast';
 //
 
-import Fetch from '../../features/axios';
+import api from '../../features/axios';
 import ErrorCatch from '../../js/ErrorCatcher';
 import { AppDispatch } from '../store';
 import { IAddNewsData, IAddPromoData, IEditUserData, IError, IWebEventsData } from '../../types';
@@ -25,7 +25,7 @@ const adminActions = adminSlice.actions;
 export function fetchAddWebEvent(data: IWebEventsData){
     return async (dispatch: AppDispatch) => {
         try {
-            await Fetch.post('api', {
+            await api.post('api', {
                 query: addWebEvent,
                 variables: JSON.stringify(data)
             });
@@ -41,7 +41,7 @@ export function fetchAddWebEvent(data: IWebEventsData){
 export function fetchAdminAllUsers(){
     return async (dispatch: AppDispatch) => {
         try {
-            const response = await Fetch.post<IAllUsersResponse>('api', {
+            const response = await api.post<IAllUsersResponse>('api', {
                 query: allUsers,
                 variables: {}
             });
@@ -57,7 +57,7 @@ export function fetchAdminAllUsers(){
 export function fetchAddNews(data: IAddNewsData){
     return async (dispatch: AppDispatch) => {
         try {
-            await Fetch.post('api', {
+            await api.post('api', {
                 query: addNews,
                 variables: JSON.stringify(data)
             });
@@ -73,7 +73,7 @@ export function fetchAddNews(data: IAddNewsData){
 export function fetchAddPromoCode(data: IAddPromoData){
     return async (dispatch: AppDispatch) => {
         try {
-            await Fetch.post('api', {
+            await api.post('api', {
                 query: addPromoCode,
                 variables: JSON.stringify(data)
             });
@@ -89,7 +89,7 @@ export function fetchAddPromoCode(data: IAddPromoData){
 export function fetchEditUser(data: IEditUserData){
     return async (dispatch: AppDispatch) => {
         try {
-            await Fetch.post('api', {
+            await api.post('api', {
                 query: editUser,
                 variables: JSON.stringify(data)
             });
@@ -105,7 +105,7 @@ export function fetchEditUser(data: IEditUserData){
 export function fetchSearchUsers(name: string){
     return async (dispatch: AppDispatch) => {
         try {
-            const response = await Fetch.post<ISearchUserByLoginResponse>('api', {
+            const response = await api.post<ISearchUserByLoginResponse>('api', {
                 query: searchUsers,
                 variables: JSON.stringify({ name })
             });
@@ -121,7 +121,7 @@ export function fetchSearchUsers(name: string){
 export function fetchLogOutUser(id: string){
     return async (dispatch: AppDispatch) => {
         try {
-            const response = await Fetch.post<ILogOutForUserResponse>('api', {
+            const response = await api.post<ILogOutForUserResponse>('api', {
                 query: logoutUser,
                 variables: JSON.stringify({
                     id

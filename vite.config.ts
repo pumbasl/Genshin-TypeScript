@@ -15,6 +15,9 @@ export default defineConfig(({ mode }) => {
       react(),
       isDev && eslint()
     ],
+    server: {
+      port: 3000
+    },
     envPrefix: "REACT_APP_",
     preview: {
       port: 3000

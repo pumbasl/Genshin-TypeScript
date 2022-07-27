@@ -8,6 +8,7 @@ import ActualPromo from './ActualPromo';
 import UsedPromo from './UsedPromo';
 import HistoryPromo from './HistoryPromo';
 import { IPromoCode } from '../../types';
+import { GetPromos } from '../../store/selectors';
 
 interface IResultCodes {
     actualCodes: IPromoCode[];
@@ -16,7 +17,7 @@ interface IResultCodes {
 
 function PromoCodes(){
     const dispatch = useAppDispatch();
-    const { promocodes, userPromocodes, server, token } = useAppSelector((state) => state.user);
+    const { promocodes, userPromocodes, server, token } = useAppSelector(GetPromos);
     const [ resultCodes, setResultCodes ] = useState<IResultCodes | null>(null);
 
     useEffect(() => { // начало загрузки данных
@@ -36,7 +37,7 @@ function PromoCodes(){
             <ErrorBoundary>
                 <ActualPromo data={resultCodes.actualCodes} />
                 <UsedPromo data={userPromocodes} />
-                <HistoryPromo data={resultCodes.history.reverse()} />
+                <HistoryPromo data={resultCodes.history} />
             </ErrorBoundary>
         );
     }

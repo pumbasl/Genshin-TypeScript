@@ -19,3 +19,4 @@ export { default as Wrapper } from './Wrapper/Wrapper';
 export { default as Alerts } from './Alert/Alerts';
 export { default as Badge } from './Badge/Badge';
 export { default as ScrollUp } from './ScrollUp/ScrollUp';
+export { default as EventsCarousel } from './EventsCarousel/EventsCarousel';

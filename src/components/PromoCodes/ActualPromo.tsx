@@ -6,6 +6,7 @@ import { Card, EmptyContainer, Preloader, TimeView } from '../index';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchClickPromo } from '../../store/thunks/userThunks';
 import sleep from '../../js/sleep';
+import { UserPromos } from '../../store/selectors';
 
 interface ActualPromoProps {
     data?: IPromoCode[];
@@ -15,7 +16,7 @@ interface ActualPromoProps {
 function ActualPromo({ data, isLoading }: ActualPromoProps){
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    const userPromos = useAppSelector((state) => state.user.userPromocodes);
+    const userPromos = useAppSelector(UserPromos);
 
     const handleClick = useCallback(async (promo: IPromoCode) => {
         if(localStorage.getItem('token')){
